@@ -10,23 +10,13 @@ public class SpellsList : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spellsField = GetComponent<Text>();
-
-		Player.ResetSpellList();
-		
-	
-
-		//System.Threading.Thread.Sleep(5000);
-
-		
-
-		//UpdateSpellsList();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
 
-	public static void UpdateSpellsList() {
+	private static void UpdateSpellsList() {
 		//take out this spell additions obviously 
 		Player.LearnSpell("delevel");
 		Player.LearnSpell("freeze");
