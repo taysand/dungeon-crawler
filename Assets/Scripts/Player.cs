@@ -168,7 +168,7 @@ public class Player : Moving
         return unknownSpells;
     }
 
-    public static void LearnSpell(string spell)
+    public void LearnSpell(string spell)
     {
         knownSpells.Add(spell);
         unknownSpells.Remove(spell);
@@ -186,5 +186,9 @@ public class Player : Moving
 
     public int GetNextLevelXP() {
         return nextLevel;
+    }
+
+    public static bool IsKnown(string spellName) {
+        return GetKnownSpells().Contains(spellName);
     }
 }

@@ -15,28 +15,4 @@ public class SpellsList : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	}
-
-	private static void UpdateSpellsList() {
-		//take out this spell additions obviously 
-		Player.LearnSpell("delevel");
-		Player.LearnSpell("freeze");
-		Player.LearnSpell("teleport");
-
-		//known spells
-		List<string> spellsList = Player.GetKnownSpells();
-		string spells = "";
-		for (int i = 0; i < spellsList.Count; i++) {
-			spells = spells + spellsList[i] + "\n";
-		}
-		spellsField.text = "Known spells:\n" + spells;
-
-		//unknown spells
-		List<string> spellsList2 = Player.GetUnknownSpells();
-		string spells2 = "";
-		for (int i = 0; i < spellsList2.Count; i++) {
-			spells2 = spells2 + spellsList2[i] + "\n";
-		}
-		Debug.Log("This should be a list of unknown spells: " + spells2);
-		spellsField.text = spellsField.text + "\n\nUnknown spells:\n" + spells2;
-	}
 }

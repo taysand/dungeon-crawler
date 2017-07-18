@@ -8,7 +8,7 @@ public class LevelUp : MonoBehaviour {
 	static GameObject gm;
 	static bool activated;
 
-	private static int levelUpPoints = 1;
+	private static int levelUpPoints = 5;
 	private GameObject[] levelUpButtons;
 
 	// Use this for initialization
@@ -63,17 +63,27 @@ public class LevelUp : MonoBehaviour {
 		if (levelUpPoints > 0) {
 			foreach (GameObject b in levelUpButtons) {
 				Button button = b.GetComponent<Button>();
-				button.interactable = true;
+				Text text = button.GetComponentInChildren<Text>();
+				if (text != null) {
+					string label = text.text;
+					if (Player.IsKnown(label)) {
+						button.interactable = false;
+					}
+				} else {
+					button.interactable = true;
+				}
 			}
 		}
 
 		DisplayLevel.UpdateDisplayedLevel();
 
-		if (levelUpPoints == 0) {
+		if (levelUpPoints <= 0) {
 			foreach (GameObject b in levelUpButtons) {
 				Button button = b.GetComponent<Button>();
 				button.interactable = false;
 			}
 		}
+
+		
 	}
 }
