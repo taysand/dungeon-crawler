@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LUText.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LevelUp.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\SpellsList.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\ScareButton.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
