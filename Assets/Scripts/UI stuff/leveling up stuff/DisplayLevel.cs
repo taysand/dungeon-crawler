@@ -18,6 +18,7 @@ public class DisplayLevel : MonoBehaviour {
 			 Debug.Log("the player is gone");
 		}
 		UpdateDisplayedLevel();
+		Debug.Log("testing git");
 	}
 	
 	public static void UpdateDisplayedLevel() {
