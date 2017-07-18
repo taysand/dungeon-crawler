@@ -26,7 +26,7 @@ public class LevelUp : MonoBehaviour {
 		Game.Pause();
 		activated = true;
 		gm.SetActive(true);
-		SpellsList.UpdateSpellsList();
+		//SpellsList.UpdateSpellsList();
 	}
 
 	public static void StaticHideLevelUpWindow() {
