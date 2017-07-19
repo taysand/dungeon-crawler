@@ -86,9 +86,6 @@ public abstract class Enemy : Moving {
 		PlayAttackAnimation(); 
 		player.TakeDamage(damagePerHit);
 		DisplayPlayerHealth.UpdateHealthDisplay();
-
-		//to test levelup stuff for now
-		player.LevelUpM();//definitely delete this later
 	}
 
 	protected override void Move() {

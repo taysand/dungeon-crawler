@@ -113,14 +113,12 @@ public class Player : Moving
     public void LevelUpM()
     {
         level++;
-        //display some happy text
         if (level < 4)
         {
             nextLevel = levels[level];
         }
         LevelUp.GainLevelUpPoint();
         LUImage.ShowAnnouncement();
-        LUText.ShowAnnouncement();
         LevelUp.ShowLevelUpWindow();
     }
 

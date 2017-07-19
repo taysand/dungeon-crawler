@@ -68,7 +68,6 @@
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\DisplayLevel.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\HealthUpgrade.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LUImage.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LUText.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LevelUp.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\SpellsList.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\DelevelButton.cs" />
