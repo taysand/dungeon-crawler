@@ -14,7 +14,6 @@ public class GemEnemy : Enemy {
 		hp = gemHP;
 		ac = gemAC;
 		//starting level
-		//animator
 		speed = gemSpeed;
 		damagePerHit = gemDamage;
 		maxHP = gemMaxHP;

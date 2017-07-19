@@ -16,21 +16,18 @@ public abstract class Moving : MonoBehaviour
     protected int ac;
     protected float maxHP;
 
-    // Use this for initialization
     protected void Start()
     {
         SetStartingValues();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        animator = GetComponent<Animator>();
     }
 
     protected abstract void SetStartingValues();
 
-    protected abstract void Move();
+    public abstract void PlayAttackAnimation();
+
+    protected void Move() {
+    }
 
     protected void Flip()
     {
@@ -40,15 +37,6 @@ public abstract class Moving : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    public void PlayAttackAnimation()
-    {
-        //tells the animation reference to play the attack animation 
-    }
-
-    public void PlayMoveAnimation()
-    {
-        //tells the animation reference to play the move animation
-    }
 
     public int GetLevel()
     {

@@ -17,7 +17,6 @@ public class Skeleton : Enemy {
 		hp = skeletonHP;
 		ac = skeletonAC;
 		//starting level
-		//animator
 		speed = skeletonSpeed;
 		damagePerHit = skeletonDamage;
 		maxHP = skeletonMaxHP;
