@@ -26,9 +26,10 @@ public class Game : MonoBehaviour
     private bool enemiesTurn;
     public float turnDelay = 0.1f;
 
-	void Awake() {
-		 enemies = new List<Enemy>();
-	}
+    void Awake()
+    {
+        enemies = new List<Enemy>();
+    }
 
     // Use this for initialization
     void Start()
@@ -121,10 +122,21 @@ public class Game : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L) && LevelUp.Activated())
         {
             LevelUp.StaticHideLevelUpWindow();
+			PlayAnimations(true);
         }
         else if (Input.GetKeyDown(KeyCode.L) && !LevelUp.Activated())
         {
             LevelUp.ShowLevelUpWindow();
+			PlayAnimations(false);
+        }
+    }
+
+    private void PlayAnimations(bool value)
+    {
+        player.GetComponent<Animator>().enabled = value;
+		for (int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i].GetComponent<Animator>().enabled = value;
         }
     }
 
