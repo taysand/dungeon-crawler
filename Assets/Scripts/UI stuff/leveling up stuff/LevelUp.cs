@@ -29,21 +29,21 @@ public class LevelUp : MonoBehaviour
     {
         Game.Pause();
         activated = true;
-        gm.SetActive(true);
+        gm.SetActive(activated);
+		GameplayUI.HideGameplayUI();
     }
 
     public static void StaticHideLevelUpWindow()
     {
-        gm.SetActive(false);
         activated = false;
+        gm.SetActive(activated);
         Game.Unpause();
+		GameplayUI.ShowGameplayUI();
     }
 
     public void HideLevelUpWindow()
     {
-        gm.SetActive(false);
-        activated = false;
-        Game.Unpause();
+        StaticHideLevelUpWindow();
     }
 
     //public void HideEverything() {
