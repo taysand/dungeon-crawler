@@ -20,9 +20,8 @@ public class LUImage : MonoBehaviour {
 		if (cv != null) {
 			cv.gameObject.SetActive(true);
 			image.CrossFadeAlpha(0f, fadeTime, false);
-			Debug.Log("image is good");
 		} else {
-			Debug.Log("image is bad");
+			Debug.Log("LUImage ShowAnnouncement is bad");
 		}
 	}
 
