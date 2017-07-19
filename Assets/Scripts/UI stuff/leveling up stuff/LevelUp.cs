@@ -9,7 +9,7 @@ public class LevelUp : MonoBehaviour
     static GameObject gm;
     static bool activated;
 
-    private static int levelUpPoints = 5;
+    private static int levelUpPoints = 0;
     private GameObject[] levelUpButtons;
 
     // Use this for initialization
