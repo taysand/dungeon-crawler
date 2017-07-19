@@ -17,7 +17,6 @@ public class MushroomEnemy : Enemy {
 		hp = mushroomHP;
 		ac = mushroomAC;
 		//starting level
-		//animator
 		speed = mushroomSpeed;
 		damagePerHit = mushroomDamage;
 		maxHP = mushroomMaxHP;

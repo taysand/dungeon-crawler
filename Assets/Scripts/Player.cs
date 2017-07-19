@@ -50,6 +50,20 @@ public class Player : Moving
         maxHP = playerMaxHP;
     }
 
+    public override void PlayAttackAnimation() {
+        //TODO: player attack animation stuff
+    }
+
+    public void PlayInjuredAnimation() {
+        animator.SetTrigger("PlayerInjured");
+    }
+
+    new public void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+        PlayInjuredAnimation();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -58,6 +72,7 @@ public class Player : Moving
 
     void FixedUpdate()
     {
+        Move();
         float move = Input.GetAxis("Horizontal");
 
         rb2D.velocity = new Vector2(move * maxSpeed, rb2D.velocity.y);
@@ -72,9 +87,9 @@ public class Player : Moving
         }
     }
 
-    protected override void Move()
+    new protected void Move()
     {
-        //TODO: please
+        base.Move();
     }
 
     public void CastSpell()

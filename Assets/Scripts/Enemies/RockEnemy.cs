@@ -14,7 +14,6 @@ public class RockEnemy : Enemy {
 		hp = rockHP;
 		ac = rockAC;
 		//starting level
-		//animator
 		speed = rockSpeed;
 		damagePerHit = rockDamage;
 		maxHP = rockMaxHP;
