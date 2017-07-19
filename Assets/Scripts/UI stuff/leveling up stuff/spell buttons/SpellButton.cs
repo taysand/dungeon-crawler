@@ -31,7 +31,7 @@ public abstract class SpellButton : MonoBehaviour
 
     public void CheckIfKnown()
     {
-        if (Player.IsKnown(spellName))
+        if (Player.SpellIsKnown(spellName))
         {
             label.text = spellName + ": Learned!";
             GetComponent<Button>().interactable = false;

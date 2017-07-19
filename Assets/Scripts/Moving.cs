@@ -15,21 +15,22 @@ public abstract class Moving : MonoBehaviour
     protected float hp;
     protected int ac;
     protected float maxHP;
+    public float moveTime = 0.1f;
+
 
     protected void Start()
     {
         SetStartingValues();
         animator = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     protected abstract void SetStartingValues();
 
     public abstract void PlayAttackAnimation();
 
-    protected void Move() {
-    }
-
-    protected void Flip()
+    protected void Flip() //do I need this
     {
         facingRight = !facingRight;
         Vector3 theScale = transform.localScale;
@@ -37,6 +38,11 @@ public abstract class Moving : MonoBehaviour
         transform.localScale = theScale;
     }
 
+    public void Move(int x, int y) {
+        Vector2 start = transform.position;
+		Vector2 end = start + new Vector2(x, y);
+        transform.position = end;
+    }
 
     public int GetLevel()
     {

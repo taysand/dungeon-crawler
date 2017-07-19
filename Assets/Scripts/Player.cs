@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class Player : Moving
 {
-
     public float playerHP = 100f;//constants
     public int playerAC = 2;//constants 
     public float playerMaxHP = 100f; //constants 
-
-    //movement stuff
-    float maxSpeed = 10f;
 
     //leveling
     private int xp = 0;
@@ -34,8 +30,6 @@ public class Player : Moving
     new void Start()
     {
         base.Start();
-        boxCollider = GetComponent<BoxCollider2D>();
-        rb2D = GetComponent<Rigidbody2D>();
         nextLevel = levels[level];
         maxLevel = levels.Length - 1;
 
@@ -50,11 +44,13 @@ public class Player : Moving
         maxHP = playerMaxHP;
     }
 
-    public override void PlayAttackAnimation() {
+    public override void PlayAttackAnimation()
+    {
         //TODO: player attack animation stuff
     }
 
-    public void PlayInjuredAnimation() {
+    public void PlayInjuredAnimation()
+    {
         animator.SetTrigger("PlayerInjured");
     }
 
@@ -67,29 +63,28 @@ public class Player : Moving
     // Update is called once per frame
     void Update()
     {
+        if (Game.IsPlayersTurn())
+        {
+            int horizontal = 0;
+            int vertical = 0;
+            horizontal = (int)(Input.GetAxisRaw("Horizontal"));
+            vertical = (int)(Input.GetAxisRaw("Vertical"));
+            if (horizontal != 0)
+            {
+                vertical = 0;
+            }
+            if (horizontal != 0 || vertical != 0)
+            {
+                Move(horizontal, vertical);
+            }
 
+            Game.SetPlayersTurn(false);
+        }
     }
 
     void FixedUpdate()
     {
-        Move();
-        float move = Input.GetAxis("Horizontal");
 
-        rb2D.velocity = new Vector2(move * maxSpeed, rb2D.velocity.y);
-
-        if (move > 0 && !facingRight)
-        {
-            Flip();
-        }
-        else if (move < 0 && facingRight)
-        {
-            Flip();
-        }
-    }
-
-    new protected void Move()
-    {
-        base.Move();
     }
 
     public void CastSpell()
@@ -202,7 +197,7 @@ public class Player : Moving
         return nextLevel;
     }
 
-    public static bool IsKnown(string spellName)
+    public static bool SpellIsKnown(string spellName)
     {
         return GetKnownSpells().Contains(spellName);
     }

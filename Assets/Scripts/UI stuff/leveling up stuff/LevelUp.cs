@@ -77,7 +77,7 @@ public class LevelUp : MonoBehaviour
                 if (text != null)
                 {
                     string label = text.text;
-                    if (Player.IsKnown(label))
+                    if (Player.SpellIsKnown(label))
                     {
                         button.interactable = false;
                     }
