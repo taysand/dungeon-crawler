@@ -182,11 +182,19 @@ public class Player : Moving
         return "HP: " + hp + "/" + maxHP;
     }
 
-    public int GetNextLevelXP() {
+    public int GetNextLevelXP()
+    {
         return nextLevel;
     }
 
-    public static bool IsKnown(string spellName) {
+    public static bool IsKnown(string spellName)
+    {
         return GetKnownSpells().Contains(spellName);
+    }
+
+    //to test leveling up. there's a button which should also be deleted
+    public void TempLevelUpButton()
+    {
+        IncreaseXP(nextLevel - xp);
     }
 }
