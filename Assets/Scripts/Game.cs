@@ -43,6 +43,7 @@ public class Game : MonoBehaviour
     {
         //check for opening and closing menus
         OpenLevelUp();
+        OpenPause();
         //TODO: pause menu, map
 
         //control pausing
@@ -83,6 +84,19 @@ public class Game : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.L) && !LevelUp.Activated())
         {
             LevelUp.ShowLevelUpWindow();
+            //PlayAnimations(false);
+        }
+    }
+
+    private void OpenPause() {
+        if (Input.GetKeyDown(KeyCode.P) && !paused)
+        {
+            PauseWindow.ShowPauseWindow();
+            //PlayAnimations(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.P) && paused)
+        {
+            PauseWindow.HidePauseWindow();
             //PlayAnimations(false);
         }
     }

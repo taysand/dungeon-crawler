@@ -9,7 +9,7 @@ public class GameplayUI : MonoBehaviour
     static bool activated;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         gm = GetComponent<Canvas>().gameObject;
         ShowGameplayUI();
