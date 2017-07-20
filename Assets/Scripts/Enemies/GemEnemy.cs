@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class GemEnemy : Enemy {
 
-	public float gemDamage = 10.0f;
-	public float gemHP = 30.0f;
-	public int gemAC = 3;
-	public float gemSpeed = .07f;
-	public float gemMaxHP = 30f;
+	public float gemStartingDamage = 10.0f;//should be constant
+	public float gemStartingHP = 30.0f;//should be constant
+	public int gemStartingAC = 3;//should be constant
+	public float gemStartingSpeed = .07f;//should be constant
+	public float gemStartingMaxHP = 30f;//should be constant
+	public int gemStartingLevel = 4;//should be constant
 
 	protected override void SetStartingValues() {
-		hp = gemHP;
-		ac = gemAC;
-		//starting level
-		speed = gemSpeed;
-		damagePerHit = gemDamage;
-		maxHP = gemMaxHP;
+		hp = gemStartingHP;
+		ac = gemStartingAC;
+		level = gemStartingLevel;
+		speed = gemStartingSpeed;
+		damagePerHit = gemStartingDamage;
+		maxHP = gemStartingMaxHP;
 	}
 }
