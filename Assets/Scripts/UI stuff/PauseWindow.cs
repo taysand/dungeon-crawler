@@ -32,7 +32,8 @@ public class PauseWindow : MonoBehaviour {
 	}
 
 	public void RestartLevel() {
-
+		//TODO:
+		Debug.Log("restart level");
 	}
 
 	public void OpenSettings() {
