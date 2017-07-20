@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class Skeleton : Enemy {
 
-	public float skeletonDamage = 5.0f;
-
-	public float skeletonHP = 25.0f;
-
-	public int skeletonAC = 2;
-
-	public float skeletonSpeed = .1f;
-	public float skeletonMaxHP = 25f;
+	public float skeletonStartingDamage = 5.0f;//should be constant
+	public float skeletonStartingHP = 25.0f;//should be constant
+	public int skeletonStartingAC = 2;//should be constant
+	public float skeletonStartingSpeed = .1f;//should be constant
+	public float skeletonStartingMaxHP = 25f;//should be constant
+	public int skeletonStartingLevel = 1;//should be constant
 
 	protected override void SetStartingValues() {
-		hp = skeletonHP;
-		ac = skeletonAC;
-		//starting level
-		speed = skeletonSpeed;
-		damagePerHit = skeletonDamage;
-		maxHP = skeletonMaxHP;
+		hp = skeletonStartingHP;
+		ac = skeletonStartingAC;
+		level = skeletonStartingLevel;
+		speed = skeletonStartingSpeed;
+		damagePerHit = skeletonStartingDamage;
+		maxHP = skeletonStartingMaxHP;
 	}
 }
 

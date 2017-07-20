@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : Moving
 {
-    public float playerHP = 100f;//constants
-    public int playerAC = 2;//constants 
-    public float playerMaxHP = 100f; //constants 
+    public float playerStartingHP = 100f;//should be constant
+    public int playerStartingAC = 2;//should be constant
+    public float playerStartingMaxHP = 100f;//should be constant
 
     //leveling
     private int xp = 0;
@@ -38,10 +38,10 @@ public class Player : Moving
 
     protected override void SetStartingValues()
     {
-        hp = playerHP;
-        ac = playerAC;
+        hp = playerStartingHP;
+        ac = playerStartingAC;
         level = 0;
-        maxHP = playerMaxHP;
+        maxHP = playerStartingMaxHP;
     }
 
     public override void PlayAttackAnimation()

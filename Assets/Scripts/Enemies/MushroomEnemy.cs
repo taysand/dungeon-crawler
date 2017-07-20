@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class MushroomEnemy : Enemy {
 
-	public float mushroomDamage = 5.0f;
-
-	public float mushroomHP = 20.0f;
-
-	public int mushroomAC = 1;
-
-	public float mushroomSpeed = .1f;
-	public float mushroomMaxHP = 20f;
+	public float mushroomStartingDamage = 5.0f;//should be constant
+	public float mushroomStartingHP = 20.0f;//should be constant
+	public int mushroomStartingAC = 1;//should be constant
+	public float mushroomStartingSpeed = .1f;//should be constant
+	public float mushroomStartingMaxHP = 20f;//should be constant
+	public int mushroomStartingLevel = 3;//should be constant
 
 	protected override void SetStartingValues() {
-		hp = mushroomHP;
-		ac = mushroomAC;
-		//starting level
-		speed = mushroomSpeed;
-		damagePerHit = mushroomDamage;
-		maxHP = mushroomMaxHP;
+		hp = mushroomStartingHP;
+		ac = mushroomStartingAC;
+		level = mushroomStartingLevel;
+		speed = mushroomStartingSpeed;
+		damagePerHit = mushroomStartingDamage;
+		maxHP = mushroomStartingMaxHP;
 	}
 }

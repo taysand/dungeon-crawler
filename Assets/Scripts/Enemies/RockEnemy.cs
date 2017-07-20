@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class RockEnemy : Enemy {
 
-	public float rockDamage = 15.0f;
-	public float rockHP = 35.0f;
-	public int rockAC = 5;
-	public float rockSpeed = .08f;
-	public float rockMaxHP = 35f;
+	public float rockStartingDamage = 15.0f;//should be constant
+	public float rockStartingHP = 35.0f;//should be constant
+	public int rockStartingAC = 5;//should be constant
+	public float rockStartingSpeed = .08f;//should be constant
+	public float rockStartingMaxHP = 35f;//should be constant
+	public int rockStartingLevel = 2;//should be constant
 
 	protected override void SetStartingValues() {
-		hp = rockHP;
-		ac = rockAC;
-		//starting level
-		speed = rockSpeed;
-		damagePerHit = rockDamage;
-		maxHP = rockMaxHP;
+		hp = rockStartingHP;
+		ac = rockStartingAC;
+		level = rockStartingLevel;
+		speed = rockStartingSpeed;
+		damagePerHit = rockStartingDamage;
+		maxHP = rockStartingMaxHP;
 	}
 }
