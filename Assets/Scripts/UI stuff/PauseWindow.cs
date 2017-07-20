@@ -28,20 +28,24 @@ public class PauseWindow : MonoBehaviour {
 	}
 
 	public void ShowLevelUp() {
+		HidePauseWindow();
 		LevelUp.ShowLevelUpWindow();
 	}
 
 	public void RestartLevel() {
+		HidePauseWindow();
 		//TODO:
 		Debug.Log("restart level");
 	}
 
 	public void OpenSettings() {
+		HidePauseWindow();
 		//TODO:
 		Debug.Log("open settings");
 	}
 	
 	public void QuitGame() {
+		HidePauseWindow();//probably 
 		//TODO:
 		Debug.Log("game quit");
 	}
