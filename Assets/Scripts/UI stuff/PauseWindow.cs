@@ -5,6 +5,8 @@ using UnityEngine;
 public class PauseWindow : MonoBehaviour {
 
 	static GameObject gm;
+	static bool activated;
+
 	// Use this for initialization
 	void Start () {
 		 gm = GetComponent<CanvasRenderer>().gameObject;
@@ -12,13 +14,15 @@ public class PauseWindow : MonoBehaviour {
 	}
 	
 	public static void HidePauseWindow() {
-		gm.SetActive(false);
+		activated = false;
+		gm.SetActive(activated);
 		GameplayUI.ShowGameplayUI();
 		Game.Unpause();
 	}
 
 	public static void ShowPauseWindow() {
-		gm.SetActive(true);
+		activated = true;
+		gm.SetActive(activated);
 		GameplayUI.HideGameplayUI();
 		Game.Pause();
 	}
@@ -28,21 +32,29 @@ public class PauseWindow : MonoBehaviour {
 	}
 
 	public void ShowLevelUp() {
-
+		HidePauseWindow();
+		LevelUp.ShowLevelUpWindow();
 	}
 
 	public void RestartLevel() {
+		HidePauseWindow();
 		//TODO:
 		Debug.Log("restart level");
 	}
 
 	public void OpenSettings() {
+		HidePauseWindow();
 		//TODO:
 		Debug.Log("open settings");
 	}
 	
 	public void QuitGame() {
+		HidePauseWindow();//probably 
 		//TODO:
 		Debug.Log("game quit");
+	}
+
+	public static bool Activated() {
+		return activated;
 	}
 }

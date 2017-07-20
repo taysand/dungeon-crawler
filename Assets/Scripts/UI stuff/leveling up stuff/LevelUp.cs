@@ -12,7 +12,7 @@ public class LevelUp : MonoBehaviour
     private static int levelUpPoints = 0;
     private GameObject[] levelUpButtons;
 
-    void Start()
+    void Awake()
     {
         gm = GetComponent<CanvasRenderer>().gameObject;
         levelUpButtons = GameObject.FindGameObjectsWithTag("LevelUpButton");
