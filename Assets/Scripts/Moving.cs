@@ -15,8 +15,8 @@ public abstract class Moving : MonoBehaviour
     protected float hp;
     protected int ac;
     protected float maxHP;
-    public float moveTime = 0.1f;
 
+    public float moveTime = 0.1f;
 
     protected void Start()
     {
@@ -42,7 +42,7 @@ public abstract class Moving : MonoBehaviour
         Vector2 start = transform.position;
 		Vector2 end = start + new Vector2(x, y);
         transform.position = end;
-    }
+	}
 
     public int GetLevel()
     {

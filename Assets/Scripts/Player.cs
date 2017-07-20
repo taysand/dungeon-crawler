@@ -76,7 +76,6 @@ public class Player : Moving
             {
                 Move(horizontal, vertical);
             }
-
             Game.SetPlayersTurn(false);
         }
     }

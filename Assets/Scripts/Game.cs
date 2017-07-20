@@ -6,18 +6,6 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-
-    //display enemy health
-    //display enemy levels
-    //display player health
-    //display map
-    //open map
-    //control turns
-    //pause game
-    //checks if enemies are sleeping or frozen, then they can't move
-    //keeps track of scared enemies
-    //moves enemies
-
     private static List<Vector3> visibleSpots = new List<Vector3>();
     private static bool paused;
     private Player player;
@@ -31,7 +19,6 @@ public class Game : MonoBehaviour
         enemies = new List<Enemy>();
     }
 
-    // Use this for initialization
     void Start()
     {
         Unpause();
@@ -47,94 +34,61 @@ public class Game : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         //check for opening and closing menus
         OpenLevelUp();
+        //TODO: pause menu, map
 
         if (playersTurn || enemiesTurn || paused)
         {
             return;
         }
 
-        StartCoroutine(MoveEnemies());
+        StartCoroutine(MoveEnemies()); //something's messing up here
     }
 
-    IEnumerator MoveEnemies()
+    IEnumerator MoveEnemies() 
     {
-        enemiesTurn = true;
-        yield return new WaitForSeconds(turnDelay);
-        if (enemies.Count == 0)
+		enemiesTurn = true;
+		yield return new WaitForSeconds(turnDelay);
+		if (enemies.Count == 0) 
         {
-            yield return new WaitForSeconds(turnDelay);
-        }
+			yield return new WaitForSeconds(turnDelay);
+		}
 
-        for (int i = 0; i < enemies.Count; i++)
+		for (int i = 0; i < enemies.Count; i++) 
         {
-            enemies[i].Act();
-            yield return new WaitForSeconds(enemies[i].moveTime);
-        }
+			enemies[i].Act();
+			yield return new WaitForSeconds(enemies[i].moveTime);
+		}
 
-        playersTurn = true;
-        enemiesTurn = false;
-    }
+		playersTurn = true;
+		enemiesTurn = false;
+	}
 
-    //ugh
-    // //don't do anything else if it's paused
-    // if (IsPaused())
-    // {
-    //     return;
-    // }
-
-    // if (IsPlayersTurn())
-    // {
-    //     //actually needs to check for casting spells, movement, or other actions
-    //     
-    // }
-
-    // if (IsEnemiesTurn())
-    // {
-
-    //     int count = enemies.Count;
-    // }
-
-    //don't know if this works
-    //Game.CheckTiles();
-    //input
-    //player action 
-    //movement
-    //spell
-    //heal
-    //access map, pauses game
-    //get level up window, pauses game
-    //get craft window, pauses game
-    // if (!Game.IsPaused) {
-    //call enemy actions for every enemy in the room
-    //separate class for each room/level?
-    // }
-    // Game.UpdateVisibility(); //tiles, enemies
-    // Game.UpdateMap();
-    // }
+    //TODO: check visible tiles, update visible tiles, update map
+    //Game.UpdateMap();
+    //Game.UpdateVisibility();
 
     private void OpenLevelUp()
     {
         if (Input.GetKeyDown(KeyCode.L) && LevelUp.Activated())
         {
             LevelUp.StaticHideLevelUpWindow();
-			PlayAnimations(true);
+            PlayAnimations(true);
         }
         else if (Input.GetKeyDown(KeyCode.L) && !LevelUp.Activated())
         {
             LevelUp.ShowLevelUpWindow();
-			PlayAnimations(false);
+            PlayAnimations(false);
         }
     }
 
     private void PlayAnimations(bool value)
     {
         player.GetComponent<Animator>().enabled = value;
-		for (int i = 0; i < enemies.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].GetComponent<Animator>().enabled = value;
         }
@@ -168,11 +122,6 @@ public class Game : MonoBehaviour
     public static void SetPlayersTurn(bool value)
     {
         playersTurn = value;
-    }
-
-    public bool IsEnemiesTurn()
-    {
-        return enemiesTurn;
     }
 
     public static void AddEnemyToList(Enemy badGuy)
