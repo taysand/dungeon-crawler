@@ -13,6 +13,11 @@ public class Game : MonoBehaviour
     private static bool enemiesTurn;
     public float turnDelay = 0.1f;
 
+    public const string playerTag = "Player";
+    public const string wallTag = "Wall";
+    public const string horizontalString = "Horizontal";
+    public const string verticalString = "Vertical";
+
     void Awake()
     {
         enemies = new List<Enemy>();
@@ -23,7 +28,7 @@ public class Game : MonoBehaviour
         Unpause();
         animationsPaused = false;
 
-        GameObject playerGameObj = GameObject.Find("Player");
+        GameObject playerGameObj = GameObject.Find(playerTag);
         if (playerGameObj != null)
         {
             player = playerGameObj.GetComponent<Player>();

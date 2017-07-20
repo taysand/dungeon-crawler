@@ -12,7 +12,7 @@ public abstract class SpellButton : MonoBehaviour
     // Use this for initialization
     protected void Start()
     {
-        GameObject playerGameObj = GameObject.Find("Player");
+        GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
         {
             playerGameObj.GetComponent<Player>().LearnSpell(Spell.drainSpell);

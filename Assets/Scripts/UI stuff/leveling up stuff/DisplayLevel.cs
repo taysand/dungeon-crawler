@@ -11,7 +11,7 @@ public class DisplayLevel : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		text = GetComponent<Text>();
-		GameObject playerGameObj = GameObject.Find("Player");
+		GameObject playerGameObj = GameObject.Find(Game.playerTag);
 		if (playerGameObj != null) {
     		player = playerGameObj.GetComponent<Player>();
 		} else {

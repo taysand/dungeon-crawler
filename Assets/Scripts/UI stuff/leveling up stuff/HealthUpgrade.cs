@@ -12,7 +12,7 @@ public class HealthUpgrade : MonoBehaviour {
 	void Start () {
 		healthField = GetComponent<Text>();
 
-		GameObject playerGameObj = GameObject.Find("Player");
+		GameObject playerGameObj = GameObject.Find(Game.playerTag);
  		if (playerGameObj != null) {
     		player = playerGameObj.GetComponent<Player>();
 			UpdateHealthField();
