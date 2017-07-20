@@ -20,9 +20,10 @@ public abstract class Enemy : Moving
     protected bool scared = false;
     private bool illuminated = false;
 
-    void FixedUpdate()
+    new void Start()
     {
-        Act();
+        base.Start();
+        Game.AddEnemyToList(this);
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -33,11 +34,12 @@ public abstract class Enemy : Moving
         }
     }
 
-    public override void PlayAttackAnimation() {
+    public override void PlayAttackAnimation()
+    {
         animator.SetTrigger("Attack");
     }
 
-	//TODO: other animation things 
+    //TODO: other animation things 
 
     public bool IsIlluminated()
     {
@@ -86,7 +88,7 @@ public abstract class Enemy : Moving
         frozen = false;
     }
 
-    public bool Frozen()
+    public bool IsFrozen()
     {
         return frozen;
     }
@@ -100,7 +102,7 @@ public abstract class Enemy : Moving
         scared = false;
     }
 
-    public bool Scared()
+    public bool IsScared()
     {
         return scared;
     }
@@ -112,51 +114,36 @@ public abstract class Enemy : Moving
         DisplayPlayerHealth.UpdateHealthDisplay();
     }
 
-    new protected void Move()
-    {
-        base.Move();
-        FollowPath();
-
-        Vector3 location = transform.position;
-
-        //if (Game.GetVisibleSpots().Contains(location)) {
-        // enemy is visible
-        //	IllumiateOn();
-        //} else {
-        //	IlluminateOff();
-        //}
-    }
-
-    protected void FollowPath()
-    {
-        float x = transform.position.x;
-        switch (direction)
-        {
-            case -1:
-                if (x > minDist)
-                {
-                    x -= speed;
-                }
-                else
-                {
-                    direction = 1;
-                    Flip();
-                }
-                break;
-            case 1:
-                if (x < maxDist)
-                {
-                    x += speed;
-                }
-                else
-                {
-                    direction = -1;
-                    Flip();
-                }
-                break;
-        }
-        transform.localPosition = new Vector2(x, transform.position.y);
-    }
+    // protected void FollowPath()
+    // {
+    // float x = transform.position.x;
+    // switch (direction)
+    // {
+    //     case -1:
+    //         if (x > minDist)
+    //         {
+    //             x--;
+    //         }
+    //         else
+    //         {
+    //             direction = 1;
+    //             Flip();
+    //         }
+    //         break;
+    //     case 1:
+    //         if (x < maxDist)
+    //         {
+    //             x++;
+    //         }
+    //         else
+    //         {
+    //             direction = -1;
+    //             Flip();
+    //         }
+    //         break;
+    // }
+    // transform.position = new Vector2(x, transform.position.y);
+    //}
 
     public void Act()
     { //TODO: please 
@@ -167,7 +154,24 @@ public abstract class Enemy : Moving
         }
         else
         {
-            Move();
+			//TODO: check for walls
+            int x = 0;
+            int y = 0;
+            System.Random random = new System.Random();
+            x = random.Next(0, 2);
+            if (x == 0)
+            {
+                y = random.Next(0, 2);
+            }
+            Move(x, y);
+
+            Vector3 location = transform.position;
+            //if (Game.GetVisibleSpots().Contains(location)) {
+            // enemy is visible
+            //	IllumiateOn();
+            //} else {
+            //	IlluminateOff();
+            //}
         }
     }
 

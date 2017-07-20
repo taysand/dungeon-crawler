@@ -12,7 +12,6 @@ public class LevelUp : MonoBehaviour
     private static int levelUpPoints = 0;
     private GameObject[] levelUpButtons;
 
-    // Use this for initialization
     void Start()
     {
         gm = GetComponent<CanvasRenderer>().gameObject;
@@ -77,7 +76,7 @@ public class LevelUp : MonoBehaviour
                 if (text != null)
                 {
                     string label = text.text;
-                    if (Player.IsKnown(label))
+                    if (Player.SpellIsKnown(label))
                     {
                         button.interactable = false;
                     }
