@@ -60,7 +60,6 @@ public class Player : Moving
         PlayInjuredAnimation();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Game.IsPlayersTurn())
@@ -80,11 +79,6 @@ public class Player : Moving
 
             Game.SetPlayersTurn(false);
         }
-    }
-
-    void FixedUpdate()
-    {
-
     }
 
     public void CastSpell()
