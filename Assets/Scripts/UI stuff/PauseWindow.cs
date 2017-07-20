@@ -23,6 +23,10 @@ public class PauseWindow : MonoBehaviour {
 		Game.Pause();
 	}
 
+	public void Resume() {
+		HidePauseWindow();
+	}
+
 	public void ShowLevelUp() {
 
 	}
