@@ -75,8 +75,8 @@ public class Player : Moving
             if (horizontal != 0 || vertical != 0)
             {
                 Move(horizontal, vertical);
+                Game.SwitchTurns();
             }
-            Game.SetPlayersTurn(false);
         }
     }
 
