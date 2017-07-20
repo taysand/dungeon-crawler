@@ -64,6 +64,7 @@
      <Compile Include="Assets\Scripts\Spells\TransformSpell.cs" />
      <Compile Include="Assets\Scripts\UI stuff\DisplayPlayerHealth.cs" />
      <Compile Include="Assets\Scripts\UI stuff\GameplayUI.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\PauseWindow.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Testing.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\ArmorUpgrade.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\DisplayLevel.cs" />
