@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Movement code used in this class, Moving, Enemy, and Player borrowed from https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial/moving-object-script?playlist=17150
-
 public class Game : MonoBehaviour
 {
     private static List<Vector3> visibleSpots = new List<Vector3>();
@@ -64,27 +62,7 @@ public class Game : MonoBehaviour
             SwitchTurns();
         }
 
-        //StartCoroutine(MoveEnemies()); //TODO: something's messing up here
     }
-
-    // IEnumerator MoveEnemies() //TODO: not mine
-    // {
-    //     enemiesTurn = true;
-    //     yield return new WaitForSeconds(turnDelay);
-    //     if (enemies.Count == 0)
-    //     {
-    //         yield return new WaitForSeconds(turnDelay);
-    //     }
-
-    //     for (int i = 0; i < enemies.Count; i++)
-    //     {
-    //         enemies[i].Act();
-    //         yield return new WaitForSeconds(enemies[i].moveTime);
-    //     }
-
-    //     playersTurn = true;
-    //     enemiesTurn = false;
-    // }
 
     //TODO: check visible tiles, update visible tiles, update map
     //Game.UpdateMap();
