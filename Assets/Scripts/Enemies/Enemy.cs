@@ -154,7 +154,7 @@ public abstract class Enemy : Moving
         }
         else
         {
-			//TODO: check for walls
+			//TODO: follow a path, flip at walls
             int x = 0;
             int y = 0;
             System.Random random = new System.Random();
@@ -165,7 +165,6 @@ public abstract class Enemy : Moving
             }
             Move(x, y);
 
-            Vector3 location = transform.position;
             //if (Game.GetVisibleSpots().Contains(location)) {
             // enemy is visible
             //	IllumiateOn();

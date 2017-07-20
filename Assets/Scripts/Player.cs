@@ -74,6 +74,13 @@ public class Player : Moving
             }
             if (horizontal != 0 || vertical != 0)
             {
+                //TODO: this is broken
+                if (facingRight && horizontal < 0) {
+                    Flip();
+                }
+                if (!facingRight && horizontal > 0) {
+                    Flip();
+                }
                 Move(horizontal, vertical);
                 Game.SwitchTurns();
             }
