@@ -62,7 +62,7 @@ public class Player : Moving
 
     void Update()
     {
-        if (Game.IsPlayersTurn())
+        if (Game.IsPlayersTurn() && !Game.IsPaused())
         {
             int horizontal = 0;
             int vertical = 0;

@@ -41,40 +41,58 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        //check for opening and closing menus
-        OpenLevelUp();
-        OpenPause();
-        //TODO: pause menu, map
-
-        //control pausing
-        if (paused && !animationsPaused) {
-            PlayAnimations(false);
-        } 
-        else if (!paused && animationsPaused) {
-            PlayAnimations(true);
+        //check for opening and closing menus, but only if a menu isn't already open
+        //TODO: map
+        if (PauseWindow.Activated())
+        {
+            CheckPauseWindow();
+        }
+        else if (LevelUp.Activated())
+        {
+            CheckLevelUpWindow();
+        }
+        else
+        {
+            CheckPauseWindow();
+            CheckLevelUpWindow();
         }
 
-        if (playersTurn)
-        {
-            return;
-        }
+        ControlAnimations();
 
-        if (enemiesTurn)
+        if (!paused)
         {
-            for (int i = 0; i < enemies.Count; i++)
+            if (playersTurn)
             {
-                enemies[i].Act();
+                return;
             }
-            SwitchTurns();
-        }
 
+            if (enemiesTurn)
+            {
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemies[i].Act();
+                }
+                SwitchTurns();
+            }
+        }
     }
 
+    private void ControlAnimations()
+    {
+        if (paused && !animationsPaused)
+        {
+            PlayAnimations(false);
+        }
+        else if (!paused && animationsPaused)
+        {
+            PlayAnimations(true);
+        }
+    }
     //TODO: check visible tiles, update visible tiles, update map
     //Game.UpdateMap();
     //Game.UpdateVisibility();
 
-    private void OpenLevelUp()
+    private void CheckLevelUpWindow()
     {
         if (Input.GetKeyDown(KeyCode.L) && LevelUp.Activated())
         {
@@ -88,7 +106,8 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void OpenPause() {
+    private void CheckPauseWindow()
+    {
         if (Input.GetKeyDown(KeyCode.P) && !paused)
         {
             PauseWindow.ShowPauseWindow();
