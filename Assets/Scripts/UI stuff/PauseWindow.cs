@@ -28,7 +28,7 @@ public class PauseWindow : MonoBehaviour {
 	}
 
 	public void ShowLevelUp() {
-
+		LevelUp.ShowLevelUpWindow();
 	}
 
 	public void RestartLevel() {
