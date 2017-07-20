@@ -28,7 +28,7 @@ public abstract class Enemy : Moving
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == Game.playerTag)
         {
             Attack(other.gameObject.GetComponent<Player>());
         }
@@ -36,7 +36,7 @@ public abstract class Enemy : Moving
 
     public override void PlayAttackAnimation()
     {
-        animator.SetTrigger("Attack");
+        animator.SetTrigger(Moving.attackAnimation);
     }
 
     //TODO: other animation things 

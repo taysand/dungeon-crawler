@@ -51,7 +51,7 @@ public class Player : Moving
 
     public void PlayInjuredAnimation()
     {
-        animator.SetTrigger("PlayerInjured");
+        animator.SetTrigger(Moving.playerInjuredAnimation);
     }
 
     new public void TakeDamage(float amount)
@@ -66,8 +66,8 @@ public class Player : Moving
         {
             int horizontal = 0;
             int vertical = 0;
-            horizontal = (int)(Input.GetAxisRaw("Horizontal"));
-            vertical = (int)(Input.GetAxisRaw("Vertical"));
+            horizontal = (int)(Input.GetAxisRaw(Game.horizontalString));
+            vertical = (int)(Input.GetAxisRaw(Game.verticalString));
             if (horizontal != 0)
             {
                 vertical = 0;

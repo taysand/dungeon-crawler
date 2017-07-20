@@ -12,7 +12,7 @@ public class ArmorUpgrade : MonoBehaviour {
 	void Start () {
 		armorField = GetComponent<Text>();
 
-		GameObject playerGameObj = GameObject.Find("Player");
+		GameObject playerGameObj = GameObject.Find(Game.playerTag);
  		if (playerGameObj != null) {
     		player = playerGameObj.GetComponent<Player>();
 			UpdateArmorField();
