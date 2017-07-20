@@ -36,7 +36,8 @@ public class PauseWindow : MonoBehaviour {
 	}
 
 	public void OpenSettings() {
-
+		//TODO:
+		Debug.Log("open settings");
 	}
 	
 	public void QuitGame() {
