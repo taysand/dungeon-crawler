@@ -22,4 +22,21 @@ public class PauseWindow : MonoBehaviour {
 		GameplayUI.HideGameplayUI();
 		Game.Pause();
 	}
+
+	public void ShowLevelUp() {
+
+	}
+
+	public void RestartLevel() {
+
+	}
+
+	public void OpenSettings() {
+
+	}
+	
+	public void QuitGame() {
+		//TODO:
+		Debug.Log("game quit");
+	}
 }
