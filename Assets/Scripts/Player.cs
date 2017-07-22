@@ -58,6 +58,9 @@ public class Player : Moving
     {
         base.TakeDamage(amount);
         PlayInjuredAnimation();
+        if (hp <= 0) {
+            GameOver.ShowGameOver();
+        }
     }
 
     void Update()
