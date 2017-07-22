@@ -23,7 +23,13 @@ public class GameOver : MonoBehaviour {
 		Game.Pause();
 	}
 
+	//delete this after testing
+	public void ShowGameOverNotStatic() {
+		ShowGameOver();
+	}
+
 	public static void HideGameOver() {
 		gm.SetActive(false);
+		Game.Unpause();
 	}
 }
