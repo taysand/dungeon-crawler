@@ -158,10 +158,10 @@ public abstract class Enemy : Moving
             int x = 0;
             int y = 0;
             System.Random random = new System.Random();
-            x = random.Next(0, 2);
+            x = random.Next(-2, 2);
             if (x == 0)
             {
-                y = random.Next(0, 2);
+                y = random.Next(-2, 2);
             }
             Move(x, y);
 
