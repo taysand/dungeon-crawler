@@ -29,6 +29,8 @@ public class DisplayPlayerHealth : MonoBehaviour {
 	public static void UpdateHealthDisplay() {
 		if (!Game.IsPaused()) {
 			healthInfo.text = player.GetHealthString();
+		} else {
+			healthInfo.text = "HP: 0/" + player.GetMaxHP();
 		}
 	}
 }
