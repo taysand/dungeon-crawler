@@ -30,5 +30,6 @@ public class GameOver : MonoBehaviour {
 
 	public static void HideGameOver() {
 		gm.SetActive(false);
+		Game.Unpause();
 	}
 }
