@@ -27,6 +27,8 @@ public class DisplayPlayerHealth : MonoBehaviour {
 	}
 
 	public static void UpdateHealthDisplay() {
-		healthInfo.text = player.GetHealthString();
+		if (!Game.IsPaused()) {
+			healthInfo.text = player.GetHealthString();
+		}
 	}
 }
