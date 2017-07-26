@@ -32,6 +32,7 @@ public abstract class Moving : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         facingRight = true;
         //inverseMoveTime = 1f / moveTime; //this stuff is from the tutorial 
+        rb2D.drag = 5;
     }
 
     protected abstract void SetStartingValues();
@@ -85,8 +86,7 @@ public abstract class Moving : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        float damage = amount - ac;
-        hp = hp - damage;
+        hp = hp - amount;
     }
 
     public int GetArmor()

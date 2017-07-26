@@ -7,7 +7,7 @@ public class GemEnemy : Enemy {
 	public float gemStartingDamage = 10.0f;//should be constant
 	public float gemStartingHP = 30.0f;//should be constant
 	public int gemStartingAC = 3;//should be constant
-	public float gemStartingSpeed = .07f;//should be constant
+	public float gemStartingSpeed = 7f;//should be constant
 	public float gemStartingMaxHP = 30f;//should be constant
 	public int gemStartingLevel = 4;//should be constant
 
