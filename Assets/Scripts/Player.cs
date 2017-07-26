@@ -7,6 +7,7 @@ public class Player : Moving
     public float playerStartingHP = 100f;//should be constant
     public int playerStartingAC = 2;//should be constant
     public float playerStartingMaxHP = 100f;//should be constant
+    public float playerStartingSpeed = 10f; //should be constant
 
     //leveling
     private int xp = 0;
@@ -42,6 +43,7 @@ public class Player : Moving
         ac = playerStartingAC;
         level = 0;
         maxHP = playerStartingMaxHP;
+        speed = playerStartingSpeed;
     }
 
     public override void PlayAttackAnimation()
@@ -58,36 +60,55 @@ public class Player : Moving
     {
         base.TakeDamage(amount);
         PlayInjuredAnimation();
-        if (hp <= 0) {
+        if (hp <= 0)
+        {
             GameOver.ShowGameOver();
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Game.IsPlayersTurn() && !Game.IsPaused())
+        var horizontal = Input.GetAxisRaw(Game.horizontalString);
+        var vertical = Input.GetAxisRaw(Game.verticalString);
+
+        rb2D.velocity = new Vector2(horizontal * speed, vertical * speed);
+
+        //TODO: broken
+        if (facingRight && horizontal < 0)
         {
-            int horizontal = 0;
-            int vertical = 0;
-            horizontal = (int)(Input.GetAxisRaw(Game.horizontalString));
-            vertical = (int)(Input.GetAxisRaw(Game.verticalString));
-            if (horizontal != 0)
-            {
-                vertical = 0;
-            }
-            if (horizontal != 0 || vertical != 0)
-            {
-                //TODO: this is broken
-                if (facingRight && horizontal < 0) {
-                    Flip();
-                }
-                if (!facingRight && horizontal > 0) {
-                    Flip();
-                }
-                Move(horizontal, vertical);
-                Game.SwitchTurns();
-            }
+            Flip();
         }
+        if (!facingRight && horizontal > 0)
+        {
+            Flip();
+        }
+
+        
+
+
+        // if (Game.IsPlayersTurn() && !Game.IsPaused())
+        // {
+        //     int horizontal = 0;
+        //     int vertical = 0;
+        //     horizontal = (int)(Input.GetAxisRaw(Game.horizontalString));
+        //     vertical = (int)(Input.GetAxisRaw(Game.verticalString));
+        //     if (horizontal != 0)
+        //     {
+        //         vertical = 0;
+        //     }
+        //     if (horizontal != 0 || vertical != 0)
+        //     {
+        //         //TODO: this is broken
+        //         if (facingRight && horizontal < 0) {
+        //             Flip();
+        //         }
+        //         if (!facingRight && horizontal > 0) {
+        //             Flip();
+        //         }
+        //         Move(horizontal, vertical);
+        //         Game.SwitchTurns();
+        //     }
+        // }
     }
 
     public void CastSpell()
