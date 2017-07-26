@@ -6,7 +6,7 @@ public abstract class Enemy : Moving
 {
 
     //movement stuff
-    public int direction = -1; //starts walking left
+    public int direction = 1; //starts walking left
     public float maxDist = 10f;
     public float minDist = 0f;
 
@@ -130,6 +130,7 @@ public abstract class Enemy : Moving
         DisplayPlayerHealth.UpdateHealthDisplay();
     }
 
+    //https://forum.unity3d.com/threads/left-and-right-enemy-moving-in-2d-platformer.364716/
     protected void FollowPath()
     {
         float x = transform.position.x;
@@ -138,7 +139,7 @@ public abstract class Enemy : Moving
             case -1:
                 if (x > minDist)
                 {
-                    x--;
+                    x = -1;
                 }
                 else
                 {
@@ -149,7 +150,7 @@ public abstract class Enemy : Moving
             case 1:
                 if (x < maxDist)
                 {
-                    x++;
+                    x = 1;
                 }
                 else
                 {
@@ -158,7 +159,8 @@ public abstract class Enemy : Moving
                 }
                 break;
         }
-        transform.position = new Vector2(x, transform.position.y);
+        rb2D.velocity = new Vector2(x * speed, transform.position.y);
+       // transform.position = new Vector2(x, );
     }
 
     public void Act()
@@ -194,7 +196,7 @@ public abstract class Enemy : Moving
     { //TODO: please 
       //checks if the enemy is close enough to the player/should move
       //to attack or get closer
-        return true;
+        return false;
     }
 
     //https://unity3d.com/learn/tutorials/topics/2d-game-creation/top-down-2d-game-basics?playlist=17093
