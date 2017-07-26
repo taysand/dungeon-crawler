@@ -9,18 +9,21 @@ public class Game : MonoBehaviour
     private static bool animationsPaused;
     private Player player;
     private static List<Enemy> enemies;
-    private static bool playersTurn = true;
-    private static bool enemiesTurn;
-    public float turnDelay = 0.1f;
+    //private static bool playersTurn = true;
+   // private static bool enemiesTurn;
+   // public float turnDelay = 0.1f;
 
     public const string playerTag = "Player";
     public const string wallTag = "Wall";
     public const string horizontalString = "Horizontal";
     public const string verticalString = "Vertical";
 
+    //public float fixedUpdateTime = .4f;
+
     void Awake()
     {
         enemies = new List<Enemy>();
+        //Time.fixedDeltaTime = fixedUpdateTime;
     }
 
     void Start()
@@ -39,8 +42,7 @@ public class Game : MonoBehaviour
         }
     }
 
-    void Update()
-    {
+    void Update() {
         //check for opening and closing menus, but only if a menu isn't already open
         //TODO: map
         if (PauseWindow.Activated())
@@ -58,24 +60,27 @@ public class Game : MonoBehaviour
         }
 
         ControlAnimations();
-
-        if (!paused)
-        {
-            if (playersTurn)
-            {
-                return;
-            }
-
-            if (enemiesTurn)
-            {
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    enemies[i].Act();
-                }
-                SwitchTurns();
-            }
-        }
     }
+
+    // void FixedUpdate()
+    // {
+    //     if (!paused)
+    //     {
+    //         if (playersTurn)
+    //         {
+    //             return;
+    //         }
+
+    //         if (enemiesTurn)
+    //         {
+    //             for (int i = 0; i < enemies.Count; i++)
+    //             {
+    //                 enemies[i].Act();
+    //             }
+    //             SwitchTurns();
+    //         }
+    //     }
+    // }
 
     private void ControlAnimations()
     {
@@ -151,16 +156,16 @@ public class Game : MonoBehaviour
         paused = false;
     }
 
-    public static bool IsPlayersTurn()
-    {
-        return playersTurn;
-    }
+    // public static bool IsPlayersTurn()
+    // {
+    //     return playersTurn;
+    // }
 
-    public static void SwitchTurns()
-    {
-        playersTurn = !playersTurn;
-        enemiesTurn = !enemiesTurn;
-    }
+    // public static void SwitchTurns()
+    // {
+    //     playersTurn = !playersTurn;
+    //     enemiesTurn = !enemiesTurn;
+    // }
 
     public static void AddEnemyToList(Enemy badGuy)
     {

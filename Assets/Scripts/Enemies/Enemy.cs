@@ -7,9 +7,8 @@ public abstract class Enemy : Moving
 
     //movement stuff
     public int direction = -1; //starts walking left
-    public float maxDist = 10;
-    public float minDist = 0;
-    protected float speed;
+    public float maxDist = 10f;
+    public float minDist = 0f;
 
     //stats
     protected float damagePerHit; //based on subclass and level
@@ -20,10 +19,24 @@ public abstract class Enemy : Moving
     protected bool scared = false;
     private bool illuminated = false;
 
+    Player player;
+
     new void Start()
     {
         base.Start();
         Game.AddEnemyToList(this);
+
+        facingRight = false;
+
+        GameObject playerGameObj = GameObject.Find(Game.playerTag);
+        if (playerGameObj != null)
+        {
+            player = playerGameObj.GetComponent<Player>();
+        }
+        else
+        {
+            Debug.Log("no player object?");
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -32,6 +45,11 @@ public abstract class Enemy : Moving
         {
             Attack(other.gameObject.GetComponent<Player>());
         }
+    }
+
+    void Update()//or FixedUpdate?
+    {
+        Act();
     }
 
     public override void PlayAttackAnimation()
@@ -114,56 +132,58 @@ public abstract class Enemy : Moving
         DisplayPlayerHealth.UpdateHealthDisplay();
     }
 
-    // protected void FollowPath()
-    // {
-    // float x = transform.position.x;
-    // switch (direction)
-    // {
-    //     case -1:
-    //         if (x > minDist)
-    //         {
-    //             x--;
-    //         }
-    //         else
-    //         {
-    //             direction = 1;
-    //             Flip();
-    //         }
-    //         break;
-    //     case 1:
-    //         if (x < maxDist)
-    //         {
-    //             x++;
-    //         }
-    //         else
-    //         {
-    //             direction = -1;
-    //             Flip();
-    //         }
-    //         break;
-    // }
-    // transform.position = new Vector2(x, transform.position.y);
-    //}
+    //https://forum.unity3d.com/threads/left-and-right-enemy-moving-in-2d-platformer.364716/
+    protected void FollowPath()
+    {
+        float x = transform.position.x;
+        switch (direction)
+        {
+            case -1:
+                if (x > minDist)
+                {
+                    x = -1;
+                }
+                else
+                {
+                    direction = 1;
+                    Flip();
+                }
+                break;
+            case 1:
+                if (x < maxDist)
+                {
+                    x = 1;
+                }
+                else
+                {
+                    direction = -1;
+                    Flip();
+                }
+                break;
+        }
+        rb2D.velocity = new Vector2(x * speed, transform.position.y);
+       // transform.position = new Vector2(x, );
+    }
 
     public void Act()
     { //TODO: please 
         if (InRange())
         {
-            //if next to player, then attack
-            //else movetoplayer
+            MoveToPlayer();
         }
         else
         {
-			//TODO: follow a path, flip at walls
-            int x = 0;
-            int y = 0;
-            System.Random random = new System.Random();
-            x = random.Next(-2, 2);
-            if (x == 0)
-            {
-                y = random.Next(-2, 2);
-            }
-            Move(x, y);
+            FollowPath();
+            //TODO: follow a path, flip at walls
+            // int x = 0;
+            // int y = 0;
+            // System.Random random = new System.Random();
+            // x = random.Next(-2, 2);
+            // if (x == 0)
+            // {
+            //     y = random.Next(-2, 2);
+            // }
+            // Move(x, y);
 
             //if (Game.GetVisibleSpots().Contains(location)) {
             // enemy is visible
@@ -181,8 +201,11 @@ public abstract class Enemy : Moving
         return false;
     }
 
+    //https://unity3d.com/learn/tutorials/topics/2d-game-creation/top-down-2d-game-basics?playlist=17093
     public void MoveToPlayer()
-    { //TODO: please 
-      //move toward player
+    { 
+        float z = Mathf.Atan2((player.transform.position.y - transform.position.y), (player.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
+        transform.eulerAngles = new Vector3(0, 0, z);
+        rb2D.AddForce(gameObject.transform.up * speed);
     }
 }

@@ -7,7 +7,7 @@ public class Skeleton : Enemy {
 	public float skeletonStartingDamage = 5.0f;//should be constant
 	public float skeletonStartingHP = 25.0f;//should be constant
 	public int skeletonStartingAC = 2;//should be constant
-	public float skeletonStartingSpeed = .1f;//should be constant
+	public float skeletonStartingSpeed = 10f;//should be constant
 	public float skeletonStartingMaxHP = 25f;//should be constant
 	public int skeletonStartingLevel = 1;//should be constant
 
