@@ -6,7 +6,7 @@ public abstract class Enemy : Moving
 {
 
     //movement stuff
-    public int direction = 1; //starts walking left
+    public int direction = -1; //starts walking left
     public float maxDist = 10f;
     public float minDist = 0f;
 
@@ -25,6 +25,8 @@ public abstract class Enemy : Moving
     {
         base.Start();
         Game.AddEnemyToList(this);
+
+        facingRight = false;
 
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)

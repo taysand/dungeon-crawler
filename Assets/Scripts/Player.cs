@@ -34,6 +34,8 @@ public class Player : Moving
         nextLevel = levels[level];
         maxLevel = levels.Length - 1;
 
+        facingRight = true;
+
         unknownSpells = Spell.CreateSpellList();
     }
 
@@ -73,7 +75,6 @@ public class Player : Moving
         var vertical = Input.GetAxisRaw(Game.verticalString);
         rb2D.velocity = new Vector2(horizontal * speed, vertical * speed);
 
-        //TODO: broken
         if (facingRight && horizontal < 0)
         {
             Flip();

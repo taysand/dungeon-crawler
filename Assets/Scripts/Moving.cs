@@ -12,6 +12,7 @@ public abstract class Moving : MonoBehaviour
     protected BoxCollider2D boxCollider;
     protected Rigidbody2D rb2D;
     protected bool facingRight;
+    protected SpriteRenderer sr;
 
     //moving stuff, this stuff is from the tutorial 
     // private float inverseMoveTime;
@@ -30,7 +31,7 @@ public abstract class Moving : MonoBehaviour
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
-        facingRight = true;
+        sr = GetComponent<SpriteRenderer>();
         //inverseMoveTime = 1f / moveTime; //this stuff is from the tutorial 
         rb2D.drag = 5;
     }
@@ -39,12 +40,10 @@ public abstract class Moving : MonoBehaviour
 
     public abstract void PlayAttackAnimation();
 
-    protected void Flip() //do I need this
+    protected void Flip()
     {
         facingRight = !facingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        sr.flipX = facingRight;
     }
 
     // public void Move(int x, int y)
