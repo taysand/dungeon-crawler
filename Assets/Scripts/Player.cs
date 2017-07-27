@@ -32,7 +32,7 @@ public class Player : Moving
     {
         base.Start();
         nextLevel = levels[level];
-        maxLevel = levels.Length - 1;
+        maxLevel = levels.Length;
 
         facingRight = true;
 
@@ -84,7 +84,7 @@ public class Player : Moving
             Flip();
         }
 
-        
+
 
 
         // if (Game.IsPlayersTurn() && !Game.IsPaused())
@@ -147,14 +147,19 @@ public class Player : Moving
 
     public void LevelUpM()
     {
-        level++;
-        if (level < 4)
+        if (level < maxLevel)
         {
-            nextLevel = levels[level];
+            level++;
+
+            if (level < maxLevel)
+            {
+                nextLevel = levels[level];
+            }
+
+            LevelUp.GainLevelUpPoint();
+            LUImage.ShowAnnouncement();
+            LevelUp.ShowLevelUpWindow();
         }
-        LevelUp.GainLevelUpPoint();
-        LUImage.ShowAnnouncement();
-        LevelUp.ShowLevelUpWindow();
     }
 
     public int GetExperience()

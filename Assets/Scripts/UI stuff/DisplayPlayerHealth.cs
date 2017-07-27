@@ -33,4 +33,8 @@ public class DisplayPlayerHealth : MonoBehaviour {
 			healthInfo.text = "HP: 0/" + player.GetMaxHP();
 		}
 	}
+
+	public void UpdateHealthDisplayAfterUpgrading() {
+		healthInfo.text = player.GetHealthString();
+	}
 }
