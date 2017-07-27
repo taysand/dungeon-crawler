@@ -21,7 +21,7 @@ public abstract class Enemy : Moving
 
     Player player;
 
-    new void Start()
+    protected override void Start()
     {
         base.Start();
         Game.AddEnemyToList(this);
