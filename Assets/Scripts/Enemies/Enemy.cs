@@ -20,6 +20,7 @@ public abstract class Enemy : Moving
     private bool illuminated = false;
 
     Player player;
+    protected Collider2D enemyCollider;
 
     //coroutine
     protected Vector2 startingLocation;//starting location
@@ -34,6 +35,7 @@ public abstract class Enemy : Moving
         base.Start();
         Game.AddEnemyToList(this);
 
+        enemyCollider = GetComponent<Collider2D>();
         facingRight = false;
 
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
@@ -90,7 +92,14 @@ public abstract class Enemy : Moving
     {
         if (other.gameObject.tag == Game.playerTag)
         {
-            Attack(other.gameObject.GetComponent<Player>());
+           Attack(other.gameObject.GetComponent<Player>());
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == Game.playerTag)
+        {
+            inRange = true;
         }
     }
 
