@@ -75,7 +75,7 @@ public abstract class Enemy : Moving
                 transform.position = Vector2.Lerp(transform.position, startingLocation, speed * Time.deltaTime);
                 yield return null;
             }
-            facingRight = !facingRight;
+            Flip();
         }
         else
         {
@@ -84,7 +84,7 @@ public abstract class Enemy : Moving
                 transform.position = Vector2.Lerp(transform.position, endLocation, speed * Time.deltaTime);
                 yield return null;
             }
-            facingRight = !facingRight;
+            Flip();
         }
         StartCoroutine("FollowPath");
     }
@@ -275,13 +275,11 @@ public abstract class Enemy : Moving
         {
             EndFollowPath();
             MoveToPlayer();
-            Debug.Log("moving to player");
         }
 
         if (!inRange && !followingPath)
         {
             // startingLocation = transform.position;
-            Debug.Log("restarting follow path");
             StartFollowPath();
         }
     }
