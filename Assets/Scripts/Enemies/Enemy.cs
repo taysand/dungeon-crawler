@@ -11,7 +11,8 @@ public abstract class Enemy : Moving
     // public float minDist = 0f;
 
     //stats
-    protected float damagePerHit; //based on subclass and level
+    protected float damagePerHit;
+    protected float rangeRadius;
 
     //conditions
     protected bool sleeping = false;
@@ -20,22 +21,19 @@ public abstract class Enemy : Moving
     private bool illuminated = false;
 
     Player player;
-    protected Collider2D enemyCollider;
 
-    //coroutine
+    //movement
     protected Vector2 startingLocation;//starting location
     public Vector2 endLocation;//ending location, set per individual 
     private bool followingPath;
-
-    //in range test
-    bool inRange;
+    protected bool inRange;
 
     protected override void Start()
     {
         base.Start();
         Game.AddEnemyToList(this);
 
-        enemyCollider = GetComponent<Collider2D>();
+        GetComponent<CircleCollider2D>().radius = rangeRadius;
         facingRight = false;
 
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
@@ -55,12 +53,14 @@ public abstract class Enemy : Moving
         //do like a distance from it's "starting point" which can change
     }
 
-    private void StartFollowPath() {
+    private void StartFollowPath()
+    {
         StartCoroutine("FollowPath");
         followingPath = true;
     }
 
-    private void EndFollowPath() {
+    private void EndFollowPath()
+    {
         StopCoroutine("FollowPath");
         followingPath = false;
     }
@@ -92,15 +92,21 @@ public abstract class Enemy : Moving
     {
         if (other.gameObject.tag == Game.playerTag)
         {
-           Attack(other.gameObject.GetComponent<Player>());
+            Attack(other.gameObject.GetComponent<Player>());
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other) {
+    void OnTriggerEnter2D(Collider2D other)
+    {
         if (other.gameObject.tag == Game.playerTag)
         {
             inRange = true;
         }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        inRange = false;
     }
 
     void Update()//or FixedUpdate?
@@ -266,11 +272,11 @@ public abstract class Enemy : Moving
             EndFollowPath();
             MoveToPlayer();
         }
-        
+
         if (!inRange && !followingPath)
         {
-           // startingLocation = transform.position;
-           Debug.Log("restarting follow path");
+            // startingLocation = transform.position;
+            Debug.Log("restarting follow path");
             StartFollowPath();
         }
     }
