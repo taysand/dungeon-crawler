@@ -28,7 +28,7 @@ public class Player : Moving
     //can't see through walls
     //need logic to make sure tiles on the other side of walls don't show up
 
-    new void Start()
+    protected override void Start()
     {
         base.Start();
         nextLevel = levels[level];
@@ -58,7 +58,7 @@ public class Player : Moving
         animator.SetTrigger(Moving.playerInjuredAnimation);
     }
 
-    new public void TakeDamage(float amount)
+    public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
         PlayInjuredAnimation();
@@ -112,13 +112,18 @@ public class Player : Moving
         // }
     }
 
-    public void CastSpell()
+    public void CastSpell<T>(T spell) where T : Spell
     {
         //TODO: please
-
         //use a spell
         //cast spell, pass the enemy the player's targeting 
         //if spell works, then health - spell.GetHealthLost
+        // switch (spell) {
+        //     case DrainSpell:
+        //     break
+        //     case Spell.freezeSpell:
+
+        // }
     }
 
     public void UsePotion()

@@ -25,7 +25,7 @@ public abstract class Moving : MonoBehaviour
     protected float maxHP;
     protected float speed;
 
-    protected void Start()
+    protected virtual void Start()
     {
         SetStartingValues();
         animator = GetComponent<Animator>();
@@ -83,7 +83,7 @@ public abstract class Moving : MonoBehaviour
         return maxHP;
     }
 
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         hp = hp - amount;
     }
