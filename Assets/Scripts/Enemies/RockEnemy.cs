@@ -7,7 +7,7 @@ public class RockEnemy : Enemy {
 	public float rockStartingDamage = 15.0f;//should be constant
 	public float rockStartingHP = 35.0f;//should be constant
 	public int rockStartingAC = 5;//should be constant
-	public float rockStartingSpeed = 6f;//should be constant
+	public float rockStartingSpeed = 1f;//should be constant
 	public float rockStartingMaxHP = 35f;//should be constant
 	public int rockStartingLevel = 2;//should be constant
 
