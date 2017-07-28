@@ -87,7 +87,7 @@ public class Player : Moving
 
 
 
-        // if (Game.IsPlayersTurn() && !Game.IsPaused())
+        // if (Game.IsPlayersTurn() && !Game.IsPaused()) TODO: delete this if I don't do turn based
         // {
         //     int horizontal = 0;
         //     int vertical = 0;
