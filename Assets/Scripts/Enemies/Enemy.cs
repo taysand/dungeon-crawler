@@ -35,6 +35,7 @@ public abstract class Enemy : Moving
 
         GetComponent<CircleCollider2D>().radius = rangeRadius;
         facingRight = false;
+        inRange = false;
 
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
@@ -106,10 +107,13 @@ public abstract class Enemy : Moving
 
     void OnTriggerExit2D(Collider2D other)
     {
-        inRange = false;
+        if (other.gameObject.tag == Game.playerTag)
+        {
+            inRange = false;
+        }
     }
 
-    void Update()//or FixedUpdate?
+    void FixedUpdate()//or FixedUpdate?
     {
         //Act(); TODO: bring this back?
         //keep calling a movement coroutine?
@@ -271,6 +275,7 @@ public abstract class Enemy : Moving
         {
             EndFollowPath();
             MoveToPlayer();
+            Debug.Log("moving to player");
         }
 
         if (!inRange && !followingPath)
