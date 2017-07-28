@@ -4,8 +4,9 @@ using UnityEngine;
 
 public abstract class Enemy : Moving
 {
+    //coroutine stuff from https://unity3d.com/learn/tutorials/topics/scripting/coroutines?playlist=17117
 
-    //movement stuff
+    //movement stuff FIXME: probably delete
     // public int direction = -1; //starts walking left
     // public float maxDist = 10f;
     // public float minDist = 0f;
@@ -26,7 +27,12 @@ public abstract class Enemy : Moving
     protected Vector2 startingLocation;//starting location
     public Vector2 endLocation;//ending location, set per individual 
     private bool followingPath;
-    protected bool inRange;
+    private bool movingToPlayer;
+    //protected bool inRange; FIXME: probably delete
+
+    // Coroutine names
+    private const string followPath = "FollowPath";
+    private const string moveToPlayer = "MoveToPlayer";
 
     protected override void Start()
     {
@@ -35,7 +41,7 @@ public abstract class Enemy : Moving
 
         GetComponent<CircleCollider2D>().radius = rangeRadius;
         facingRight = false;
-        inRange = false;
+        //inRange = false; FIXME: probably delete
 
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
@@ -47,22 +53,21 @@ public abstract class Enemy : Moving
             Debug.Log("no player object?");
         }
 
-        //coroutine test
-        // endLocation = new Vector2(-5, -1);
         startingLocation = transform.position;
-        StartFollowPath();
-        //do like a distance from it's "starting point" which can change
+        StartFollowingPath();
+        movingToPlayer = false;
+        //do like a distance from it's "starting point" which can change?
     }
 
-    private void StartFollowPath()
+    private void StartFollowingPath()
     {
-        StartCoroutine("FollowPath");
+        StartCoroutine(followPath);
         followingPath = true;
     }
 
-    private void EndFollowPath()
+    private void StopFollowingPath()
     {
-        StopCoroutine("FollowPath");
+        StopCoroutine(followPath);
         followingPath = false;
     }
 
@@ -86,7 +91,7 @@ public abstract class Enemy : Moving
             }
             Flip();
         }
-        StartCoroutine("FollowPath");
+        StartCoroutine(followPath);
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -99,31 +104,28 @@ public abstract class Enemy : Moving
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == Game.playerTag)
+        if ((other.gameObject.tag == Game.playerTag) && !movingToPlayer)
         {
-            inRange = true;
+            //inRange = true;FIXME: probably delete
+            StopFollowingPath();
+            StartMovingToPlayer();
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == Game.playerTag)
+        if ((other.gameObject.tag == Game.playerTag) && !followingPath)
         {
-            inRange = false;
+           // inRange = false;FIXME: probably delete
+           StopMovingToPlayer();
+           StartFollowingPath();
         }
     }
 
-    void FixedUpdate()//or FixedUpdate?
-    {
-        //Act(); TODO: bring this back?
-        //keep calling a movement coroutine?
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            inRange = !inRange;
-        }
-        InRange();
-    }
+    // void FixedUpdate() FIXME: probably delete
+    // {
+    //    // InRange();
+    // }
 
     public override void PlayAttackAnimation()
     {
@@ -205,7 +207,7 @@ public abstract class Enemy : Moving
         DisplayPlayerHealth.UpdateHealthDisplay();
     }
 
-    //https://forum.unity3d.com/threads/left-and-right-enemy-moving-in-2d-platformer.364716/
+    //https://forum.unity3d.com/threads/left-and-right-enemy-moving-in-2d-platformer.364716/ FIXME: probably delete
     // protected void FollowPath()
     // {
     //     float x = transform.position.x;
@@ -238,7 +240,7 @@ public abstract class Enemy : Moving
     //     // transform.position = new Vector2(x, );
     // }
 
-    // public void Act()
+    // public void Act() FIXME: probably delete
     // { //TODO: please 
     //     if (InRange())
     //     {
@@ -257,38 +259,57 @@ public abstract class Enemy : Moving
     //         //     y = random.Next(-2, 2);
     //         // }
     //         // Move(x, y);
+    //         
+    //     }
+    // }
 
-    //         //if (Game.GetVisibleSpots().Contains(location)) {
+    //if (Game.GetVisibleSpots().Contains(location)) { TODO:? can I just use Unity's lighting for this? like give the torch the only source of light and make everything else dark?
     //         // enemy is visible
     //         //	IllumiateOn();
     //         //} else {
     //         //	IlluminateOff();
     //         //}
+
+    // public void InRange()//could just be OnCollision2D? and then nothing in Update? FIXME: probably delete
+    // {
+    //     if (inRange && !movingToPlayer)
+    //     {
+    //         StopFollowingPath();
+    //         StartMovingToPlayer();
+    //     }
+    //     if (!inRange && !followingPath)
+    //     {
+    //         // startingLocation = transform.position;
+    //         StopMovingToPlayer();
+    //         StartFollowingPath();
     //     }
     // }
 
-    public void InRange()//could just be OnCollision2D? and then nothing in Update?
-    { //TODO: please 
-      //checks if the enemy is close enough to the player/should move
-      //to attack or get closer
-        if (inRange)
-        {
-            EndFollowPath();
-            MoveToPlayer();
-        }
-
-        if (!inRange && !followingPath)
-        {
-            // startingLocation = transform.position;
-            StartFollowPath();
-        }
+    private void StartMovingToPlayer() {
+        StartCoroutine(moveToPlayer);
+        movingToPlayer = true;
     }
 
-    //https://unity3d.com/learn/tutorials/topics/2d-game-creation/top-down-2d-game-basics?playlist=17093
-    public void MoveToPlayer()
+    private void StopMovingToPlayer() {
+        StopCoroutine(moveToPlayer);
+        movingToPlayer = false;
+    }
+
+    IEnumerator MoveToPlayer()
     {
-        float z = Mathf.Atan2((player.transform.position.y - transform.position.y), (player.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
-        transform.eulerAngles = new Vector3(0, 0, z);
-        rb2D.AddForce(gameObject.transform.up * speed * 10);
+        float oldX = transform.position.x;
+        while (Vector2.Distance(transform.position, player.transform.position) > .5f) {
+            transform.position = Vector2.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
+            // if (oldX - transform.position.x) { TODO:
+            //     Flip();
+            // }
+            yield return null;
+        }
+
+        //FIXME: probably delete 
+        //https://unity3d.com/learn/tutorials/topics/2d-game-creation/top-down-2d-game-basics?playlist=17093 
+        // float z = Mathf.Atan2((player.transform.position.y - transform.position.y), (player.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
+        // transform.eulerAngles = new Vector3(0, 0, z);
+        // rb2D.AddForce(gameObject.transform.up * speed * 10);
     }
 }
