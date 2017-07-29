@@ -14,6 +14,9 @@ public abstract class Enemy : Moving
     //stats
     protected float damagePerHit;
     protected float rangeRadius;
+    protected int sleepTime;
+    protected int freezeTime;
+    protected int scaredTime;
 
     //conditions
     protected bool sleeping = false;
@@ -28,7 +31,7 @@ public abstract class Enemy : Moving
     public Vector2 endLocation;//ending location, set per individual 
     private bool followingPath;
     private bool movingToPlayer;
-    //protected bool inRange; FIXME: probably delete
+    protected bool inRange;
 
     // Coroutine names
     private const string followPath = "FollowPath";
@@ -71,6 +74,18 @@ public abstract class Enemy : Moving
         followingPath = false;
     }
 
+    // void Update()//FIXME: delete after tests
+    // {
+    //     if (Input.GetKeyDown(KeyCode.X))
+    //     {
+    //         StartCoroutine("Freeze");
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.Z))
+    //     {
+    //         StartCoroutine("Sleep");
+    //     }
+    // }
+
     IEnumerator FollowPath()
     {
         if (facingRight)
@@ -98,7 +113,10 @@ public abstract class Enemy : Moving
     {
         if (other.gameObject.tag == Game.playerTag)
         {
-            Attack(other.gameObject.GetComponent<Player>());
+            if (!frozen && !sleeping)
+            {
+                Attack(other.gameObject.GetComponent<Player>());
+            }
         }
     }
 
@@ -106,9 +124,12 @@ public abstract class Enemy : Moving
     {
         if ((other.gameObject.tag == Game.playerTag) && !movingToPlayer)
         {
-            //inRange = true;FIXME: probably delete
-            StopFollowingPath();
-            StartMovingToPlayer();
+            inRange = true;
+            if (!frozen && !sleeping)
+            {
+                StopFollowingPath();
+                StartMovingToPlayer();
+            }
         }
     }
 
@@ -116,9 +137,12 @@ public abstract class Enemy : Moving
     {
         if ((other.gameObject.tag == Game.playerTag) && !followingPath)
         {
-           // inRange = false;FIXME: probably delete
-           StopMovingToPlayer();
-           StartFollowingPath();
+            inRange = false;
+            if (!frozen && !sleeping)
+            {
+                StopMovingToPlayer();
+                StartFollowingPath();
+            }
         }
     }
 
@@ -156,14 +180,34 @@ public abstract class Enemy : Moving
         level = level - amount;
     }
 
-    public void Sleep()
+    public IEnumerator Sleep()
     {
         sleeping = true;
+        //TODO: play sleep animation 
+        if (movingToPlayer)
+        {
+            StopMovingToPlayer();
+        }
+        else
+        {
+            StopFollowingPath();
+        }
+        yield return new WaitForSeconds(sleepTime);
+        WakeUp();
     }
 
-    public void Wake()
+    public void WakeUp()
     {
         sleeping = false;
+        //TODO: play wake animation 
+        if (inRange)
+        {
+            StartMovingToPlayer();
+        }
+        else
+        {
+            StartFollowingPath();
+        }
     }
 
     public bool IsSleeping()
@@ -171,28 +215,51 @@ public abstract class Enemy : Moving
         return sleeping;
     }
 
-    public void Freeze()
+    public IEnumerator Freeze()
     {
         frozen = true;
+        //TODO: play freeze animation
+        if (movingToPlayer)
+        {
+            StopMovingToPlayer();
+        }
+        else
+        {
+            StopFollowingPath();
+        }
+        yield return new WaitForSeconds(freezeTime);
+        Unfreeze();
     }
 
     public void Unfreeze()
     {
         frozen = false;
+        //TODO: play unfreeze animation
+        if (inRange)
+        {
+            StartMovingToPlayer();
+        }
+        else
+        {
+            StartFollowingPath();
+        }
     }
 
     public bool IsFrozen()
     {
         return frozen;
     }
+
     public void Scare()
     {
         scared = true;
+        //TODO: play scared animation
     }
 
     public void NoLongerScared()
     {
         scared = false;
+        //TODO: play no longer scared animation
     }
 
     public bool IsScared()
@@ -285,12 +352,14 @@ public abstract class Enemy : Moving
     //     }
     // }
 
-    private void StartMovingToPlayer() {
+    private void StartMovingToPlayer()
+    {
         StartCoroutine(moveToPlayer);
         movingToPlayer = true;
     }
 
-    private void StopMovingToPlayer() {
+    private void StopMovingToPlayer()
+    {
         StopCoroutine(moveToPlayer);
         movingToPlayer = false;
     }
@@ -298,7 +367,8 @@ public abstract class Enemy : Moving
     IEnumerator MoveToPlayer()
     {
         float oldX = transform.position.x;
-        while (Vector2.Distance(transform.position, player.transform.position) > .5f) {
+        while (Vector2.Distance(transform.position, player.transform.position) > .5f)
+        {
             transform.position = Vector2.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
             // if (oldX - transform.position.x) { TODO:
             //     Flip();

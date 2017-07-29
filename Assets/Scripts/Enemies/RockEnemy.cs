@@ -5,22 +5,28 @@ using UnityEngine;
 public class RockEnemy : Enemy
 {
 
-    private const float rockStartingDamage = 15.0f;//should be constant
-    private const float rockStartingHP = 35.0f;//should be constant
-    private const int rockStartingAC = 5;//should be constant
-    private const float rockStartingSpeed = 1f;//should be constant
-    private const float rockStartingMaxHP = 35f;//should be constant
-    private const int rockStartingLevel = 2;//should be constant
-    private const float rockStartingRangeRadius = 30f;//should be constant 
+    private const float rockDamage = 15.0f;
+    private const int rockAC = 5;
+    private const float rockSpeed = 1f;
+    private const float rockMaxHP = 35f;
+    private const int rockLevel = 2;
+    private const float rockRangeRadius = 30f;
+    private const int rockSleepTime = 6;
+    private const int rockFreezeTime = 4;
+    private const int rockScaredTime = 1;
 
     protected override void SetStartingValues()
     {
-        hp = rockStartingHP;
-        ac = rockStartingAC;
-        level = rockStartingLevel;
-        speed = rockStartingSpeed;
-        damagePerHit = rockStartingDamage;
-        maxHP = rockStartingMaxHP;
-        rangeRadius = rockStartingRangeRadius;
+        maxHP = rockMaxHP;
+        hp = maxHP;
+        ac = rockAC;
+        level = rockLevel;
+        speed = rockSpeed;
+        damagePerHit = rockDamage;
+        maxHP = rockMaxHP;
+        rangeRadius = rockRangeRadius;
+        sleepTime = rockSleepTime;
+        freezeTime = rockFreezeTime;
+        scaredTime = rockScaredTime;
     }
 }

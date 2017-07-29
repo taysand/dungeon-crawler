@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Spells\DrainSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\FreezeSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\ScareSpell.cs" />
+     <Compile Include="Assets\Scripts\Spells\SleepSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\Spell.cs" />
      <Compile Include="Assets\Scripts\Spells\TeleportSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\TransformSpell.cs" />

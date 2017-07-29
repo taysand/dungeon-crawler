@@ -5,22 +5,27 @@ using UnityEngine;
 public class GemEnemy : Enemy
 {
 
-    private const float gemStartingDamage = 10.0f;//should be constant
-    private const float gemStartingHP = 30.0f;//should be constant
-    private const int gemStartingAC = 3;//should be constant
-    private const float gemStartingSpeed = 1f;//should be constant
-    private const float gemStartingMaxHP = 30f;//should be constant
-    private const int gemStartingLevel = 4;//should be constant
-    private const float gemStartingRangeRadius = 20f;//should be constant 
+    private const float gemDamage = 10.0f;
+    private const int gemAC = 3;
+    private const float gemSpeed = 1f;
+    private const float gemMaxHP = 30f;
+    private const int gemLevel = 4;
+    private const float gemRangeRadius = 20f;
+    private const int gemSleepTime = 4;
+    private const int gemFreezeTime = 1;
+    private const int gemScaredTime = 6;
 
     protected override void SetStartingValues()
     {
-        hp = gemStartingHP;
-        ac = gemStartingAC;
-        level = gemStartingLevel;
-        speed = gemStartingSpeed;
-        damagePerHit = gemStartingDamage;
-        maxHP = gemStartingMaxHP;
-        rangeRadius = gemStartingRangeRadius;
+        maxHP = gemMaxHP;
+        hp = maxHP;
+        ac = gemAC;
+        level = gemLevel;
+        speed = gemSpeed;
+        damagePerHit = gemDamage;     
+        rangeRadius = gemRangeRadius;
+        sleepTime = gemSleepTime;
+        freezeTime = gemFreezeTime;
+        scaredTime = gemScaredTime;
     }
 }

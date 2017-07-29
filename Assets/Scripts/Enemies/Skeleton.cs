@@ -2,24 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skeleton : Enemy {
+public class Skeleton : Enemy
+{
 
-	private const float skeletonStartingDamage = 5.0f;//should be constant
-	private const float skeletonStartingHP = 25.0f;//should be constant
-	private const int skeletonStartingAC = 2;//should be constant
-	private const float skeletonStartingSpeed = 3f;//should be constant
-	private const float skeletonStartingMaxHP = 25f;//should be constant
-	private const int skeletonStartingLevel = 1;//should be constant
-	private const float skeletonStartingRangeRadius = 40f;//should be constant 
+    private const float skeletonDamage = 5.0f;
+    private const float skeletonHP = 25.0f;
+    private const int skeletonAC = 2;
+    private const float skeletonSpeed = 3f;
+    private const float skeletonMaxHP = 25f;
+    private const int skeletonLevel = 1;
+    private const float skeletonRangeRadius = 40f;
+    private const int skeletonSleepTime = 3;
+    private const int skeletonFreezeTime = 5;
+    private const int skeletonScaredTime = 4;
 
-	protected override void SetStartingValues() {
-		hp = skeletonStartingHP;
-		ac = skeletonStartingAC;
-		level = skeletonStartingLevel;
-		speed = skeletonStartingSpeed;
-		damagePerHit = skeletonStartingDamage;
-		maxHP = skeletonStartingMaxHP;
-		rangeRadius = skeletonStartingRangeRadius;
-	}
+    protected override void SetStartingValues()
+    {
+        maxHP = skeletonMaxHP;
+        hp = maxHP;
+        ac = skeletonAC;
+        level = skeletonLevel;
+        speed = skeletonSpeed;
+        damagePerHit = skeletonDamage;
+        rangeRadius = skeletonRangeRadius;
+		sleepTime = skeletonSleepTime;
+		freezeTime = skeletonFreezeTime;
+		scaredTime = skeletonScaredTime;
+    }
 }
 
