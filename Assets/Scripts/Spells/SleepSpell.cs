@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreezeSpell : Spell
+public class SleepSpell : Spell
 {
 
     //can purchase after level one
-    //freezes enemies 
+    //puts enemies to sleep
 
+    private int activeTurns = 1;
     public Enemy enemy;//FIXME: delete after tests
-    private int activeTurns = 1;//TODO: change all activeTurns into like additional sleep/freeze/scare times I guess
+
 
     // Use this for initialization
     void Start()
     {
-        healthLost = 10;//TODO: make constants for starting healthLost?
+        healthLost = 10;
     }
 
     // Update is called once per frame
     void Update()//FIXME: delete after tests
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             Cast(enemy);
         }
@@ -30,7 +31,7 @@ public class FreezeSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
-            StartCoroutine(enemy.Freeze());
+            StartCoroutine(enemy.Sleep());
             return true;
         }
         return false;
