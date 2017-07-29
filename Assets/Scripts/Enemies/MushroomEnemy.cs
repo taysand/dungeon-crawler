@@ -5,22 +5,27 @@ using UnityEngine;
 public class MushroomEnemy : Enemy
 {
 
-    private const float mushroomStartingDamage = 5.0f;//should be constant
-    private const float mushroomStartingHP = 20.0f;//should be constant
-    private const int mushroomStartingAC = 1;//should be constant
-    private const float mushroomStartingSpeed = 2f;//should be constant
-    private const float mushroomStartingMaxHP = 20f;//should be constant
-    private const int mushroomStartingLevel = 3;//should be constant
-    private const float mushroomStartingRangeRadius = 10f;//should be constant 
+    private const float mushroomDamage = 5.0f;
+    private const int mushroomAC = 1;
+    private const float mushroomSpeed = 2f;
+    private const float mushroomMaxHP = 20f;
+    private const int mushroomLevel = 3;
+    private const float mushroomRangeRadius = 10f;
+    private const int mushroomSleepTime = 2;
+    private const int mushroomFreezeTime = 4;
+    private const int mushroomScaredTime = 1;
 
     protected override void SetStartingValues()
     {
-        hp = mushroomStartingHP;
-        ac = mushroomStartingAC;
-        level = mushroomStartingLevel;
-        speed = mushroomStartingSpeed;
-        damagePerHit = mushroomStartingDamage;
-        maxHP = mushroomStartingMaxHP;
-        rangeRadius = mushroomStartingRangeRadius;
+        maxHP = mushroomMaxHP;
+        hp = maxHP;
+        ac = mushroomAC;
+        level = mushroomLevel;
+        speed = mushroomSpeed;
+        damagePerHit = mushroomDamage;
+        rangeRadius = mushroomRangeRadius;
+        sleepTime = mushroomSleepTime;
+        freezeTime = mushroomFreezeTime;
+        scaredTime = mushroomScaredTime;
     }
 }
