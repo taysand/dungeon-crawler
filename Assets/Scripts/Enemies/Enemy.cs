@@ -17,6 +17,7 @@ public abstract class Enemy : Moving
     protected int sleepTime;
     protected int freezeTime;
     protected int scaredTime;
+    protected int scaredDistance;
 
     //conditions
     protected bool sleeping = false;
@@ -74,17 +75,24 @@ public abstract class Enemy : Moving
         followingPath = false;
     }
 
-    // void Update()//FIXME: delete after tests
-    // {
-    //     if (Input.GetKeyDown(KeyCode.X))
-    //     {
-    //         StartCoroutine("Freeze");
-    //     }
-    //     if (Input.GetKeyDown(KeyCode.Z))
-    //     {
-    //         StartCoroutine("Sleep");
-    //     }
-    // }
+    void Update()//FIXME: delete after tests
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log("freezing");
+            StartCoroutine(Freeze());
+        }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Debug.Log("sleeping");
+            StartCoroutine(Sleep());
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            Debug.Log("scared");
+            StartCoroutine(Scare());
+        }
+    }
 
     IEnumerator FollowPath()
     {
@@ -113,7 +121,7 @@ public abstract class Enemy : Moving
     {
         if (other.gameObject.tag == Game.playerTag)
         {
-            if (!frozen && !sleeping)
+            if (!frozen && !sleeping && !scared)
             {
                 Attack(other.gameObject.GetComponent<Player>());
             }
@@ -125,7 +133,7 @@ public abstract class Enemy : Moving
         if ((other.gameObject.tag == Game.playerTag) && !movingToPlayer)
         {
             inRange = true;
-            if (!frozen && !sleeping)
+            if (!frozen && !sleeping && !scared)
             {
                 StopFollowingPath();
                 StartMovingToPlayer();
@@ -138,7 +146,7 @@ public abstract class Enemy : Moving
         if ((other.gameObject.tag == Game.playerTag) && !followingPath)
         {
             inRange = false;
-            if (!frozen && !sleeping)
+            if (!frozen && !sleeping && !scared)
             {
                 StopMovingToPlayer();
                 StartFollowingPath();
@@ -244,16 +252,31 @@ public abstract class Enemy : Moving
         return frozen;
     }
 
-    public void Scare()
+    public IEnumerator Scare()
     {
         scared = true;
         //TODO: play scared animation
+
+        StopMovement();
+
+        while (Vector2.Distance(transform.position, player.transform.position) < scaredDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * speed * Time.deltaTime);
+            // if (oldX - transform.position.x) { TODO:
+            //     Flip();
+            // }
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(scaredTime);
+        NoLongerScared();
     }
 
     public void NoLongerScared()
     {
         scared = false;
         //TODO: play no longer scared animation
+        StartMovement();
     }
 
     public bool IsScared()
@@ -360,7 +383,7 @@ public abstract class Enemy : Moving
 
     IEnumerator MoveToPlayer()
     {
-        float oldX = transform.position.x;
+        //float oldX = transform.position.x;
         while (Vector2.Distance(transform.position, player.transform.position) > .5f)
         {
             transform.position = Vector2.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
