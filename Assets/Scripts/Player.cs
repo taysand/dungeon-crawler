@@ -70,6 +70,11 @@ public class Player : Moving
 
     void FixedUpdate()
     {
+        if (Game.IsPaused())
+        {
+            return;
+        }
+
         //https://unity3d.com/learn/tutorials/topics/2d-game-creation/2d-character-controllers?playlist=17093
         var horizontal = Input.GetAxisRaw(Game.horizontalString);
         var vertical = Input.GetAxisRaw(Game.verticalString);

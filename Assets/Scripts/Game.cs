@@ -10,8 +10,8 @@ public class Game : MonoBehaviour
     private Player player;
     private static List<Enemy> enemies;
     //private static bool playersTurn = true;
-   // private static bool enemiesTurn;
-   // public float turnDelay = 0.1f;
+    // private static bool enemiesTurn;
+    // public float turnDelay = 0.1f;
 
     public const string playerTag = "Player";
     public const string wallTag = "Wall";
@@ -42,7 +42,8 @@ public class Game : MonoBehaviour
         }
     }
 
-    void Update() {
+    void Update()
+    {
         //check for opening and closing menus, but only if a menu isn't already open
         //TODO: map
         if (PauseWindow.Activated())
@@ -130,9 +131,17 @@ public class Game : MonoBehaviour
         player.GetComponent<Animator>().enabled = value;
         for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].GetComponent<Animator>().enabled = value;
+            Enemy enemy = enemies[i];
+            enemy.GetComponent<Animator>().enabled = value;
+            if (value == true)
+            {
+                enemy.StartMovement();
+            }
+            else
+            {
+                enemy.StopMovement();
+            }
         }
-
         animationsPaused = !value;
     }
 

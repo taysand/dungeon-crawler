@@ -184,14 +184,7 @@ public abstract class Enemy : Moving
     {
         sleeping = true;
         //TODO: play sleep animation 
-        if (movingToPlayer)
-        {
-            StopMovingToPlayer();
-        }
-        else
-        {
-            StopFollowingPath();
-        }
+        StopMovement();
         yield return new WaitForSeconds(sleepTime);
         WakeUp();
     }
@@ -200,14 +193,7 @@ public abstract class Enemy : Moving
     {
         sleeping = false;
         //TODO: play wake animation 
-        if (inRange)
-        {
-            StartMovingToPlayer();
-        }
-        else
-        {
-            StartFollowingPath();
-        }
+        StartMovement();
     }
 
     public bool IsSleeping()
@@ -219,14 +205,7 @@ public abstract class Enemy : Moving
     {
         frozen = true;
         //TODO: play freeze animation
-        if (movingToPlayer)
-        {
-            StopMovingToPlayer();
-        }
-        else
-        {
-            StopFollowingPath();
-        }
+        StopMovement();
         yield return new WaitForSeconds(freezeTime);
         Unfreeze();
     }
@@ -235,6 +214,10 @@ public abstract class Enemy : Moving
     {
         frozen = false;
         //TODO: play unfreeze animation
+        StartMovement();
+    }
+
+    public void StartMovement() {
         if (inRange)
         {
             StartMovingToPlayer();
@@ -242,6 +225,17 @@ public abstract class Enemy : Moving
         else
         {
             StartFollowingPath();
+        }
+    }
+
+    public void StopMovement() {
+        if (movingToPlayer)
+        {
+            StopMovingToPlayer();
+        }
+        else
+        {
+            StopFollowingPath();
         }
     }
 
