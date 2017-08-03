@@ -15,6 +15,7 @@ public class Skeleton : Enemy
     private const int skeletonSleepTime = 3;
     private const int skeletonFreezeTime = 5;
     private const int skeletonScaredTime = 4;
+    private const int skeletonScaredDistance = 10;
 
     protected override void SetStartingValues()
     {
@@ -28,6 +29,7 @@ public class Skeleton : Enemy
 		sleepTime = skeletonSleepTime;
 		freezeTime = skeletonFreezeTime;
 		scaredTime = skeletonScaredTime;
+        scaredDistance = skeletonScaredDistance;
     }
 }
 
