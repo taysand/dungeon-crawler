@@ -7,6 +7,7 @@ public abstract class SpellButton : MonoBehaviour
 {
 
     private Text label;
+    private Button button;
     protected string spellName;
     public const string levelUpButtonTag = "LevelUpButton";
     public const string castSpellButtonTag = "CastSpellButton";
@@ -23,6 +24,7 @@ public abstract class SpellButton : MonoBehaviour
         // {
         //     Debug.Log("no player object?");
         // }
+        button = GetComponent<Button>();
         InitializeName();
         if (tag == levelUpButtonTag)
         {
@@ -37,6 +39,8 @@ public abstract class SpellButton : MonoBehaviour
             //replace this once the icons are up
             label = GetComponentInChildren<Text>();
             label.text = spellName;
+
+            UpdateSpellSlots();
         }
     }
 
@@ -47,11 +51,24 @@ public abstract class SpellButton : MonoBehaviour
         if (Player.SpellIsKnown(spellName))
         {
             label.text = spellName + ": Learned!";
-            GetComponent<Button>().interactable = false;
+            button.interactable = false;
         }
         else
         {
             label.text = spellName;
+        }
+    }
+
+    public void UpdateSpellSlots() {
+        if (Player.SpellIsKnown(spellName))
+        {
+            label.text = spellName;
+            button.interactable = true;
+        }
+        else
+        {
+            label.text = "Unknown";
+            button.interactable = false;
         }
     }
 }
