@@ -15,6 +15,7 @@ public abstract class Spell : MonoBehaviour {
 	public const string scareSpell = "Scare";
 	public const string teleportSpell = "Teleport";
 	public const string transformSpell = "Transform";
+	public const string sleepSpell = "Sleep";
 
 	public static List<string> allSpells = new List<string>();
 
@@ -45,6 +46,7 @@ public abstract class Spell : MonoBehaviour {
 		allSpells.Add(scareSpell);
 		allSpells.Add(teleportSpell);
 		allSpells.Add(transformSpell);
+		allSpells.Add(sleepSpell);
 		return allSpells;
 	}
 }

@@ -96,6 +96,7 @@ public abstract class Enemy : Moving
 
     IEnumerator FollowPath()
     {
+        Debug.Log("following path");
         if (facingRight)
         {
             while (Vector2.Distance(transform.position, startingLocation) > .05f)
@@ -190,6 +191,7 @@ public abstract class Enemy : Moving
 
     public IEnumerator Sleep()
     {
+        Debug.Log("sleeping");
         sleeping = true;
         //TODO: play sleep animation 
         StopMovement();
@@ -199,6 +201,7 @@ public abstract class Enemy : Moving
 
     public void WakeUp()
     {
+        Debug.Log("awake");
         sleeping = false;
         //TODO: play wake animation 
         StartMovement();
@@ -211,6 +214,7 @@ public abstract class Enemy : Moving
 
     public IEnumerator Freeze()
     {
+        Debug.Log("frozen");
         frozen = true;
         //TODO: play freeze animation
         StopMovement();
@@ -220,6 +224,7 @@ public abstract class Enemy : Moving
 
     public void Unfreeze()
     {
+        Debug.Log("unfrozen");
         frozen = false;
         //TODO: play unfreeze animation
         StartMovement();
@@ -254,6 +259,7 @@ public abstract class Enemy : Moving
 
     public IEnumerator Scare()
     {
+        Debug.Log("scared");
         scared = true;
         //TODO: play scared animation
 
@@ -275,6 +281,7 @@ public abstract class Enemy : Moving
 
     public void NoLongerScared()
     {
+        Debug.Log("no longer scared");
         scared = false;
         //TODO: play no longer scared animation
         StartMovement();
@@ -384,6 +391,7 @@ public abstract class Enemy : Moving
 
     IEnumerator MoveToPlayer()
     {
+        Debug.Log("moving to player");
         //float oldX = transform.position.x;
         while (Vector2.Distance(transform.position, player.transform.position) > .5f)
         {
