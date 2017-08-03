@@ -261,6 +261,7 @@ public abstract class Enemy : Moving
 
         while (Vector2.Distance(transform.position, player.transform.position) < scaredDistance)
         {
+            //http://answers.unity3d.com/questions/1137454/gameobject1-move-away-when-gameobject2-gets-close.html
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * speed * Time.deltaTime);
             // if (oldX - transform.position.x) { TODO:
             //     Flip();
