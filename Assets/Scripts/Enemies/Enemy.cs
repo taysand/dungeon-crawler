@@ -75,24 +75,24 @@ public abstract class Enemy : Moving
         followingPath = false;
     }
 
-    void Update()//FIXME: delete after tests
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Debug.Log("freezing");
-            StartCoroutine(Freeze());
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log("sleeping");
-            StartCoroutine(Sleep());
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            Debug.Log("scared");
-            StartCoroutine(Scare());
-        }
-    }
+    // void Update()//FIXME: delete after tests
+    // {
+    //     if (Input.GetKeyDown(KeyCode.X))
+    //     {
+    //         Debug.Log("freezing");
+    //         StartCoroutine(Freeze());
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.Z))
+    //     {
+    //         Debug.Log("sleeping");
+    //         StartCoroutine(Sleep());
+    //     }
+    //     if (Input.GetKeyDown(KeyCode.V))
+    //     {
+    //         Debug.Log("scared");
+    //         StartCoroutine(Scare());
+    //     }
+    // }
 
     IEnumerator FollowPath()
     {

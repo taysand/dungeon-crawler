@@ -7,7 +7,7 @@ public class TeleportSpell : Spell {
 	//can purchase after level five
 	//move enemy one space away from its current location
 
-	private int distance = 1; //starting
+	private int distance = 5; //starting
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +22,17 @@ public class TeleportSpell : Spell {
 	protected override bool Cast(Enemy enemy) {
 		//TODO: please
 		if (enemy.GetLevel() <= maxLevelAffected) {
-			//cast the spell
+			float x = enemy.transform.position.x;
+			float y = enemy.transform.position.y;
+
+			System.Random random = new System.Random();
+			if (random.Next(0, 2) == 1) {
+				x = x + distance;
+			} else {
+				y = y + distance;
+			}
+			enemy.transform.position = new Vector2(x, y);
+
 			return true;
 		} 
 		return false;
@@ -30,10 +40,5 @@ public class TeleportSpell : Spell {
 
 	protected override void LevelUp() {
 		base.LevelUp();
-
-		//TODO: please
-		//these should be a one or the other thing
-		//if player picks distance, distance++, unless distance==10, in which case this shouldn't even be an option 
-		//else, healthLost - 5, unless healthLost==10, in which case this shouldn't even be an option
 	}
 }

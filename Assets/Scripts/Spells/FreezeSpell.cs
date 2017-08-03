@@ -8,22 +8,12 @@ public class FreezeSpell : Spell
     //can purchase after level one
     //freezes enemies 
 
-    public Enemy enemy;//FIXME: delete after tests
     private int activeTurns = 1;//TODO: change all activeTurns into like additional sleep/freeze/scare times I guess
 
     // Use this for initialization
     void Start()
     {
         healthLost = 10;//TODO: make constants for starting healthLost?
-    }
-
-    // Update is called once per frame
-    void Update()//FIXME: delete after tests
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Cast(enemy);
-        }
     }
 
     protected override bool Cast(Enemy enemy)

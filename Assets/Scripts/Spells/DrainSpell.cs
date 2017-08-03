@@ -8,26 +8,30 @@ public class DrainSpell : Spell {
 
 	private float percentage = .2f;
 	private const float drainRate = .6f;
+	private Player player;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		 GameObject playerGameObj = GameObject.Find(Game.playerTag);
+        if (playerGameObj != null)
+        {
+            player = playerGameObj.GetComponent<Player>();
+        }
+        else
+        {
+            Debug.Log("no player object?");
+        }
 	}
 
 	protected override bool Cast(Enemy enemy) {
 		if (enemy.GetLevel() <= maxLevelAffected) {
 			float drained = enemy.GetHealth() * percentage;
 			enemy.TakeDamage(drained);
-			//TODO: get player object
-			//Player.Heal(drained * drainRate);
+
+			player.Heal(drained * drainRate);
 
 			if (percentage > .7) {
-				enemy.Sleep();
+				StartCoroutine(enemy.Sleep());
 			}
 			
 			return true;
