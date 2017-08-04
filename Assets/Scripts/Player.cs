@@ -61,6 +61,7 @@ public class Player : Moving
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
+        DisplayPlayerHealth.UpdateHealthDisplay();
         PlayInjuredAnimation();
         if (hp <= 0)
         {
@@ -117,19 +118,56 @@ public class Player : Moving
         // }
     }
 
-    public void CastSpell<T>(T spell) where T : Spell
-    {
-        //TODO: please
-        //use a spell
-        //cast spell, pass the enemy the player's targeting 
-        //if spell works, then health - spell.GetHealthLost
-        // switch (spell) {
-        //     case DrainSpell:
-        //     break
-        //     case Spell.freezeSpell:
+    // public void CastSpell(string spellName)
+    // {
+    //     //TODO: please
+    //     //use a spell
+    //     //cast spell, pass the enemy the player's targeting 
+    //     //if spell works, then health - spell.GetHealthLost
+    //     bool success = false;
+    //     float healthLost = 0;
 
+    //     switch (spellName)
+    //     {
+    //         case Spell.delevelSpell:
+    //             healthLost = DelevelSpell.GetHealthLost();
+    //             success = true;
+    //             break;
+    //         case Spell.drainSpell:
+    //             healthLost = DrainSpell.GetHealthLost();
+    //             success = true;
+    //             break;
+    //         case Spell.freezeSpell:
+        //         healthLost = FreezeSpell.GetHealthLost();
+        //         success = true;
+        //         break;
+        //     case Spell.scareSpell:
+        //         healthLost = ScareSpell.GetHealthLost();
+        //         success = true;
+        //         break;
+        //     case Spell.teleportSpell:
+        //         healthLost = TeleportSpell.GetHealthLost();
+        //         success = true;
+        //         break;
+        //     case Spell.transformSpell:
+        //         healthLost = TransformSpell.GetHealthLost();
+        //         success = true;
+        //         break;
+        //     case Spell.sleepSpell:
+        //         healthLost = SleepSpell.GetHealthLost();
+        //         success = true;
+        //         break;
         // }
-    }
+
+        // if (success)
+    //     // {
+    //         TakeDamage(healthLost);
+    //     }
+    //     else
+    //     {
+    //         //TODO: some sort of message about how the enemy is too powerful
+    //     }
+    // }
 
     public void UsePotion()
     {
@@ -146,6 +184,7 @@ public class Player : Moving
         {
             hp = hp + amount;
         }
+        DisplayPlayerHealth.UpdateHealthDisplay();
     }
 
     public void IncreaseMaxHP(float amount)

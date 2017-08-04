@@ -16,7 +16,7 @@ public class DelevelSpell : Spell {
 		
 	}
 
-	protected override bool Cast(Enemy enemy) {
+	public override bool Cast(Enemy enemy) {
 		if (enemy.GetLevel() <= maxLevelAffected) {
 			enemy.DecreaseLevel(decreaseBy);
 			return true;

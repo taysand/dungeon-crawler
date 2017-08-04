@@ -296,7 +296,6 @@ public abstract class Enemy : Moving
     {
         PlayAttackAnimation();
         player.TakeDamage(damagePerHit);
-        DisplayPlayerHealth.UpdateHealthDisplay();
     }
 
     //https://forum.unity3d.com/threads/left-and-right-enemy-moving-in-2d-platformer.364716/ FIXME: probably delete

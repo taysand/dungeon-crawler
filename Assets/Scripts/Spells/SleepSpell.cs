@@ -16,7 +16,7 @@ public class SleepSpell : Spell
         healthLost = 10;
     }
 
-    protected override bool Cast(Enemy enemy)
+    public override bool Cast(Enemy enemy)
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {

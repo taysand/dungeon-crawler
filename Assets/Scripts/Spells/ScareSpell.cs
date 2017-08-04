@@ -18,7 +18,7 @@ public class ScareSpell : Spell {
 		
 	}
 
-	protected override bool Cast(Enemy enemy) {
+	public override bool Cast(Enemy enemy) {
 		if (enemy.GetLevel() <= maxLevelAffected) {
 			StartCoroutine(enemy.Scare());
 			return true;

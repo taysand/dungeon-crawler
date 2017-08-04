@@ -16,7 +16,7 @@ public class FreezeSpell : Spell
         healthLost = 10;//TODO: make constants for starting healthLost?
     }
 
-    protected override bool Cast(Enemy enemy)
+    public override bool Cast(Enemy enemy)
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {

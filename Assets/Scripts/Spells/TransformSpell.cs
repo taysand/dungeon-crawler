@@ -16,7 +16,7 @@ public class TransformSpell : Spell {
 		
 	}
 
-	protected override bool Cast(Enemy enemy) {
+	public override bool Cast(Enemy enemy) {
 		//TODO: please
 		if (enemy.GetLevel() <= maxLevelAffected) {
 			//cast the spell

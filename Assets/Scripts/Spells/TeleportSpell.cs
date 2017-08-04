@@ -19,7 +19,7 @@ public class TeleportSpell : Spell {
 		
 	}
 
-	protected override bool Cast(Enemy enemy) {
+	public override bool Cast(Enemy enemy) {
 		//TODO: please
 		if (enemy.GetLevel() <= maxLevelAffected) {
 			float x = enemy.transform.position.x;

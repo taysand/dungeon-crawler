@@ -23,7 +23,7 @@ public class DrainSpell : Spell {
         }
 	}
 
-	protected override bool Cast(Enemy enemy) {
+	public override bool Cast(Enemy enemy) {
 		if (enemy.GetLevel() <= maxLevelAffected) {
 			float drained = enemy.GetHealth() * percentage;
 			enemy.TakeDamage(drained);
