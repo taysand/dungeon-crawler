@@ -115,7 +115,7 @@ public class Game : MonoBehaviour
 
     private void CheckPauseWindow()
     {
-        if (Input.GetKeyDown(KeyCode.P) && !paused)
+        if (Input.GetKeyDown(KeyCode.P) && !paused && !SpellButton.Casting())
         {
             PauseWindow.ShowPauseWindow();
             //PlayAnimations(true);
