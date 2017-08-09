@@ -46,7 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CantCastMessage.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\GemEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\MushroomEnemy.cs" />
@@ -72,16 +71,17 @@
      <Compile Include="Assets\Scripts\Spells\spell buttons\SpellButton.cs" />
      <Compile Include="Assets\Scripts\Spells\spell buttons\TeleportButton.cs" />
      <Compile Include="Assets\Scripts\Spells\spell buttons\TransformButton.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\DisplayPlayerHealth.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\GameOver.cs" />
      <Compile Include="Assets\Scripts\UI stuff\GameplayUI.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\PauseWindow.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Menus\GameOver.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Menus\LevelUp.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Menus\PauseWindow.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Messages\CantCastMessage.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Messages\LUImage.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Testing.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\ArmorUpgrade.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\DisplayLevel.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\HealthUpgrade.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LUImage.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LevelUp.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\ArmorUpgrade.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\DisplayLevel.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\DisplayPlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\HealthUpgrade.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
