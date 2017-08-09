@@ -116,25 +116,32 @@ public abstract class SpellButton : MonoBehaviour
     {
         Game.Pause();
 
-        yield return StartCoroutine(WaitForClick());
+        bool success = false;
 
-        bool success = spell.Cast(enemy);
-        float healthLost = spell.GetHealthLost();
-        if (success)
+        while (true)
         {
-            Debug.Log("spell cast");
-            //https://stackoverflow.com/questions/3561202/check-if-instance-of-a-type
-            if (!(spell.GetType() == typeof(DrainSpell)))
+            yield return StartCoroutine(WaitForClick());
+
+            success = spell.Cast(enemy);
+
+            if (success)
             {
-                player.TakeDamage(healthLost);
+                float healthLost = spell.GetHealthLost();
+
+                Debug.Log("spell cast");
+                
+                //https://stackoverflow.com/questions/3561202/check-if-instance-of-a-type
+                if (!(spell.GetType() == typeof(DrainSpell)))
+                {
+                    player.TakeDamage(healthLost);
+                }
+                break;
             }
-        }
-        else
-        {
-            //TODO: some sort of message about how the enemy is too powerful
-            //wait for a new click
-            Message cantCastMessage = GameObject.Find(Message.cantCastMessageName).GetComponent<Message>();
-            cantCastMessage.ShowMessage();
+            else
+            {
+                Message cantCastMessage = GameObject.Find(Message.cantCastMessageName).GetComponent<Message>();
+                cantCastMessage.ShowMessage();
+            }
         }
 
         Game.Unpause();
