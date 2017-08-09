@@ -13,10 +13,12 @@ public abstract class SpellButton : MonoBehaviour
     protected Enemy enemy;
     protected string spellName;
 
+    private static bool casting;
+
     public const string levelUpButtonTag = "LevelUpButton";
-    public const string castSpellButtonTag = "CastSpellButton";
-    public const string targetEnemy = "TargetEnemy";
-    public const string waitForClick = "WaitForClick";
+    private const string castSpellButtonTag = "CastSpellButton";
+    private const string targetEnemy = "TargetEnemy";
+    private const string waitForClick = "WaitForClick";
 
     // Use this for initialization
     protected void Start()
@@ -51,6 +53,13 @@ public abstract class SpellButton : MonoBehaviour
 
             UpdateSpellSlots();
         }
+
+        casting = false;
+    }
+
+    public static bool Casting()
+    {
+        return casting;
     }
 
     protected abstract void InitializeName();
@@ -108,7 +117,9 @@ public abstract class SpellButton : MonoBehaviour
 
     public IEnumerator TargetEnemy()
     {
+        casting = true;
         Game.Pause();
+        GameplayUI.ShowInstructions();
 
         bool success = false;
 
@@ -137,8 +148,7 @@ public abstract class SpellButton : MonoBehaviour
                 cantCastMessage.ShowMessage();
             }
         }
-
-        Game.Unpause();
+        End();
     }
 
     public void OnClick()//make specific to casting
@@ -146,9 +156,20 @@ public abstract class SpellButton : MonoBehaviour
         StartCoroutine(targetEnemy);
     }
 
-    public void CancelCasting() {
+    private void End()
+    {
+        Game.Unpause();
+        casting = false;
+        GameplayUI.HideInstructions();
+
+    }
+
+    public void CancelCasting()
+    {
         StopCoroutine(waitForClick);
         StopCoroutine(targetEnemy);
-        Game.Unpause();
+        End();
     }
+
+    
 }
