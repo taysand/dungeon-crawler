@@ -133,6 +133,8 @@ public abstract class SpellButton : MonoBehaviour
         {
             //TODO: some sort of message about how the enemy is too powerful
             //wait for a new click
+            Message cantCastMessage = GameObject.Find(Message.cantCastMessageName).GetComponent<Message>();
+            cantCastMessage.ShowMessage();
         }
 
         Game.Unpause();
