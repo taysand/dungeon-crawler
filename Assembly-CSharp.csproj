@@ -46,7 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GameOver.cs" />
+     <Compile Include="Assets\CantCastMessage.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\GemEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\MushroomEnemy.cs" />
@@ -64,7 +64,16 @@
      <Compile Include="Assets\Scripts\Spells\Spell.cs" />
      <Compile Include="Assets\Scripts\Spells\TeleportSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\TransformSpell.cs" />
+     <Compile Include="Assets\Scripts\Spells\spell buttons\DelevelButton.cs" />
+     <Compile Include="Assets\Scripts\Spells\spell buttons\DrainButton.cs" />
+     <Compile Include="Assets\Scripts\Spells\spell buttons\FreezeButton.cs" />
+     <Compile Include="Assets\Scripts\Spells\spell buttons\ScareButton.cs" />
+     <Compile Include="Assets\Scripts\Spells\spell buttons\SleepButton.cs" />
+     <Compile Include="Assets\Scripts\Spells\spell buttons\SpellButton.cs" />
+     <Compile Include="Assets\Scripts\Spells\spell buttons\TeleportButton.cs" />
+     <Compile Include="Assets\Scripts\Spells\spell buttons\TransformButton.cs" />
      <Compile Include="Assets\Scripts\UI stuff\DisplayPlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\GameOver.cs" />
      <Compile Include="Assets\Scripts\UI stuff\GameplayUI.cs" />
      <Compile Include="Assets\Scripts\UI stuff\PauseWindow.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Testing.cs" />
@@ -73,13 +82,6 @@
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\HealthUpgrade.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LUImage.cs" />
      <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\LevelUp.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\DelevelButton.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\DrainButton.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\FreezeButton.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\ScareButton.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\SpellButton.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\TeleportButton.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\leveling up stuff\spell buttons\TransformButton.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

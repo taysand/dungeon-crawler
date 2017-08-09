@@ -9,8 +9,6 @@ public class SleepSpell : Spell
     //puts enemies to sleep
 
     private int activeTurns = 1;
-    public Enemy enemy;//FIXME: delete after tests
-
 
     // Use this for initialization
     void Start()
@@ -18,16 +16,7 @@ public class SleepSpell : Spell
         healthLost = 10;
     }
 
-    // Update is called once per frame
-    void Update()//FIXME: delete after tests
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Cast(enemy);
-        }
-    }
-
-    protected override bool Cast(Enemy enemy)
+    public override bool Cast(Enemy enemy)
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {

@@ -15,6 +15,7 @@ public class Game : MonoBehaviour
 
     public const string playerTag = "Player";
     public const string wallTag = "Wall";
+    public const string enemyTag = "Enemy";
     public const string horizontalString = "Horizontal";
     public const string verticalString = "Vertical";
 

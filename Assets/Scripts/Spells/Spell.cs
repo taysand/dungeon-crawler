@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Spell : MonoBehaviour {
 
-	protected int healthLost;
+	protected float healthLost;
 	protected int maxLevelAffected = 5; //is this good? who knows
 	protected int level = 0;
 
@@ -15,6 +15,7 @@ public abstract class Spell : MonoBehaviour {
 	public const string scareSpell = "Scare";
 	public const string teleportSpell = "Teleport";
 	public const string transformSpell = "Transform";
+	public const string sleepSpell = "Sleep";
 
 	public static List<string> allSpells = new List<string>();
 
@@ -27,9 +28,9 @@ public abstract class Spell : MonoBehaviour {
 		
 	}
 
-	protected abstract bool Cast(Enemy enemy);
+	public abstract bool Cast(Enemy enemy);
 
-	public int GetHealthLost() {
+	public float GetHealthLost() {
 		return healthLost;
 	}
 
@@ -45,6 +46,7 @@ public abstract class Spell : MonoBehaviour {
 		allSpells.Add(scareSpell);
 		allSpells.Add(teleportSpell);
 		allSpells.Add(transformSpell);
+		allSpells.Add(sleepSpell);
 		return allSpells;
 	}
 }

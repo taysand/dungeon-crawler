@@ -15,7 +15,7 @@ public class LevelUp : MonoBehaviour
     void Awake()
     {
         gm = GetComponent<CanvasRenderer>().gameObject;
-        levelUpButtons = GameObject.FindGameObjectsWithTag("LevelUpButton");
+        levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButton.levelUpButtonTag);
         HideLevelUpWindow();
     }
 
@@ -66,7 +66,7 @@ public class LevelUp : MonoBehaviour
     }
 
     void Update()
-    {
+    {//TODO: get this out of update
         if (levelUpPoints > 0)
         {
             foreach (GameObject b in levelUpButtons)
