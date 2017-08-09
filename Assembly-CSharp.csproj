@@ -75,8 +75,7 @@
      <Compile Include="Assets\Scripts\UI stuff\Menus\GameOver.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Menus\LevelUp.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Menus\PauseWindow.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\Messages\CantCastMessage.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\Messages\LUImage.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Message.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Testing.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Text\ArmorUpgrade.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Text\DisplayLevel.cs" />

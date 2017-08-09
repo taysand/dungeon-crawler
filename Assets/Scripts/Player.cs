@@ -206,7 +206,8 @@ public class Player : Moving
             }
 
             LevelUp.GainLevelUpPoint();
-            LUImage.ShowAnnouncement();
+            Message levelUpMessage = GameObject.Find(Message.levelUpMessageName).GetComponent<Message>();
+            levelUpMessage.ShowMessage();
             LevelUp.ShowLevelUpWindow();
         }
     }
