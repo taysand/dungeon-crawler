@@ -12,21 +12,15 @@ public abstract class SpellButton : MonoBehaviour
     protected Player player;
     protected Enemy enemy;
     protected string spellName;
+
     public const string levelUpButtonTag = "LevelUpButton";
     public const string castSpellButtonTag = "CastSpellButton";
+    public const string targetEnemy = "TargetEnemy";
+    public const string waitForClick = "WaitForClick";
 
     // Use this for initialization
     protected void Start()
     {
-        // GameObject playerGameObj = GameObject.Find(Game.playerTag);
-        // if (playerGameObj != null)
-        // {
-        //     playerGameObj.GetComponent<Player>().LearnSpell(Spell.drainSpell);
-        // }
-        // else
-        // {
-        //     Debug.Log("no player object?");
-        // }
         button = GetComponent<Button>();
         spell = GetComponent<Spell>();
 
@@ -43,7 +37,7 @@ public abstract class SpellButton : MonoBehaviour
         InitializeName();
         if (tag == levelUpButtonTag)
         {
-            InitializeName();
+            InitializeName();//why twice
             label = GetComponentInChildren<Text>();
             CheckIfKnown();
         }
@@ -120,7 +114,7 @@ public abstract class SpellButton : MonoBehaviour
 
         while (true)
         {
-            yield return StartCoroutine(WaitForClick());
+            yield return StartCoroutine(waitForClick);
 
             success = spell.Cast(enemy);
 
@@ -129,7 +123,7 @@ public abstract class SpellButton : MonoBehaviour
                 float healthLost = spell.GetHealthLost();
 
                 Debug.Log("spell cast");
-                
+
                 //https://stackoverflow.com/questions/3561202/check-if-instance-of-a-type
                 if (!(spell.GetType() == typeof(DrainSpell)))
                 {
@@ -147,8 +141,14 @@ public abstract class SpellButton : MonoBehaviour
         Game.Unpause();
     }
 
-    public void OnClick()
+    public void OnClick()//make specific to casting
     {
-        StartCoroutine(TargetEnemy());
+        StartCoroutine(targetEnemy);
+    }
+
+    public void CancelCasting() {
+        StopCoroutine(waitForClick);
+        StopCoroutine(targetEnemy);
+        Game.Unpause();
     }
 }
