@@ -118,8 +118,6 @@ public abstract class SpellButton : MonoBehaviour
 
         yield return StartCoroutine(WaitForClick());
 
-        Game.Unpause();
-
         bool success = spell.Cast(enemy);
         float healthLost = spell.GetHealthLost();
         if (success)
@@ -134,7 +132,10 @@ public abstract class SpellButton : MonoBehaviour
         else
         {
             //TODO: some sort of message about how the enemy is too powerful
+            //wait for a new click
         }
+
+        Game.Unpause();
     }
 
     public void OnClick()
