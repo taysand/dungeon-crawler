@@ -8,6 +8,9 @@ public class Message : MonoBehaviour
 
     private CanvasRenderer cv;
     private Image image;
+    private Canvas parent;
+    private int originalParentSortingOrder;
+    private int tempSortingorder = 10;
 
     public const string levelUpMessageName = "LevelUpMessage";
     public const string cantCastMessageName = "CantCastMessage";
@@ -20,6 +23,7 @@ public class Message : MonoBehaviour
     {
         cv = GetComponent<CanvasRenderer>();
         image = GetComponent<Image>();
+        parent = transform.parent.GetComponent<Canvas>();
         HideMessage();
     }
 
@@ -30,6 +34,9 @@ public class Message : MonoBehaviour
 
     private IEnumerator DisplayAndFadeMessage()
     {
+        originalParentSortingOrder = parent.sortingOrder;
+        parent.sortingOrder = tempSortingorder;
+
         if (cv != null)
         {
 			cv.SetAlpha(1f);
@@ -54,5 +61,6 @@ public class Message : MonoBehaviour
     private void HideMessage()
     {
         cv.SetAlpha(0f);
+        parent.sortingOrder = originalParentSortingOrder;
     }
 }
