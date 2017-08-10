@@ -37,9 +37,9 @@ public abstract class SpellButton : MonoBehaviour
         }
 
         InitializeName();
+
         if (tag == levelUpButtonTag)
         {
-            InitializeName();//why twice
             label = GetComponentInChildren<Text>();
             CheckIfKnown();
         }
@@ -151,7 +151,7 @@ public abstract class SpellButton : MonoBehaviour
         End();
     }
 
-    public void OnClick()//make specific to casting
+    public void OnCastingClick()
     {
         StartCoroutine(targetEnemy);
     }
@@ -170,6 +170,4 @@ public abstract class SpellButton : MonoBehaviour
         StopCoroutine(targetEnemy);
         End();
     }
-
-    
 }

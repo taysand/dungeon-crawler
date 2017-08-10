@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LevelUp : MonoBehaviour
 {
 
-    static GameObject gm;
+    static GameObject gameOb;
     static bool activated;
 
     private static int levelUpPoints = 0;
@@ -14,7 +14,7 @@ public class LevelUp : MonoBehaviour
 
     void Awake()
     {
-        gm = GetComponent<CanvasRenderer>().gameObject;
+        gameOb = GetComponent<CanvasRenderer>().gameObject;
         levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButton.levelUpButtonTag);
         HideLevelUpWindow();
     }
@@ -28,16 +28,17 @@ public class LevelUp : MonoBehaviour
     {
         Game.Pause();
         activated = true;
-        gm.SetActive(activated);
-		GameplayUI.HideGameplayUI();
+        gameOb.SetActive(activated);
+        GameplayUI.HideGameplayUI();
+        gameOb.GetComponent<LevelUp>().UpdateLevelUpOptions();
     }
 
     public static void StaticHideLevelUpWindow()
     {
         activated = false;
-        gm.SetActive(activated);
+        gameOb.SetActive(activated);
         Game.Unpause();
-		GameplayUI.ShowGameplayUI();
+        GameplayUI.ShowGameplayUI();
     }
 
     public void HideLevelUpWindow()
@@ -63,42 +64,45 @@ public class LevelUp : MonoBehaviour
     public void SpendLevelUpPoints()
     {
         levelUpPoints--;
+        UpdateLevelUpOptions();
     }
 
-    void Update()
-    {//TODO: get this out of update
-        if (levelUpPoints > 0)
+    public void UpdateLevelUpOptions()
+    {
+        DisplayLevel.UpdateDisplayedLevel();
+
+        if (levelUpPoints > 0)//all buttons should be available, unless they're already learned
         {
+            Debug.Log("points available");
             foreach (GameObject b in levelUpButtons)
             {
                 Button button = b.GetComponent<Button>();
                 Text text = button.GetComponentInChildren<Text>();
-                if (text != null)
+                if (text != null)//if there is text aka if it's a spell button
                 {
+                    Debug.Log("setting spell buttons");
                     string label = text.text;
-                    if (Player.SpellIsKnown(label))
+                    if (Player.SpellIsKnown(label))//if we know the spell it shouldn't be an option 
                     {
+                        Debug.Log(label + " is known");
                         button.interactable = false;
                     }
                 }
-                else
+                else//if it's not a spell button then it's an option
                 {
+                    Debug.Log("setting other buttons");
                     button.interactable = true;
                 }
             }
         }
-
-        DisplayLevel.UpdateDisplayedLevel();
-
-        if (levelUpPoints <= 0)
+        else//no level up points, nothing should be active
         {
+            Debug.Log("no points");
             foreach (GameObject b in levelUpButtons)
             {
                 Button button = b.GetComponent<Button>();
                 button.interactable = false;
             }
         }
-
-
     }
 }
