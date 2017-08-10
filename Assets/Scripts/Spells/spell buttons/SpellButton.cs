@@ -170,4 +170,8 @@ public abstract class SpellButton : MonoBehaviour
         StopCoroutine(targetEnemy);
         End();
     }
+
+    public string GetSpellName() {
+        return spellName;
+    }
 }

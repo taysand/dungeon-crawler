@@ -71,33 +71,33 @@ public class LevelUp : MonoBehaviour
     {
         DisplayLevel.UpdateDisplayedLevel();
 
-        if (levelUpPoints > 0)//all buttons should be available, unless they're already learned
+        if (levelUpPoints > 0)
         {
-            Debug.Log("points available");
             foreach (GameObject b in levelUpButtons)
             {
                 Button button = b.GetComponent<Button>();
                 Text text = button.GetComponentInChildren<Text>();
-                if (text != null)//if there is text aka if it's a spell button
+                if (text != null)
                 {
-                    Debug.Log("setting spell buttons");
-                    string label = text.text;
-                    if (Player.SpellIsKnown(label))//if we know the spell it shouldn't be an option 
+                    SpellButton spell = button.GetComponent<SpellButton>();
+                    if (Player.SpellIsKnown(spell.GetSpellName()))
                     {
-                        Debug.Log(label + " is known");
                         button.interactable = false;
                     }
+                    else
+                    {
+                        button.interactable = true;
+                    }
                 }
-                else//if it's not a spell button then it's an option
+                else
                 {
-                    Debug.Log("setting other buttons");
+                    //TODO: some sort of limits on max hp and ac
                     button.interactable = true;
                 }
             }
         }
-        else//no level up points, nothing should be active
+        else
         {
-            Debug.Log("no points");
             foreach (GameObject b in levelUpButtons)
             {
                 Button button = b.GetComponent<Button>();
