@@ -8,8 +8,7 @@ public class DisplayLevel : MonoBehaviour {
 	static Text text;
 	static Player player;
 
-	// Use this for initialization
-	void Start () {
+	void Awake () {
 		text = GetComponent<Text>();
 		GameObject playerGameObj = GameObject.Find(Game.playerTag);
 		if (playerGameObj != null) {
@@ -17,6 +16,9 @@ public class DisplayLevel : MonoBehaviour {
 		} else {
 			 Debug.Log("the player is gone");
 		}
+	}
+
+	void Start() {
 		UpdateDisplayedLevel();
 	}
 	
