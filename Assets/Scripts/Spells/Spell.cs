@@ -28,7 +28,6 @@ public abstract class Spell : MonoBehaviour
     //casting stuff
     private static bool casting = false;
     private Enemy enemy;
-    protected static Spell spell;
     protected Player player;
     private static Spell activeSpell;
     private float cantCastReadTime = .5f;
@@ -39,8 +38,6 @@ public abstract class Spell : MonoBehaviour
     void Awake()
     {
         InitializeStats();
-        spell = GetComponent<Spell>();
-
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
         {

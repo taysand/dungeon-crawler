@@ -16,8 +16,12 @@ public class Game : MonoBehaviour
     public const string playerTag = "Player";
     public const string wallTag = "Wall";
     public const string enemyTag = "Enemy";
+
+    //input names
     public const string horizontalString = "Horizontal";
     public const string verticalString = "Vertical";
+    private const string pauseKey = "Pause";
+    private const string levelKey = "Open Level";
 
     //public float fixedUpdateTime = .4f;
 
@@ -102,12 +106,12 @@ public class Game : MonoBehaviour
 
     private void CheckLevelUpWindow()
     {
-        if (Input.GetKeyDown(KeyCode.L) && LevelUp.Activated())
+        if (Input.GetButtonUp(levelKey) && LevelUp.Activated())
         {
             LevelUp.StaticHideLevelUpWindow();
             //PlayAnimations(true);
         }
-        else if (Input.GetKeyDown(KeyCode.L) && !LevelUp.Activated())
+        else if (Input.GetButtonUp(levelKey) && !LevelUp.Activated())
         {
             LevelUp.ShowLevelUpWindow();
             //PlayAnimations(false);
@@ -116,12 +120,12 @@ public class Game : MonoBehaviour
 
     private void CheckPauseWindow()
     {
-        if (Input.GetKeyDown(KeyCode.P) && !paused && !Spell.Casting())
+        if (Input.GetButtonUp(pauseKey) && !paused && !Spell.Casting())
         {
             PauseWindow.ShowPauseWindow();
             //PlayAnimations(true);
         }
-        else if (Input.GetKeyDown(KeyCode.P) && paused)
+        else if (Input.GetButtonUp(pauseKey) && paused)
         {
             PauseWindow.HidePauseWindow();
             //PlayAnimations(false);
