@@ -90,16 +90,10 @@ public class LevelUp : MonoBehaviour
 
         levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
         
-        foreach (GameObject b in levelUpButtons) {
-            Debug.Log("a tagged button: " + b);
-        }
-
         if (levelUpPoints > 0)
         {
             foreach (GameObject b in levelUpButtons)
             {
-                Debug.Log("points. button: " + b);
-
                 Button button = b.GetComponent<Button>();
                 Text text = button.GetComponentInChildren<Text>();
                 if (text != null)//a spell button
@@ -120,7 +114,6 @@ public class LevelUp : MonoBehaviour
         {
             foreach (GameObject b in levelUpButtons)
             {
-                Debug.Log("no points. button: " + b);
                 Button button = b.GetComponent<Button>();
                 button.interactable = false;
             }

@@ -9,15 +9,15 @@ public class Message : MonoBehaviour
     private CanvasRenderer cv;
     private Image image;
     private Canvas parent;
-    private int originalParentSortingOrder;
+    private int originalParentSortingOrder = 0;
     private int tempSortingorder = 10;
 
     public const string levelUpMessageName = "LevelUpMessage";
     public const string cantCastMessageName = "CantCastMessage";
 
-	private float readTime = .5f;
-	private float fadeRate = .03f;
-	private float fadeDelay = .03f;
+    private float readTime = .5f;
+    private float fadeRate = .03f;
+    private float fadeDelay = .03f;
 
     void Start()
     {
@@ -34,19 +34,19 @@ public class Message : MonoBehaviour
 
     private IEnumerator DisplayAndFadeMessage()
     {
-        originalParentSortingOrder = parent.sortingOrder;
         parent.sortingOrder = tempSortingorder;
 
         if (cv != null)
         {
-			cv.SetAlpha(1f);
-			yield return new WaitForSeconds(readTime);
+            cv.SetAlpha(1f);
+            yield return new WaitForSeconds(readTime);
             while (true)
             {
                 float alpha = cv.GetAlpha();
-				if (alpha <= 0) {
-					break;
-				}
+                if (alpha <= 0)
+                {
+                    break;
+                }
                 cv.SetAlpha(alpha - fadeRate);
                 yield return new WaitForSeconds(fadeDelay);
             }

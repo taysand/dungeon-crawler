@@ -79,8 +79,6 @@ public class SpellButtons : MonoBehaviour
         for (int i = 0; i < allSpellButtons.Count; i++)
         {
             Button button = allSpellButtons[i];
-
-            Debug.Log("creation. button tag is " + button.tag);
             
             if (button.tag == castSpellButtonTag)
             {
