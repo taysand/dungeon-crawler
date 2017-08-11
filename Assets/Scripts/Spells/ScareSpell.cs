@@ -9,6 +9,8 @@ public class ScareSpell : Spell
 
     private const int scareHealthLost = 15;
     private const int scareMaxLevelAffected = 2;
+    private float additionalScareTime = 0;
+    private int additionalScareDistance = 0;
 
     protected override void InitializeStats()
     {
@@ -21,9 +23,15 @@ public class ScareSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
-            StartCoroutine(enemy.Scare());
+            StartCoroutine(enemy.Scare(additionalScareTime, additionalScareDistance));
             return true;
         }
         return false;
+    }
+
+    protected override void LevelUpSpell()
+    {
+        base.LevelUpSpell();
+        //TODO:give another option to increase scare time and distance
     }
 }

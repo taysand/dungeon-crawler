@@ -189,13 +189,13 @@ public abstract class Enemy : Moving
         level = level - amount;
     }
 
-    public IEnumerator Sleep()
+    public IEnumerator Sleep(float additionalSleepTime)
     {
         Debug.Log("sleeping");
         sleeping = true;
         //TODO: play sleep animation 
         StopMovement();
-        yield return new WaitForSeconds(sleepTime);
+        yield return new WaitForSeconds(sleepTime + additionalSleepTime);
         WakeUp();
     }
 
@@ -212,13 +212,13 @@ public abstract class Enemy : Moving
         return sleeping;
     }
 
-    public IEnumerator Freeze()
+    public IEnumerator Freeze(float additionalFreezeTime)
     {
         Debug.Log("frozen");
         frozen = true;
         //TODO: play freeze animation
         StopMovement();
-        yield return new WaitForSeconds(freezeTime);
+        yield return new WaitForSeconds(freezeTime + additionalFreezeTime);
         Unfreeze();
     }
 
@@ -257,7 +257,7 @@ public abstract class Enemy : Moving
         return frozen;
     }
 
-    public IEnumerator Scare()
+    public IEnumerator Scare(float additionalScareTime, int additionalScareDistance)
     {
         Debug.Log("scared");
         scared = true;
@@ -265,7 +265,7 @@ public abstract class Enemy : Moving
 
         StopMovement();
 
-        while (Vector2.Distance(transform.position, player.transform.position) < scaredDistance)
+        while (Vector2.Distance(transform.position, player.transform.position) < scaredDistance + additionalScareDistance)
         {
             //http://answers.unity3d.com/questions/1137454/gameobject1-move-away-when-gameobject2-gets-close.html
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * speed * Time.deltaTime);
@@ -275,7 +275,7 @@ public abstract class Enemy : Moving
             yield return null;
         }
 
-        yield return new WaitForSeconds(scaredTime);
+        yield return new WaitForSeconds(scaredTime + additionalScareTime);
         NoLongerScared();
     }
 
