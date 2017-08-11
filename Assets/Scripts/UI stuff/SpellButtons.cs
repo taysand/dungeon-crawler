@@ -8,7 +8,7 @@ public class SpellButtons : MonoBehaviour
     //adding buttons: http://answers.unity3d.com/questions/875588/unity-ui-dynamic-buttons.html and https://unity3d.com/learn/tutorials/topics/user-interface-ui/adding-buttons-script
     private List<string> allSpellNames = new List<string>();
     private static List<Button> allSpellButtons = new List<Button>();
-	private static List<Button> allCastingButtons = new List<Button>();
+    private static List<Button> allCastingButtons = new List<Button>();
 
     public GameObject castingButtonPrefab;
     public GameObject levelUpButtonPrefab;
@@ -79,7 +79,7 @@ public class SpellButtons : MonoBehaviour
         for (int i = 0; i < allSpellButtons.Count; i++)
         {
             Button button = allSpellButtons[i];
-            
+
             if (button.tag == castSpellButtonTag)
             {
                 button.transform.SetParent(castingParent, false);
@@ -99,7 +99,7 @@ public class SpellButtons : MonoBehaviour
                 //https://forum.unity3d.com/threads/why-wont-onclick-addlistener-accept-a-field.357791/
                 button.onClick.AddListener(button.GetComponent<Spell>().OnCastingClick);
 
-				allCastingButtons.Add(button);
+                allCastingButtons.Add(button);
             }
             else if (button.tag == levelUpButtonTag)
             {
@@ -149,11 +149,29 @@ public class SpellButtons : MonoBehaviour
         }
     }
 
-	public static List<Button> GetAllCastingButtons() {
-		return allCastingButtons;
-	}
+    public static List<Button> GetAllCastingButtons()
+    {
+        return allCastingButtons;
+    }
 
-    public void CancelCasting() {
+    public void CancelCasting()
+    {
         Spell.StopCoroutines(Spell.GetActiveSpell());
+    }
+
+    public static void ActivateCastingButtons(bool value)
+    {
+        GameObject[] castingButtons = GameObject.FindGameObjectsWithTag(SpellButtons.castSpellButtonTag);
+
+        for (int i = 0; i < castingButtons.Length; i++)
+        {
+            Button button = castingButtons[i].GetComponent<Button>();
+            string spellName = button.GetComponent<Spell>().GetSpellName();
+
+            if (!(spellName == Spell.GetActiveSpell().GetSpellName()) && Player.SpellIsKnown(spellName))
+            {
+                button.interactable = value;
+            }
+        }
     }
 }

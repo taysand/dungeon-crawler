@@ -106,6 +106,9 @@ public abstract class Spell : MonoBehaviour
         SpellButtons.CheckIfKnown(button);
 
         int buttonIndex = allSpellNames.IndexOf(spellName);
+
+        //Button castingButton = GameObject.FindGameObjectsWithTag(SpellButtons.castSpellButtonTag)[buttonIndex].GetComponent<Button>(); TODO: returns an empty list for some reason? this method is definitely called after the creation of all the buttons so they should all be there. maybe figure this out later. maybe don't
+
         Button castingButton = SpellButtons.GetAllCastingButtons()[buttonIndex];
         SpellButtons.UpdateSpellSlots(castingButton);
 
@@ -118,13 +121,11 @@ public abstract class Spell : MonoBehaviour
         GameplayUI.ShowInstructions();
 
         activeSpell = GetComponent<Spell>();
-        Debug.Log("activeSpell: " + activeSpell);
 
         bool success = false;
 
         while (true)
         {
-            Debug.Log("target enemy");
             yield return StartCoroutine(waitForClick);
 
             success = Cast(enemy);
@@ -161,6 +162,8 @@ public abstract class Spell : MonoBehaviour
 
     protected IEnumerator WaitForClick()
     {
+        SpellButtons.ActivateCastingButtons(false);
+
         //http://answers.unity3d.com/questions/904427/waiting-for-a-mouse-click-in-a-coroutine.html
         while (true)
         {
@@ -188,10 +191,9 @@ public abstract class Spell : MonoBehaviour
     {
         Game.Unpause();
         casting = false;
+        SpellButtons.ActivateCastingButtons(true);
         activeSpell = null;
-         Debug.Log("activeSpell: " + activeSpell);
         GameplayUI.HideInstructions();
-
     }
 
     public static void StopCoroutines(Spell spell)
