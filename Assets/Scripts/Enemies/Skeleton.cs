@@ -10,7 +10,7 @@ public class Skeleton : Enemy
     private const int skeletonAC = 2;
     private const float skeletonSpeed = 3f;
     private const float skeletonMaxHP = 25f;
-    private const int skeletonLevel = 100;
+    private const int skeletonLevel = 1;
     private const float skeletonRangeRadius = 40f;
     private const int skeletonSleepTime = 3;
     private const int skeletonFreezeTime = 5;

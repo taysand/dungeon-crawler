@@ -154,6 +154,6 @@ public class SpellButtons : MonoBehaviour
 	}
 
     public void CancelCasting() {
-        Spell.StopCoroutines();
+        Spell.StopCoroutines(Spell.GetActiveSpell());
     }
 }
