@@ -31,6 +31,8 @@ public abstract class Spell : MonoBehaviour
     protected static Spell spell;
     protected Player player;
     private static Spell activeSpell;
+    private float cantCastReadTime = .5f;
+    private float cantCastFade = .03f;
 
     private static List<string> allSpellNames = new List<string>();
 
@@ -154,7 +156,7 @@ public abstract class Spell : MonoBehaviour
             else
             {
                 Message cantCastMessage = GameObject.Find(Message.cantCastMessageName).GetComponent<Message>();
-                cantCastMessage.ShowMessage();
+                cantCastMessage.ShowMessage(cantCastReadTime, cantCastFade, cantCastFade);
             }
         }
         End();

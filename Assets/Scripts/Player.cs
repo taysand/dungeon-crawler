@@ -14,6 +14,10 @@ public class Player : Moving
     private int[] levels = { 100, 300, 600, 1000 }; //or whatever
     private int nextLevel;
     private int maxLevel;
+    private float delayAfterLevelUpMessage = .8f;
+    private float levelMessageReadtime = .01f;
+    private float levelMessageFadeRate = .04f;
+    private float levelMessageFadeDelay = .03f;
 
     //conditions
     private bool hidden = false;
@@ -138,28 +142,28 @@ public class Player : Moving
     //             success = true;
     //             break;
     //         case Spell.freezeSpell:
-        //         healthLost = FreezeSpell.GetHealthLost();
-        //         success = true;
-        //         break;
-        //     case Spell.scareSpell:
-        //         healthLost = ScareSpell.GetHealthLost();
-        //         success = true;
-        //         break;
-        //     case Spell.teleportSpell:
-        //         healthLost = TeleportSpell.GetHealthLost();
-        //         success = true;
-        //         break;
-        //     case Spell.transformSpell:
-        //         healthLost = TransformSpell.GetHealthLost();
-        //         success = true;
-        //         break;
-        //     case Spell.sleepSpell:
-        //         healthLost = SleepSpell.GetHealthLost();
-        //         success = true;
-        //         break;
-        // }
+    //         healthLost = FreezeSpell.GetHealthLost();
+    //         success = true;
+    //         break;
+    //     case Spell.scareSpell:
+    //         healthLost = ScareSpell.GetHealthLost();
+    //         success = true;
+    //         break;
+    //     case Spell.teleportSpell:
+    //         healthLost = TeleportSpell.GetHealthLost();
+    //         success = true;
+    //         break;
+    //     case Spell.transformSpell:
+    //         healthLost = TransformSpell.GetHealthLost();
+    //         success = true;
+    //         break;
+    //     case Spell.sleepSpell:
+    //         healthLost = SleepSpell.GetHealthLost();
+    //         success = true;
+    //         break;
+    // }
 
-        // if (success)
+    // if (success)
     //     // {
     //         TakeDamage(healthLost);
     //     }
@@ -206,10 +210,16 @@ public class Player : Moving
             }
 
             LevelUp.GainLevelUpPoint();
-            Message levelUpMessage = GameObject.Find(Message.levelUpMessageName).GetComponent<Message>();
-            levelUpMessage.ShowMessage();
-            LevelUp.ShowLevelUpWindow();
+            StartCoroutine(ShowLevelUpStuff());
         }
+    }
+
+    private IEnumerator ShowLevelUpStuff()
+    {
+        Message levelUpMessage = GameObject.Find(Message.levelUpMessageName).GetComponent<Message>();
+        levelUpMessage.ShowMessage(levelMessageReadtime, levelMessageFadeRate, levelMessageFadeDelay);
+        yield return new WaitForSeconds(delayAfterLevelUpMessage);
+        LevelUp.ShowLevelUpWindow();
     }
 
     public int GetExperience()

@@ -15,10 +15,6 @@ public class Message : MonoBehaviour
     public const string levelUpMessageName = "LevelUpMessage";
     public const string cantCastMessageName = "CantCastMessage";
 
-    private float readTime = .5f;
-    private float fadeRate = .03f;
-    private float fadeDelay = .03f;
-
     void Start()
     {
         cv = GetComponent<CanvasRenderer>();
@@ -27,12 +23,12 @@ public class Message : MonoBehaviour
         HideMessage();
     }
 
-    public void ShowMessage()
+    public void ShowMessage(float readTime, float fadeRate, float fadeDelay)
     {
-        StartCoroutine(DisplayAndFadeMessage());
+        StartCoroutine(DisplayAndFadeMessage(readTime, fadeRate, fadeDelay));
     }
 
-    private IEnumerator DisplayAndFadeMessage()
+    private IEnumerator DisplayAndFadeMessage(float readTime, float fadeRate, float fadeDelay)
     {
         parent.sortingOrder = tempSortingorder;
 
@@ -62,5 +58,6 @@ public class Message : MonoBehaviour
     {
         cv.SetAlpha(0f);
         parent.sortingOrder = originalParentSortingOrder;
+        //TODO: probably get this back to grabbing the actual parent sorting order. it was changing the actual order when it shouldn't have last time so fix that bug
     }
 }
