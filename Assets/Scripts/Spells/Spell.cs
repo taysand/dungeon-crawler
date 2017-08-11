@@ -29,6 +29,7 @@ public abstract class Spell : MonoBehaviour
     private static bool casting = false;
     private Enemy enemy;
     protected static Spell spell;
+    protected Player player;
 
     private static List<string> allSpellNames = new List<string>();
 
@@ -36,6 +37,16 @@ public abstract class Spell : MonoBehaviour
     {
         InitializeStats();
         spell = GetComponent<Spell>();
+        
+        GameObject playerGameObj = GameObject.Find(Game.playerTag);
+        if (playerGameObj != null)
+        {
+            player = playerGameObj.GetComponent<Player>();
+        }
+        else
+        {
+            Debug.Log("no player object?");
+        }
     }
 
     protected abstract void InitializeStats();
@@ -66,8 +77,9 @@ public abstract class Spell : MonoBehaviour
     protected virtual void LevelUpSpell()
     {
         level++;
+        maxLevelAffected += 5;
         //TODO: 
-        //options to increase maxLevelAffected, decrease healthLost
+        //option to decrease healthLost
         //a cap on the number of times you can level up a spell
     }
 

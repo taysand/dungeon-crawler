@@ -61,7 +61,6 @@
      <Compile Include="Assets\Scripts\Spells\ScareSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\SleepSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\Spell.cs" />
-     <Compile Include="Assets\Scripts\Spells\SpellButtons.cs" />
      <Compile Include="Assets\Scripts\Spells\TeleportSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\TransformSpell.cs" />
      <Compile Include="Assets\Scripts\UI stuff\GameplayUI.cs" />
@@ -69,6 +68,7 @@
      <Compile Include="Assets\Scripts\UI stuff\Menus\LevelUp.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Menus\PauseWindow.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Message.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\SpellButtons.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Testing.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Text\ArmorUpgrade.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Text\DisplayLevel.cs" />

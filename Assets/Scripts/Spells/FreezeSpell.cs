@@ -9,6 +9,7 @@ public class FreezeSpell : Spell
 
     private const int freezeHealthLost = 10;
     private const int freezeMaxLevelAffected = 2;
+    private float additionalFreezeTime = 0;
 
     protected override void InitializeStats()
     {
@@ -21,9 +22,15 @@ public class FreezeSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
-            StartCoroutine(enemy.Freeze());
+            StartCoroutine(enemy.Freeze(additionalFreezeTime));
             return true;
         }
         return false;
+    }
+
+    protected override void LevelUpSpell()
+    {
+        base.LevelUpSpell();
+        //TODO:give another option to increase freeze time
     }
 }
