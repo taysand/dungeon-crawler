@@ -31,7 +31,7 @@ public class DrainSpell : Spell
 
             if (percentage > .7)
             {
-                StartCoroutine(enemy.Sleep());
+                StartCoroutine(enemy.Sleep(0f));
             }
 
             return true;
