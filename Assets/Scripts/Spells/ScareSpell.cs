@@ -1,35 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ScareSpell : Spell {
+public class ScareSpell : Spell
+{
+    //can purchase after level three
 
-	//can purchase after level three
+    private const int scareHealthLost = 15;
+    private const int scareMaxLevelAffected = 2;
 
-	private int activeTurns = 1;
+    protected override void InitializeStats()
+    {
+        spellName = scareSpell;
+        healthLost = scareHealthLost;
+        maxLevelAffected = scareMaxLevelAffected;
+    }
 
-	// Use this for initialization
-	void Start () {
-		healthLost = 15;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	public override bool Cast(Enemy enemy) {
-		if (enemy.GetLevel() <= maxLevelAffected) {
-			StartCoroutine(enemy.Scare());
-			return true;
-		} 
-		return false;
-	}
-
-	protected override void LevelUp() {
-		base.LevelUp();
-
-		//if player picks activeTurns, activeTurns++, unless activeTurns==7, in which case this shouldn't even be an option 
-		//else, healthLost - 5, unless healthLost==7, in which case this shouldn't even be an option
-	}
+    public override bool Cast(Enemy enemy)
+    {
+        if (enemy.GetLevel() <= maxLevelAffected)
+        {
+            StartCoroutine(enemy.Scare());
+            return true;
+        }
+        return false;
+    }
 }

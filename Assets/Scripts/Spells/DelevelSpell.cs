@@ -1,32 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class DelevelSpell : Spell {
+public class DelevelSpell : Spell
+{
+    private int decreaseBy = 1;
+    private const int delevelHealthLost = 10;
+    private const int delevelMaxLevelAffected = 2;
 
-	private int decreaseBy = 1; // maybe?
-	
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    protected override void InitializeStats()
+    {
+        spellName = delevelSpell;
+        healthLost = delevelHealthLost;
+        maxLevelAffected = delevelMaxLevelAffected;
+    }
 
-	public override bool Cast(Enemy enemy) {
-		if (enemy.GetLevel() <= maxLevelAffected) {
-			enemy.DecreaseLevel(decreaseBy);
-			return true;
-		} 
-		return false;
-	}
+    public override bool Cast(Enemy enemy)
+    {
+        if (enemy.GetLevel() <= maxLevelAffected)
+        {
+            enemy.DecreaseLevel(decreaseBy);
+            return true;
+        }
+        return false;
+    }
 
-	protected override void LevelUp() {
-		base.LevelUp();
-
-		decreaseBy++;
-	}
+    protected override void LevelUpSpell()
+    {
+        base.LevelUpSpell();
+		//TODO: option to increase the levels lost
+    }
 }

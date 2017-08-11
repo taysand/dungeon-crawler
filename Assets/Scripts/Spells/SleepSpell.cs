@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SleepSpell : Spell
 {
-
     //can purchase after level one
-    //puts enemies to sleep
 
-    private int activeTurns = 1;
+    private const int sleepHealthLost = 10;
+    private const int sleepMaxLevelAffected = 3;
 
-    // Use this for initialization
-    void Start()
-    {
-        healthLost = 10;
+    protected override void InitializeStats() {
+        spellName = sleepSpell;
+        healthLost = sleepHealthLost;
+        maxLevelAffected = sleepMaxLevelAffected;
     }
 
     public override bool Cast(Enemy enemy)
@@ -24,15 +24,5 @@ public class SleepSpell : Spell
             return true;
         }
         return false;
-    }
-
-    protected override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (activeTurns < 5)
-        {
-            activeTurns++;
-        }
     }
 }

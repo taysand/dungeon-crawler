@@ -1,27 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class TransformSpell : Spell {
+public class TransformSpell : Spell
+{
+    //turn enemy into something?
 
-//turn enemy into something?
+    private const int transformHealthLost = 40;
+    private const int transformMaxLevelAffected = 3;
 
-	// Use this for initialization
-	void Start () {
-		healthLost = 30; //initally, maybe
+    protected override void InitializeStats()
+    {
+        spellName = transformSpell;
+        healthLost = transformHealthLost;
+        maxLevelAffected = transformMaxLevelAffected;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-	public override bool Cast(Enemy enemy) {
-		//TODO: please
-		if (enemy.GetLevel() <= maxLevelAffected) {
-			//cast the spell
-			return true;
-		} 
-		return false;
-	}
+    public override bool Cast(Enemy enemy)
+    {
+        //TODO: please
+        if (enemy.GetLevel() <= maxLevelAffected)
+        {
+            //cast the spell
+            return true;
+        }
+        return false;
+    }
 }

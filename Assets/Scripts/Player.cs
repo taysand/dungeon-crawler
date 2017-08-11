@@ -20,7 +20,7 @@ public class Player : Moving
 
     //magic stuff
     private static List<string> knownSpells = new List<string>();
-    private static List<string> unknownSpells = new List<string>();
+    //private static List<string> unknownSpells = new List<string>();
 
     //private torch class probably 
     //does weak damage
@@ -36,7 +36,7 @@ public class Player : Moving
 
         facingRight = true;
 
-        unknownSpells = Spell.CreateSpellList();
+        //unknownSpells = Spell.GetAllSpellNames();
     }
 
     protected override void SetStartingValues()
@@ -251,15 +251,15 @@ public class Player : Moving
         return knownSpells;
     }
 
-    public static List<string> GetUnknownSpells()
-    {
-        return unknownSpells;
-    }
+    // public static List<string> GetUnknownSpells()
+    // {
+    //     return unknownSpells;
+    // }
 
-    public void LearnSpell(string spell)
+    public static void LearnSpell(string spell)
     {
         knownSpells.Add(spell);
-        unknownSpells.Remove(spell);
+        //unknownSpells.Remove(spell);
     }
 
     public static void ResetSpellList()
