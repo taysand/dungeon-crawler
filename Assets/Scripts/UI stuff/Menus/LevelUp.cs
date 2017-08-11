@@ -13,9 +13,11 @@ public class LevelUp : MonoBehaviour
     private static GameObject[] levelUpButtons;
 
     //player stat increases
-    private Player player;
+    private static Player player;
     private const float healthIncrease = 50;
     private const int armorIncrease = 5;
+    private const float maxHealth = 1000f;
+    private const int maxArmor = 20;
 
     void Awake()
     {
@@ -33,7 +35,7 @@ public class LevelUp : MonoBehaviour
         else
         {
             Debug.Log("no player object?");
-        }
+        } 
     }
 
     public static bool Activated()
@@ -106,6 +108,12 @@ public class LevelUp : MonoBehaviour
                 else
                 {
                     //TODO: some sort of limits on max hp and ac
+                    if (player.GetArmor() < maxArmor) {
+                        //armor button is on
+                    }
+                    if (player.GetMaxHP() < maxHealth) {
+                        //health button is on
+                    }
                     button.interactable = true;
                 }
             }
