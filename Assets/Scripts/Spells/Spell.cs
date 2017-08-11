@@ -30,6 +30,7 @@ public abstract class Spell : MonoBehaviour
     private Enemy enemy;
     protected static Spell spell;
     protected Player player;
+    private static Spell activeSpell;
 
     private static List<string> allSpellNames = new List<string>();
 
@@ -37,7 +38,7 @@ public abstract class Spell : MonoBehaviour
     {
         InitializeStats();
         spell = GetComponent<Spell>();
-        
+
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
         {
@@ -116,10 +117,14 @@ public abstract class Spell : MonoBehaviour
         Game.Pause();
         GameplayUI.ShowInstructions();
 
+        activeSpell = GetComponent<Spell>();
+        Debug.Log("activeSpell: " + activeSpell);
+
         bool success = false;
 
         while (true)
         {
+            Debug.Log("target enemy");
             yield return StartCoroutine(waitForClick);
 
             success = Cast(enemy);
@@ -159,6 +164,7 @@ public abstract class Spell : MonoBehaviour
         //http://answers.unity3d.com/questions/904427/waiting-for-a-mouse-click-in-a-coroutine.html
         while (true)
         {
+            Debug.Log("wait for click");
             if (Input.GetMouseButtonDown(0))
             {
                 //https://forum.unity3d.com/threads/unity-2d-raycast-from-mouse-to-screen.211708/
@@ -182,14 +188,28 @@ public abstract class Spell : MonoBehaviour
     {
         Game.Unpause();
         casting = false;
+        activeSpell = null;
+         Debug.Log("activeSpell: " + activeSpell);
         GameplayUI.HideInstructions();
 
     }
 
-    public static void StopCoroutines()
+    public static void StopCoroutines(Spell spell)
     {
-        spell.StopCoroutine(waitForClick);
-        spell.StopCoroutine(targetEnemy);
-        spell.End();
+        if (spell != null)
+        {
+            spell.StopCoroutine(waitForClick);
+            spell.StopCoroutine(targetEnemy);
+            spell.End();
+        }
+        else
+        {
+            Debug.Log("no active spell");
+        }
+    }
+
+    public static Spell GetActiveSpell()
+    {
+        return activeSpell;
     }
 }
