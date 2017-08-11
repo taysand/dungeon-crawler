@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class HealthUpgrade : MonoBehaviour {
 
-	Text healthField;
-	private Player player;
+	static Text healthField;
+	static private Player player;
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +21,7 @@ public class HealthUpgrade : MonoBehaviour {
 		}
 	}
 	
-	public void UpdateHealthField() {
+	public static void UpdateHealthField() {
 		healthField.text = player.GetHealthString();
 	}
 }

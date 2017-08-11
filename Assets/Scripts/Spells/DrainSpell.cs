@@ -1,14 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DrainSpell : Spell {
 
 	//this is the final spell you can get
+	//TODO: make this one look nice
+	//TODO: add player back into spell
 
 	private float percentage = .2f;
 	private const float drainRate = .6f;
 	private Player player;
+
+	private const int drainHealthLost = 0;
+    private const int drainMaxLevelAffected = 6;
+
+    protected override void InitializeStats()
+    {
+        spellName = drainSpell;
+        healthLost = drainHealthLost;
+        maxLevelAffected = drainMaxLevelAffected;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -39,11 +52,8 @@ public class DrainSpell : Spell {
 		return false;
 	}
 
-	protected override void LevelUp() {
-		base.LevelUp();
-
-		if (percentage < .9) {
-			percentage = percentage + .1f;
-		}
+	protected override void LevelUpSpell() {
+		base.LevelUpSpell();
+		//TODO:give another option to increase drain amount
 	}
 }

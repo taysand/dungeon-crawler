@@ -24,6 +24,7 @@ public class Game : MonoBehaviour
     void Awake()
     {
         enemies = new List<Enemy>();
+        Spell.BuildSpellNameList();
         //Time.fixedDeltaTime = fixedUpdateTime;
     }
 
@@ -115,7 +116,7 @@ public class Game : MonoBehaviour
 
     private void CheckPauseWindow()
     {
-        if (Input.GetKeyDown(KeyCode.P) && !paused && !SpellButton.Casting())
+        if (Input.GetKeyDown(KeyCode.P) && !paused && !Spell.Casting())
         {
             PauseWindow.ShowPauseWindow();
             //PlayAnimations(true);

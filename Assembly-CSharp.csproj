@@ -61,16 +61,9 @@
      <Compile Include="Assets\Scripts\Spells\ScareSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\SleepSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\Spell.cs" />
+     <Compile Include="Assets\Scripts\Spells\SpellButtons.cs" />
      <Compile Include="Assets\Scripts\Spells\TeleportSpell.cs" />
      <Compile Include="Assets\Scripts\Spells\TransformSpell.cs" />
-     <Compile Include="Assets\Scripts\Spells\spell buttons\DelevelButton.cs" />
-     <Compile Include="Assets\Scripts\Spells\spell buttons\DrainButton.cs" />
-     <Compile Include="Assets\Scripts\Spells\spell buttons\FreezeButton.cs" />
-     <Compile Include="Assets\Scripts\Spells\spell buttons\ScareButton.cs" />
-     <Compile Include="Assets\Scripts\Spells\spell buttons\SleepButton.cs" />
-     <Compile Include="Assets\Scripts\Spells\spell buttons\SpellButton.cs" />
-     <Compile Include="Assets\Scripts\Spells\spell buttons\TeleportButton.cs" />
-     <Compile Include="Assets\Scripts\Spells\spell buttons\TransformButton.cs" />
      <Compile Include="Assets\Scripts\UI stuff\GameplayUI.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Menus\GameOver.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Menus\LevelUp.cs" />

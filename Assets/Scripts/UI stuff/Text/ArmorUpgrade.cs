@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class ArmorUpgrade : MonoBehaviour {
 
-	Text armorField;
-	private Player player;
+	static Text armorField;
+	static private Player player;
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +21,7 @@ public class ArmorUpgrade : MonoBehaviour {
 		}
 	}
 
-	public void UpdateArmorField() {
+	public static void UpdateArmorField() {
 		armorField.text = "Armor: " + player.GetArmor();
 	}
 }

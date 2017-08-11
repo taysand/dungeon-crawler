@@ -10,13 +10,30 @@ public class LevelUp : MonoBehaviour
     static bool activated;
 
     private static int levelUpPoints = 0;
-    private GameObject[] levelUpButtons;
+    private static GameObject[] levelUpButtons;
+
+    //player stat increases
+    private Player player;
+    private const float healthIncrease = 50;
+    private const int armorIncrease = 5;
 
     void Awake()
     {
         gameOb = GetComponent<CanvasRenderer>().gameObject;
-        levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButton.levelUpButtonTag);
         HideLevelUpWindow();
+    }
+
+    void Start()
+    {
+        GameObject playerGameObj = GameObject.Find(Game.playerTag);
+        if (playerGameObj != null)
+        {
+            player = playerGameObj.GetComponent<Player>();
+        }
+        else
+        {
+            Debug.Log("no player object?");
+        }
     }
 
     public static bool Activated()
@@ -30,7 +47,7 @@ public class LevelUp : MonoBehaviour
         activated = true;
         gameOb.SetActive(activated);
         GameplayUI.HideGameplayUI();
-        gameOb.GetComponent<LevelUp>().UpdateLevelUpOptions();
+        UpdateLevelUpOptions();
     }
 
     public static void StaticHideLevelUpWindow()
@@ -61,30 +78,33 @@ public class LevelUp : MonoBehaviour
         return levelUpPoints;
     }
 
-    public void SpendLevelUpPoints()
+    public static void SpendLevelUpPoints()
     {
         levelUpPoints--;
         UpdateLevelUpOptions();
     }
 
-    public void UpdateLevelUpOptions()
+    public static void UpdateLevelUpOptions()
     {
         DisplayLevel.UpdateDisplayedLevel();
+
+        levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
+        
+        foreach (GameObject b in levelUpButtons) {
+            Debug.Log("a tagged button: " + b);
+        }
 
         if (levelUpPoints > 0)
         {
             foreach (GameObject b in levelUpButtons)
             {
+                Debug.Log("points. button: " + b);
+
                 Button button = b.GetComponent<Button>();
                 Text text = button.GetComponentInChildren<Text>();
-                if (text != null)
+                if (text != null)//a spell button
                 {
-                    SpellButton spell = button.GetComponent<SpellButton>();
-                    if (Player.SpellIsKnown(spell.GetSpellName()))
-                    {
-                        button.interactable = false;
-                    }
-                    else
+                    if (!Player.SpellIsKnown(button.GetComponent<Spell>().GetSpellName()))
                     {
                         button.interactable = true;
                     }
@@ -100,9 +120,25 @@ public class LevelUp : MonoBehaviour
         {
             foreach (GameObject b in levelUpButtons)
             {
+                Debug.Log("no points. button: " + b);
                 Button button = b.GetComponent<Button>();
                 button.interactable = false;
             }
         }
+    }
+
+    public void IncreaseHealth()
+    {
+        player.IncreaseMaxHP(healthIncrease);
+        HealthUpgrade.UpdateHealthField();
+        SpendLevelUpPoints();
+        DisplayPlayerHealth.UpdateHealthDisplay();
+    }
+
+    public void IncreaseArmor()
+    {
+        player.IncreaseArmor(armorIncrease);
+        ArmorUpgrade.UpdateArmorField();
+        SpendLevelUpPoints();
     }
 }

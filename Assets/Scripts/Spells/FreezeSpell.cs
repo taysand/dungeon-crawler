@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FreezeSpell : Spell
 {
-
     //can purchase after level one
-    //freezes enemies 
 
-    private int activeTurns = 1;//TODO: change all activeTurns into like additional sleep/freeze/scare times I guess
+    private const int freezeHealthLost = 10;
+    private const int freezeMaxLevelAffected = 2;
 
-    // Use this for initialization
-    void Start()
+    protected override void InitializeStats()
     {
-        healthLost = 10;//TODO: make constants for starting healthLost?
-    }
+        spellName = freezeSpell;
+        healthLost = freezeHealthLost;
+        maxLevelAffected = freezeMaxLevelAffected;
+	}
 
     public override bool Cast(Enemy enemy)
     {
@@ -24,15 +25,5 @@ public class FreezeSpell : Spell
             return true;
         }
         return false;
-    }
-
-    protected override void LevelUp()
-    {
-        base.LevelUp();
-
-        if (activeTurns < 5)
-        {
-            activeTurns++;
-        }
     }
 }
