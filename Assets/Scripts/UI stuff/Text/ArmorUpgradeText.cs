@@ -5,6 +5,6 @@ using UnityEngine;
 public class ArmorUpgradeText : ChangingText {
 
 	public override void UpdateTextField() {
-		textField.text = "Armor: " + player.GetArmor();
+		textField.text = "AC: " + player.GetArmor();
 	}
 }

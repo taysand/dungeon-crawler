@@ -12,8 +12,4 @@ public class DisplayHealthText : ChangingText {
 			textField.text = "HP: 0/" + player.GetMaxHP();
 		}
 	}
-
-	// public void UpdateHealthDisplayAfterUpgrading() {
-	// 	textField.text = player.GetHealthString();
-	// }
 }

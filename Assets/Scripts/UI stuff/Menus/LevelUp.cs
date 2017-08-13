@@ -21,10 +21,18 @@ public class LevelUp : MonoBehaviour
 
     //text fields
     private static DisplayLevelText levelDisplayStatic;
-    [SerializeField] private DisplayLevelText levelDisplay;
-    [SerializeField] private HealthUpgradeText healthUpgradeText;
-    [SerializeField] private DisplayHealthText hpDisplay;
-    [SerializeField] private ArmorUpgradeText armorUpgradeText;
+    public DisplayLevelText levelDisplay;
+    public HealthUpgradeText healthUpgradeText;
+    public DisplayHealthText hpDisplay;
+    public ArmorUpgradeText armorUpgradeText;
+
+    //upgrade buttons
+    public GameObject plusButtonPrefab;
+    private const string health = "health";
+    private const string armor = "armor";
+    private const string font = "Arial.ttf";
+    private Color fontColor;
+    private const string upgradeParent = "hp and ac upgrade";
 
     void Awake()
     {
@@ -36,11 +44,68 @@ public class LevelUp : MonoBehaviour
         else
         {
             Debug.Log("no player object?");
-        } 
+        }
 
         gameOb = GetComponent<CanvasRenderer>().gameObject;
         HideLevelUpWindow();
         levelDisplayStatic = levelDisplay;
+
+        fontColor = new Color(.57f, .08f, 1f, 1f);
+        AddNonSpellUpgrades();
+    }
+
+    private void AddNonSpellUpgrades()
+    {
+        BuildText(health);
+        BuildButton(health);
+        BuildText(armor);
+        BuildButton(armor);
+    }
+
+    private void BuildText(string textType)
+    {
+        GameObject o = new GameObject();
+        Text text = o.AddComponent<Text>();
+        text.font = Resources.GetBuiltinResource(typeof(Font), font) as Font;
+        text.color = fontColor;//TODO: broken 
+        text.fontStyle = FontStyle.Bold;
+        text.alignment = TextAnchor.MiddleCenter;
+
+        if (textType == health)
+        {
+            o.AddComponent<HealthUpgradeText>();
+        }
+        else if (textType == armor)
+        {
+            o.AddComponent<ArmorUpgradeText>();
+        }
+        else
+        {
+            Debug.Log("wrong text type");
+        }
+        o.transform.SetParent(transform.Find(upgradeParent), false);
+    }
+
+    private void BuildButton(string buttonType)
+    {
+        GameObject button = Instantiate(plusButtonPrefab) as GameObject;
+        if (buttonType == health)
+        {
+            button.GetComponent<Button>().onClick.AddListener(IncreaseHealth);
+        }
+        else if (buttonType == armor)
+        {
+            button.GetComponent<Button>().onClick.AddListener(IncreaseArmor);
+        }
+        else
+        {
+            Debug.Log("wrong button type");
+        }
+        button.transform.SetParent(transform.Find(upgradeParent), false);
+        Transform childText = button.transform.Find("Text");
+        Destroy(childText.gameObject);
+
+        Debug.Log("plus button tag: " + button.tag);
     }
 
     public static bool Activated()
@@ -96,7 +161,11 @@ public class LevelUp : MonoBehaviour
         levelDisplayStatic.UpdateTextField();
 
         levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
-        
+
+        foreach (GameObject b in levelUpButtons) {
+            Debug.Log(b);
+        }
+
         if (levelUpPoints > 0)
         {
             foreach (GameObject b in levelUpButtons)
@@ -113,10 +182,12 @@ public class LevelUp : MonoBehaviour
                 else
                 {
                     //TODO: some sort of limits on max hp and ac
-                    if (player.GetArmor() < maxArmor) {
+                    if (player.GetArmor() < maxArmor)
+                    {
                         //armor button is on
                     }
-                    if (player.GetMaxHP() < maxHealth) {
+                    if (player.GetMaxHP() < maxHealth)
+                    {
                         //health button is on
                     }
                     button.interactable = true;

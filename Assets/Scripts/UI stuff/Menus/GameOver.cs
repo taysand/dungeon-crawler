@@ -7,15 +7,9 @@ public class GameOver : MonoBehaviour {
 	static GameObject gm;
 	private static bool gameOver;
 
-	// Use this for initialization
 	void Awake () {
 		gm = GetComponent<Canvas>().gameObject;
 		HideGameOver();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	public static void ShowGameOver() {
