@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameOver : MonoBehaviour {
 
 	static GameObject gm;
+	private static bool gameOver;
 
 	// Use this for initialization
 	void Awake () {
@@ -18,6 +19,7 @@ public class GameOver : MonoBehaviour {
 	}
 
 	public static void ShowGameOver() {
+		gameOver = true;
 		gm.SetActive(true);
 		//DisplayPlayerHealth.UpdateHealthDisplay();
 		Game.Pause();
@@ -29,7 +31,12 @@ public class GameOver : MonoBehaviour {
 	}
 
 	public static void HideGameOver() {
+		gameOver = false;
 		gm.SetActive(false);
 		Game.Unpause();
+	}
+
+	public static bool IsGameOver() {
+		return gameOver;
 	}
 }
