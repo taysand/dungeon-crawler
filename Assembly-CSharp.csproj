@@ -70,10 +70,11 @@
      <Compile Include="Assets\Scripts\UI stuff\Message.cs" />
      <Compile Include="Assets\Scripts\UI stuff\SpellButtons.cs" />
      <Compile Include="Assets\Scripts\UI stuff\Testing.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\Text\ArmorUpgrade.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\Text\DisplayLevel.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\Text\DisplayPlayerHealth.cs" />
-     <Compile Include="Assets\Scripts\UI stuff\Text\HealthUpgrade.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\ArmorUpgradeText.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\ChangingText.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\DisplayHealthText.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\DisplayLevelText.cs" />
+     <Compile Include="Assets\Scripts\UI stuff\Text\HealthUpgradeText.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

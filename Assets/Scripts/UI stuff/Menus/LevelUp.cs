@@ -19,13 +19,14 @@ public class LevelUp : MonoBehaviour
     private const float maxHealth = 1000f;
     private const int maxArmor = 20;
 
-    void Awake()
-    {
-        gameOb = GetComponent<CanvasRenderer>().gameObject;
-        HideLevelUpWindow();
-    }
+    //text fields
+    private static DisplayLevelText levelDisplayStatic;
+    [SerializeField] private DisplayLevelText levelDisplay;
+    [SerializeField] private HealthUpgradeText healthUpgradeText;
+    [SerializeField] private DisplayHealthText hpDisplay;
+    [SerializeField] private ArmorUpgradeText armorUpgradeText;
 
-    void Start()
+    void Awake()
     {
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
@@ -36,6 +37,10 @@ public class LevelUp : MonoBehaviour
         {
             Debug.Log("no player object?");
         } 
+
+        gameOb = GetComponent<CanvasRenderer>().gameObject;
+        HideLevelUpWindow();
+        levelDisplayStatic = levelDisplay;
     }
 
     public static bool Activated()
@@ -88,7 +93,7 @@ public class LevelUp : MonoBehaviour
 
     public static void UpdateLevelUpOptions()
     {
-        DisplayLevel.UpdateDisplayedLevel();
+        levelDisplayStatic.UpdateTextField();
 
         levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
         
@@ -131,15 +136,15 @@ public class LevelUp : MonoBehaviour
     public void IncreaseHealth()
     {
         player.IncreaseMaxHP(healthIncrease);
-        HealthUpgrade.UpdateHealthField();
+        healthUpgradeText.UpdateTextField();
         SpendLevelUpPoints();
-        DisplayPlayerHealth.UpdateHealthDisplay();
+        hpDisplay.UpdateTextField();
     }
 
     public void IncreaseArmor()
     {
         player.IncreaseArmor(armorIncrease);
-        ArmorUpgrade.UpdateArmorField();
+        armorUpgradeText.UpdateTextField();
         SpendLevelUpPoints();
     }
 }
