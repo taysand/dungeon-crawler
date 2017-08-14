@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Moving
 {
+    //stats
     public float playerStartingHP = 100f;//should be constant
     public int playerStartingAC = 2;//should be constant
     public float playerStartingMaxHP = 100f;//should be constant
@@ -24,6 +25,8 @@ public class Player : Moving
 
     //magic stuff
     private static List<string> knownSpells = new List<string>();
+
+    public DisplayHealthText hpDisplay;
     //private static List<string> unknownSpells = new List<string>();
 
     //private torch class probably 
@@ -65,7 +68,7 @@ public class Player : Moving
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);
-        DisplayPlayerHealth.UpdateHealthDisplay();
+        hpDisplay.UpdateTextField();
         PlayInjuredAnimation();
         if (hp <= 0)
         {
@@ -188,14 +191,14 @@ public class Player : Moving
         {
             hp = hp + amount;
         }
-        DisplayPlayerHealth.UpdateHealthDisplay();
+        hpDisplay.UpdateTextField();
     }
 
     public void IncreaseMaxHP(float amount)
     {
         maxHP = amount + maxHP;
         hp = amount + hp;
-        DisplayPlayerHealth.UpdateHealthDisplay();
+        hpDisplay.UpdateTextField();
     }
 
     public void LevelUpM()
