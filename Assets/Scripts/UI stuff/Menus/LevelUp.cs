@@ -67,7 +67,7 @@ public class LevelUp : MonoBehaviour
         GameObject o = new GameObject();
         Text text = o.AddComponent<Text>();
         text.font = Resources.GetBuiltinResource(typeof(Font), font) as Font;
-        text.color = fontColor;//TODO: broken 
+        text.color = fontColor; 
         text.fontStyle = FontStyle.Bold;
         text.alignment = TextAnchor.MiddleCenter;
 
@@ -104,8 +104,6 @@ public class LevelUp : MonoBehaviour
         button.transform.SetParent(transform.Find(upgradeParent), false);
         Transform childText = button.transform.Find("Text");
         Destroy(childText.gameObject);
-
-        Debug.Log("plus button tag: " + button.tag);
     }
 
     public static bool Activated()
