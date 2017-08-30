@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelUp : MonoBehaviour
+public class LevelUpMenu : Menu
 {
 
-    static GameObject gameOb;
-    static bool activated;
+    // static GameObject gm;
+    // static bool activated;
 
     private static int levelUpPoints = 0;
     private static GameObject[] levelUpButtons;
@@ -34,70 +34,66 @@ public class LevelUp : MonoBehaviour
     private Color fontColor;
     private const string upgradeParent = "hp and ac upgrade";
 
-    void Awake()
-    {
+    private static LevelUpMenu levelUpMenu;
+
+    public override void Awake() {
+        base.Awake();
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
         {
             player = playerGameObj.GetComponent<Player>();
-        }
-        else
+        } else
         {
             Debug.Log("no player object?");
         }
 
-        gameOb = GetComponent<CanvasRenderer>().gameObject;
-        HideLevelUpWindow();
-        levelDisplayStatic = levelDisplay;
+        // gm = GetComponent<CanvasRenderer>().gameObject;
+        // HideLevelUpWindow();
+
+        levelUpMenu = GetComponent<LevelUpMenu>();
+        
 
         fontColor = new Color(.57f, .08f, 1f, 1f);
         AddNonSpellUpgrades();
     }
 
-    private void AddNonSpellUpgrades()
-    {
+    private void AddNonSpellUpgrades() {
         BuildText(health);
         BuildButton(health);
         BuildText(armor);
         BuildButton(armor);
     }
 
-    private void BuildText(string textType)
-    {
+    private void BuildText(string textType) {
         GameObject o = new GameObject();
         Text text = o.AddComponent<Text>();
         text.font = Resources.GetBuiltinResource(typeof(Font), font) as Font;
-        text.color = fontColor; 
+        text.color = fontColor;
         text.fontStyle = FontStyle.Bold;
         text.alignment = TextAnchor.MiddleCenter;
 
         if (textType == health)
         {
             o.AddComponent<HealthUpgradeText>();
-        }
-        else if (textType == armor)
+        } else if (textType == armor)
         {
             o.AddComponent<ArmorUpgradeText>();
-        }
-        else
+        } else
         {
             Debug.Log("wrong text type");
         }
         o.transform.SetParent(transform.Find(upgradeParent), false);
     }
 
-    private void BuildButton(string buttonType)
-    {
+    private void BuildButton(string buttonType) {
         GameObject button = Instantiate(plusButtonPrefab) as GameObject;
         if (buttonType == health)
         {
             button.GetComponent<Button>().onClick.AddListener(IncreaseHealth);
-        }
-        else if (buttonType == armor)
+        } else if (buttonType == armor)
         {
             button.GetComponent<Button>().onClick.AddListener(IncreaseArmor);
-        }
-        else
+        } else
         {
             Debug.Log("wrong button type");
         }
@@ -106,61 +102,57 @@ public class LevelUp : MonoBehaviour
         Destroy(childText.gameObject);
     }
 
-    public static bool Activated()
-    {
-        return activated;
+    public static bool Activated() {
+        return levelUpMenu.activated;
     }
 
-    public static void ShowLevelUpWindow()
-    {
-        Game.Pause();
-        activated = true;
-        gameOb.SetActive(activated);
-        GameplayUI.HideGameplayUI();
+    public override void ShowMenu() {
+        base.ShowMenu();
+        
+        if (levelDisplayStatic == null) {
+             levelDisplayStatic = levelDisplay;
+        }
         UpdateLevelUpOptions();
     }
 
-    public static void StaticHideLevelUpWindow()
-    {
-        activated = false;
-        gameOb.SetActive(activated);
-        Game.Unpause();
-        GameplayUI.ShowGameplayUI();
-    }
+    // public static void StaticHideLevelUpWindow()
+    // {
+    //     activated = false;
+    //     gm.SetActive(activated);
+    //     Game.Unpause();
+    //     GameplayUI.ShowGameplayUI();
+    // }
 
-    public void HideLevelUpWindow()
-    {
-        StaticHideLevelUpWindow();
-    }
+    // //the non static method for buttons
+    // public void HideLevelUpWindow() {
+    //     HideMenu();
+    // }
 
     //public void HideEverything() {
     //	LUImage.HideAnnouncement();
     //	HideLevelUpWindow();
     //}
 
-    public static void GainLevelUpPoint()
-    {
+    public static void GainLevelUpPoint() {
         levelUpPoints++;
     }
 
-    public static int GetLevelUpPoints()
-    {
+    public static int GetLevelUpPoints() {
         return levelUpPoints;
     }
 
-    public static void SpendLevelUpPoints()
-    {
+    public static void SpendLevelUpPoints() {
         levelUpPoints--;
         UpdateLevelUpOptions();
     }
 
-    public static void UpdateLevelUpOptions()
-    {
+    public static void UpdateLevelUpOptions() {
         levelDisplayStatic.UpdateTextField();
 
         levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
 
-        foreach (GameObject b in levelUpButtons) {
+        foreach (GameObject b in levelUpButtons)
+        {
             Debug.Log(b);
         }
 
@@ -176,8 +168,7 @@ public class LevelUp : MonoBehaviour
                     {
                         button.interactable = true;
                     }
-                }
-                else
+                } else
                 {
                     //TODO: some sort of limits on max hp and ac
                     if (player.GetArmor() < maxArmor)
@@ -191,8 +182,7 @@ public class LevelUp : MonoBehaviour
                     button.interactable = true;
                 }
             }
-        }
-        else
+        } else
         {
             foreach (GameObject b in levelUpButtons)
             {
@@ -202,16 +192,14 @@ public class LevelUp : MonoBehaviour
         }
     }
 
-    public void IncreaseHealth()
-    {
+    public void IncreaseHealth() {
         player.IncreaseMaxHP(healthIncrease);
         healthUpgradeText.UpdateTextField();
         SpendLevelUpPoints();
         hpDisplay.UpdateTextField();
     }
 
-    public void IncreaseArmor()
-    {
+    public void IncreaseArmor() {
         player.IncreaseArmor(armorIncrease);
         armorUpgradeText.UpdateTextField();
         SpendLevelUpPoints();
