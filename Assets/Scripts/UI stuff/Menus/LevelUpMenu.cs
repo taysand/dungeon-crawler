@@ -20,7 +20,6 @@ public class LevelUpMenu : Menu
     public DisplayHealthText hpDisplay;
 
     //adding buttons and text fields 
-    private const string levelUpFont = "Arial.ttf";
     private const string upgradePath = "LevelUp/upgrade options/hp and ac upgrade";
     private const string donePath = "LevelUp/done button panel";
     private const string titlePath = "LevelUp/title panel";
@@ -32,13 +31,11 @@ public class LevelUpMenu : Menu
     private static LevelUpMenu levelUpMenu;
 
     protected override void AdditionalSetUp() {
-        font = levelUpFont;
-        fontColor = new Color(.57f, .08f, 1f, 1f);
 
         upgradeParent = transform.Find(upgradePath);
         doneParent = transform.Find(donePath);
         titleParent = transform.Find(titlePath);
-        
+
         levelUpMenu = GetComponent<LevelUpMenu>();
 
         GameObject playerGameObj = GameObject.Find(Game.playerTag);

@@ -9,8 +9,7 @@ public class GameOverMenu : Menu
     private static GameOverMenu gameOverMenu;
 
     //adding buttons
-    public GameObject mainMenuButtonPrefab;
-    public GameObject restartButtonPrefab;
+    public GameObject buttonPrefab;
     private const string buttonsPath = "buttons panel";
     private Transform buttonsParent;
 
@@ -22,8 +21,8 @@ public class GameOverMenu : Menu
     }
 
     protected override void BuildButtonsAndText() {
-        BuildButton(mainMenu, buttonsParent, mainMenuButtonPrefab);
-        BuildButton(restart, buttonsParent, restartButtonPrefab);
+        BuildButton(mainMenu, buttonsParent, buttonPrefab);
+        BuildButton(restart, buttonsParent, buttonPrefab);
     }
 
     public static void ShowGameOver() {

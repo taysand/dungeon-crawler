@@ -9,7 +9,7 @@ public abstract class Menu : MonoBehaviour
     protected GameObject canvas;
     protected bool activated;
 
-    protected string font;
+    protected string font = "Arial.ttf";
     protected Color fontColor;
     protected const int titleFontSize = 25;
 
@@ -17,18 +17,27 @@ public abstract class Menu : MonoBehaviour
     protected const string health = "health";
     protected const string armor = "armor";
     protected const string levelInfo = "level info";
-    protected const string done = "done";
+    protected const string done = "Done";
     public LevelUpMenu lUM;//also not great because it's everywhere. TODO: maybe make it just Menu and then have it be the menu that I'm dealing with? or just have a Menu be an argument to the button thing
+	public PauseMenu pM; //TODO: also bad
     protected HealthUpgradeText healthUpgradeText;
     protected ArmorUpgradeText armorUpgradeText;
     protected static DisplayLevelText levelDisplay;
 
     //for game over
-    protected const string restart = "restart";
-    protected const string mainMenu = "main menu";
+    protected const string restart = "Restart";
+    protected const string mainMenu = "Main Menu";
+
+    //for pause
+    protected const string pauseTitle = "pause title";
+    protected const string resume = "Resume";
+    protected const string levelUp = "Open Level Up";
+    protected const string settings = "Settings";
+    private const string pauseTitleText = "Paused";
 
     void Awake() {
         canvas = GetComponent<Canvas>().gameObject;
+		fontColor = new Color(.57f, .08f, 1f, 1f);
         AdditionalSetUp();
         BuildButtonsAndText();
         HideMenu();
@@ -58,6 +67,10 @@ public abstract class Menu : MonoBehaviour
                 text.fontSize = titleFontSize;
                 levelDisplay = o.AddComponent<DisplayLevelText>();
                 break;
+            case pauseTitle:
+                text.fontSize = titleFontSize;
+                text.text = pauseTitleText;
+                break;
             default:
                 Debug.Log("wrong text type");
                 break;
@@ -68,6 +81,11 @@ public abstract class Menu : MonoBehaviour
 
     protected void BuildButton(string buttonType, Transform parent, GameObject buttonPrefab) {
         GameObject button = Instantiate(buttonPrefab) as GameObject;
+
+		Text text = button.transform.GetComponent<Text>();
+		if (text != null) {
+			text.text = buttonType;//TODO: fix this
+		}
 
         switch (buttonType)
         {
@@ -81,17 +99,27 @@ public abstract class Menu : MonoBehaviour
                 button.GetComponent<Button>().onClick.AddListener(lUM.HideMenu);
                 break;
             case mainMenu:
-				//TODO: make the onClick
+                //TODO: make the onClick
                 break;
             case restart:
+                //TODO: make the onClick
+                break;
+            case resume:
+                button.GetComponent<Button>().onClick.AddListener(pM.HideMenu);
+                break;
+            case levelUp:
+                button.GetComponent<Button>().onClick.AddListener(lUM.ShowMenu);
+                break;
+			case settings:
 				//TODO: make the onClick
                 break;
             default:
-                Debug.Log("wrong button type");
+                Debug.Log("wrong button type: " + buttonType);
                 break;
         }
 
-        button.transform.SetParent(parent, false);
+		button.transform.SetParent(parent, false);
+
         Transform childText = button.transform.Find("Text");
         if (childText != null)
         {

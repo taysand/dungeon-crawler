@@ -7,44 +7,23 @@ public class PauseMenu : Menu
 
     public Menu levelUpMenu;
     private static PauseMenu pauseMenu;
-
-    // static GameObject gm;
-    // static bool activated;
-
-    // Use this for initialization
-    // void Start()
-    // {
-    //     gm = GetComponent<CanvasRenderer>().gameObject;
-    //     HidePauseWindow();
-    // }
-
-    // public static void HidePauseWindow()
-    // {
-    //     activated = false;
-    //     gm.SetActive(activated);
-    //     GameplayUI.ShowGameplayUI();
-    //     Game.Unpause();
-    // }
-
-    // public static void ShowPauseWindow()
-    // {
-    //     activated = true;
-    //     gm.SetActive(activated);
-    //     GameplayUI.HideGameplayUI();
-    //     Game.Pause();
-    // }
-
-    // public void Resume()
-    // {
-    //     HideMenu();
-    // }
+    private const string path = "Pause";
+    private Transform parent;
+    public GameObject buttonPrefab;
 
     protected override void AdditionalSetUp() {
         pauseMenu = GetComponent<PauseMenu>();
+
+        parent = transform.Find(path);
     }
 
     protected override void BuildButtonsAndText() {
-
+        BuildText(pauseTitle, parent);
+        BuildButton(resume, parent, buttonPrefab);
+        BuildButton(levelUp, parent, buttonPrefab);
+        BuildButton(restart, parent, buttonPrefab);
+        BuildButton(settings, parent, buttonPrefab);
+        BuildButton(mainMenu, parent, buttonPrefab);
     }
 
     public void ShowLevelUp() {
@@ -81,8 +60,4 @@ public class PauseMenu : Menu
         //TODO:
         Debug.Log("open main menu");
     }
-
-    // public static bool Activated() {
-    //     return pauseMenu.activated;
-    // }
 }
