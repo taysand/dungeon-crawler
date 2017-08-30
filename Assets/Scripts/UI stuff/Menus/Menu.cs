@@ -3,35 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Menu : MonoBehaviour {
+public abstract class Menu : MonoBehaviour
+{
 
-	protected GameObject canvas;
-	protected bool activated;
+    protected GameObject canvas;
+    protected bool activated;
 
-	protected string font;
-	protected Color fontColor;
-	protected string upgradeParent;
+    protected string font;
+    protected Color fontColor;
+    protected const int titleFontSize = 25;
 
-	//for level up
-	public GameObject plusButtonPrefab;//not great because it's everywhere
-	protected const string health = "health";
+    //for level up
+    protected const string health = "health";
     protected const string armor = "armor";
-	public LevelUpMenu lUM;//also not great because it's everywhere
-	protected HealthUpgradeText healthUpgradeText;
-	protected ArmorUpgradeText armorUpgradeText;
+    protected const string levelInfo = "level info";
+    protected const string done = "done";
+    public LevelUpMenu lUM;//also not great because it's everywhere. TODO: maybe make it just Menu and then have it be the menu that I'm dealing with? or just have a Menu be an argument to the button thing
+    protected HealthUpgradeText healthUpgradeText;
+    protected ArmorUpgradeText armorUpgradeText;
+    protected static DisplayLevelText levelDisplay;
 
-	void Awake() {
-		canvas = GetComponent<Canvas>().gameObject;
-		AdditionalSetUp();
-		BuildButtonsAndText();
-		HideMenu();
-	}
+    void Awake() {
+        canvas = GetComponent<Canvas>().gameObject;
+        AdditionalSetUp();
+        BuildButtonsAndText();
+        HideMenu();
+    }
 
-	protected abstract void AdditionalSetUp();
+    protected abstract void AdditionalSetUp();
 
-	protected abstract void BuildButtonsAndText();
+    protected abstract void BuildButtonsAndText();
 
-	protected void BuildText(string textType) {
+    protected void BuildText(string textType, Transform parent) {
         GameObject o = new GameObject();
         Text text = o.AddComponent<Text>();
         text.font = Resources.GetBuiltinResource(typeof(Font), font) as Font;
@@ -39,53 +42,69 @@ public abstract class Menu : MonoBehaviour {
         text.fontStyle = FontStyle.Bold;
         text.alignment = TextAnchor.MiddleCenter;
 
-        if (textType == health)
+        switch (textType)
         {
-           healthUpgradeText = o.AddComponent<HealthUpgradeText>();
-        } else if (textType == armor)
-        {
-            armorUpgradeText = o.AddComponent<ArmorUpgradeText>();
-        } else
-        {
-            Debug.Log("wrong text type");
+            case health:
+                healthUpgradeText = o.AddComponent<HealthUpgradeText>();
+                break;
+            case armor:
+                armorUpgradeText = o.AddComponent<ArmorUpgradeText>();
+                break;
+            case levelInfo:
+                text.fontSize = titleFontSize;
+                levelDisplay = o.AddComponent<DisplayLevelText>();
+                break;
+            default:
+                Debug.Log("wrong text type");
+                break;
         }
-		Debug.Log("upgrade parent is: " + upgradeParent);
-        o.transform.SetParent(transform.Find(upgradeParent), false);
+
+        o.transform.SetParent(parent, false);
     }
 
-	protected void BuildButton(string buttonType) {
-        GameObject button = Instantiate(plusButtonPrefab) as GameObject;
-        if (buttonType == health)
+    protected void BuildButton(string buttonType, Transform parent, GameObject buttonPrefab) {
+        GameObject button = Instantiate(buttonPrefab) as GameObject;
+
+        switch (buttonType)
         {
-            button.GetComponent<Button>().onClick.AddListener(lUM.IncreaseHealth);
-        } else if (buttonType == armor)
-        {
-            button.GetComponent<Button>().onClick.AddListener(lUM.IncreaseArmor);
-        } else
-        {
-            Debug.Log("wrong button type");
+            case health:
+                button.GetComponent<Button>().onClick.AddListener(lUM.IncreaseHealth);
+                break;
+            case armor:
+                button.GetComponent<Button>().onClick.AddListener(lUM.IncreaseArmor);
+                break;
+            case done:
+                button.GetComponent<Button>().onClick.AddListener(lUM.HideMenu);
+                break;
+            default:
+                Debug.Log("wrong button type");
+                break;
         }
-        button.transform.SetParent(transform.Find(upgradeParent), false);
+
+        button.transform.SetParent(parent, false);
         Transform childText = button.transform.Find("Text");
-        Destroy(childText.gameObject);
+        if (childText != null)
+        {
+            Destroy(childText.gameObject);
+        }
     }
 
-	public void HideMenu() {
-		activated = false;
-		canvas.SetActive(activated);
-		Game.Unpause();
-		GameplayUI.ShowGameplayUI();
-	}
-
-	public virtual void ShowMenu() {
-		activated = true;
+    public void HideMenu() {
+        activated = false;
         canvas.SetActive(activated);
-		Debug.Log("the canvas is " + canvas);
+        Game.Unpause();
+        GameplayUI.ShowGameplayUI();
+    }
+
+    public virtual void ShowMenu() {
+        activated = true;
+        canvas.SetActive(activated);
+        Debug.Log("the canvas is " + canvas);
         GameplayUI.HideGameplayUI();
         Game.Pause();
-	}
+    }
 
-	public bool Activated() {
-		return activated;
-	}
+    public bool Activated() {
+        return activated;
+    }
 }

@@ -17,21 +17,29 @@ public class LevelUpMenu : Menu
     private const int maxArmor = 20;
 
     //text fields
-    private static DisplayLevelText levelDisplayStatic;
-    public DisplayLevelText levelDisplay;
     public DisplayHealthText hpDisplay;
 
     //adding buttons and text fields 
     private const string levelUpFont = "Arial.ttf";
-    private const string levelUpUpgradeParent = "LevelUp/hp and ac upgrade";
-
+    private const string upgradePath = "LevelUp/upgrade options/hp and ac upgrade";
+    private const string donePath = "LevelUp/done button panel";
+    private const string titlePath = "LevelUp/title panel";
+    private Transform upgradeParent;
+    private Transform doneParent;
+    private Transform titleParent;
+    public GameObject plusButtonPrefab;
+    public GameObject doneButtonPrefab;
     private static LevelUpMenu levelUpMenu;
 
     protected override void AdditionalSetUp() {
         font = levelUpFont;
         fontColor = new Color(.57f, .08f, 1f, 1f);
-        Debug.Log("upgrade parent is being set to what it should be");
-        upgradeParent = levelUpUpgradeParent;
+
+        upgradeParent = transform.Find(upgradePath);
+        doneParent = transform.Find(donePath);
+        titleParent = transform.Find(titlePath);
+        
+        levelUpMenu = GetComponent<LevelUpMenu>();
 
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
@@ -41,20 +49,15 @@ public class LevelUpMenu : Menu
         {
             Debug.Log("no player object?");
         }
-
-        levelUpMenu = GetComponent<LevelUpMenu>();
-
-        if (levelDisplayStatic == null)
-        { 
-            levelDisplayStatic = levelDisplay;
-        }
     }
 
     protected override void BuildButtonsAndText() {
-        BuildText(health);
-        BuildButton(health);
-        BuildText(armor);
-        BuildButton(armor);
+        BuildText(levelInfo, titleParent);
+        BuildText(health, upgradeParent);
+        BuildButton(health, upgradeParent, plusButtonPrefab);
+        BuildText(armor, upgradeParent);
+        BuildButton(armor, upgradeParent, plusButtonPrefab);
+        BuildButton(done, doneParent, doneButtonPrefab);
     }
 
     public override void ShowMenu() {
@@ -76,7 +79,7 @@ public class LevelUpMenu : Menu
     }
 
     public static void UpdateLevelUpOptions() {
-        levelDisplayStatic.UpdateTextField();
+        levelDisplay.UpdateTextField();
 
         levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
 
