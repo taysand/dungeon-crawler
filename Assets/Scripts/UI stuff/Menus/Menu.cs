@@ -23,6 +23,10 @@ public abstract class Menu : MonoBehaviour
     protected ArmorUpgradeText armorUpgradeText;
     protected static DisplayLevelText levelDisplay;
 
+    //for game over
+    protected const string restart = "restart";
+    protected const string mainMenu = "main menu";
+
     void Awake() {
         canvas = GetComponent<Canvas>().gameObject;
         AdditionalSetUp();
@@ -75,6 +79,12 @@ public abstract class Menu : MonoBehaviour
                 break;
             case done:
                 button.GetComponent<Button>().onClick.AddListener(lUM.HideMenu);
+                break;
+            case mainMenu:
+				//TODO: make the onClick
+                break;
+            case restart:
+				//TODO: make the onClick
                 break;
             default:
                 Debug.Log("wrong button type");

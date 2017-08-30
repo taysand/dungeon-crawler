@@ -5,22 +5,25 @@ using UnityEngine;
 public class GameOverMenu : Menu
 {
 
-    // static GameObject gm;
     private static bool gameOver;
     private static GameOverMenu gameOverMenu;
 
-    // void Awake () {
-    // 	gm = GetComponent<Canvas>().gameObject;
-    // 	HideGameOver();
-    // }
+    //adding buttons
+    public GameObject mainMenuButtonPrefab;
+    public GameObject restartButtonPrefab;
+    private const string buttonsPath = "buttons panel";
+    private Transform buttonsParent;
 
     protected override void AdditionalSetUp() {
         gameOver = false;
         gameOverMenu = GetComponent<GameOverMenu>();
+
+        buttonsParent = transform.Find(buttonsPath);
     }
 
     protected override void BuildButtonsAndText() {
-        
+        BuildButton(mainMenu, buttonsParent, mainMenuButtonPrefab);
+        BuildButton(restart, buttonsParent, restartButtonPrefab);
     }
 
     public static void ShowGameOver() {
@@ -28,7 +31,7 @@ public class GameOverMenu : Menu
         gameOverMenu.ShowMenu();
     }
 
-    //delete this after testing
+    //FIXME:delete this after testing
     public void ShowGameOverNotStatic() {
         ShowGameOver();
     }
