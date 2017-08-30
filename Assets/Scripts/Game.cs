@@ -56,11 +56,11 @@ public class Game : MonoBehaviour
     {
         //check for opening and closing menus, but only if a menu isn't already open
         //TODO: map
-        if (PauseMenu.Activated())
+        if (pauseMenu.Activated())
         {
             CheckPauseWindow();
         }
-        else if (LevelUpMenu.Activated())
+        else if (levelUpMenu.Activated())
         {
             CheckLevelUpWindow();
         }
@@ -110,12 +110,12 @@ public class Game : MonoBehaviour
 
     private void CheckLevelUpWindow()
     {
-        if (Input.GetButtonUp(levelKey) && LevelUpMenu.Activated())
+        if (Input.GetButtonUp(levelKey) && levelUpMenu.Activated())
         {
             levelUpMenu.HideMenu();
             //PlayAnimations(true);
         }
-        else if (Input.GetButtonUp(levelKey) && !LevelUpMenu.Activated())
+        else if (Input.GetButtonUp(levelKey) && !levelUpMenu.Activated())
         {
             levelUpMenu.ShowMenu();
             //PlayAnimations(false);

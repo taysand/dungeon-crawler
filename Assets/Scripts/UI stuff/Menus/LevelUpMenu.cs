@@ -5,10 +5,7 @@ using UnityEngine.UI;
 
 public class LevelUpMenu : Menu
 {
-
-    // static GameObject gm;
-    // static bool activated;
-
+    //tracking levels
     private static int levelUpPoints = 0;
     private static GameObject[] levelUpButtons;
 
@@ -22,16 +19,10 @@ public class LevelUpMenu : Menu
     //text fields
     private static DisplayLevelText levelDisplayStatic;
     public DisplayLevelText levelDisplay;
-    public HealthUpgradeText healthUpgradeText;
     public DisplayHealthText hpDisplay;
-    public ArmorUpgradeText armorUpgradeText;
 
-    //upgrade buttons
-    public GameObject plusButtonPrefab;
-    // private const string health = "health";
-    // private const string armor = "armor";
+    //adding buttons and text fields 
     private const string levelUpFont = "Arial.ttf";
-    // private Color fontColor;
     private const string levelUpUpgradeParent = "LevelUp/hp and ac upgrade";
 
     private static LevelUpMenu levelUpMenu;
@@ -52,6 +43,11 @@ public class LevelUpMenu : Menu
         }
 
         levelUpMenu = GetComponent<LevelUpMenu>();
+
+        if (levelDisplayStatic == null)
+        { 
+            levelDisplayStatic = levelDisplay;
+        }
     }
 
     protected override void BuildButtonsAndText() {
@@ -61,75 +57,10 @@ public class LevelUpMenu : Menu
         BuildButton(armor);
     }
 
-    // private void BuildText(string textType) {
-    //     GameObject o = new GameObject();
-    //     Text text = o.AddComponent<Text>();
-    //     text.font = Resources.GetBuiltinResource(typeof(Font), font) as Font;
-    //     text.color = fontColor;
-    //     text.fontStyle = FontStyle.Bold;
-    //     text.alignment = TextAnchor.MiddleCenter;
-
-    //     if (textType == health)
-    //     {
-    //         o.AddComponent<HealthUpgradeText>();
-    //     } else if (textType == armor)
-    //     {
-    //         o.AddComponent<ArmorUpgradeText>();
-    //     } else
-    //     {
-    //         Debug.Log("wrong text type");
-    //     }
-    //     o.transform.SetParent(transform.Find(upgradeParent), false);
-    // }
-
-    private void BuildButton(string buttonType) {
-        GameObject button = Instantiate(plusButtonPrefab) as GameObject;
-        if (buttonType == health)
-        {
-            button.GetComponent<Button>().onClick.AddListener(IncreaseHealth);
-        } else if (buttonType == armor)
-        {
-            button.GetComponent<Button>().onClick.AddListener(IncreaseArmor);
-        } else
-        {
-            Debug.Log("wrong button type");
-        }
-        button.transform.SetParent(transform.Find(upgradeParent), false);
-        Transform childText = button.transform.Find("Text");
-        Destroy(childText.gameObject);
-    }
-
-    public static bool Activated() {
-        return levelUpMenu.activated;
-    }
-
     public override void ShowMenu() {
         base.ShowMenu();
-
-        if (levelDisplayStatic == null)
-        { ///TODO: move this back to additional setup and see what happens
-            levelDisplayStatic = levelDisplay;
-        }
         UpdateLevelUpOptions();
     }
-
-    // public static void StaticHideLevelUpWindow()
-    // {
-    //     activated = false;
-    //     gm.SetActive(activated);
-    //     Game.Unpause();
-    //     GameplayUI.ShowGameplayUI();
-    // }
-
-    // //the non static method for buttons
-    // public void HideLevelUpWindow() {
-    //     HideMenu();
-    // }
-
-    //public void HideEverything() {
-    //	LUImage.HideAnnouncement();
-    //	HideLevelUpWindow();
-    //}
 
     public static void GainLevelUpPoint() {
         levelUpPoints++;

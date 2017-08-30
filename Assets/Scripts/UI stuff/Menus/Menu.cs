@@ -11,18 +11,19 @@ public abstract class Menu : MonoBehaviour {
 	protected string font;
 	protected Color fontColor;
 	protected string upgradeParent;
+
+	//for level up
+	public GameObject plusButtonPrefab;//not great because it's everywhere
 	protected const string health = "health";
     protected const string armor = "armor";
-
+	public LevelUpMenu lUM;//also not great because it's everywhere
+	protected HealthUpgradeText healthUpgradeText;
+	protected ArmorUpgradeText armorUpgradeText;
 
 	void Awake() {
 		canvas = GetComponent<Canvas>().gameObject;
-		
-		//TODO: this weirdly isn't actually initializing things?
-
 		AdditionalSetUp();
 		BuildButtonsAndText();
-
 		HideMenu();
 	}
 
@@ -40,16 +41,33 @@ public abstract class Menu : MonoBehaviour {
 
         if (textType == health)
         {
-            o.AddComponent<HealthUpgradeText>();
+           healthUpgradeText = o.AddComponent<HealthUpgradeText>();
         } else if (textType == armor)
         {
-            o.AddComponent<ArmorUpgradeText>();
+            armorUpgradeText = o.AddComponent<ArmorUpgradeText>();
         } else
         {
             Debug.Log("wrong text type");
         }
 		Debug.Log("upgrade parent is: " + upgradeParent);
         o.transform.SetParent(transform.Find(upgradeParent), false);
+    }
+
+	protected void BuildButton(string buttonType) {
+        GameObject button = Instantiate(plusButtonPrefab) as GameObject;
+        if (buttonType == health)
+        {
+            button.GetComponent<Button>().onClick.AddListener(lUM.IncreaseHealth);
+        } else if (buttonType == armor)
+        {
+            button.GetComponent<Button>().onClick.AddListener(lUM.IncreaseArmor);
+        } else
+        {
+            Debug.Log("wrong button type");
+        }
+        button.transform.SetParent(transform.Find(upgradeParent), false);
+        Transform childText = button.transform.Find("Text");
+        Destroy(childText.gameObject);
     }
 
 	public void HideMenu() {
@@ -65,5 +83,9 @@ public abstract class Menu : MonoBehaviour {
 		Debug.Log("the canvas is " + canvas);
         GameplayUI.HideGameplayUI();
         Game.Pause();
+	}
+
+	public bool Activated() {
+		return activated;
 	}
 }

@@ -39,9 +39,12 @@ public class PauseMenu : Menu
     //     HideMenu();
     // }
 
-    public override void Awake() {
-        base.Awake();
+    protected override void AdditionalSetUp() {
         pauseMenu = GetComponent<PauseMenu>();
+    }
+
+    protected override void BuildButtonsAndText() {
+
     }
 
     public void ShowLevelUp() {
@@ -79,7 +82,7 @@ public class PauseMenu : Menu
         Debug.Log("open main menu");
     }
 
-    public static bool Activated() {
-        return pauseMenu.activated;
-    }
+    // public static bool Activated() {
+    //     return pauseMenu.activated;
+    // }
 }

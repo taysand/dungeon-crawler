@@ -14,10 +14,13 @@ public class GameOverMenu : Menu
     // 	HideGameOver();
     // }
 
-    public override void Awake() {
-        base.Awake();
-		gameOver = false;
+    protected override void AdditionalSetUp() {
+        gameOver = false;
         gameOverMenu = GetComponent<GameOverMenu>();
+    }
+
+    protected override void BuildButtonsAndText() {
+        
     }
 
     public static void ShowGameOver() {
