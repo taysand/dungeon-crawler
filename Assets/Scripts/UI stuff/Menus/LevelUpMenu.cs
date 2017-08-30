@@ -28,16 +28,20 @@ public class LevelUpMenu : Menu
 
     //upgrade buttons
     public GameObject plusButtonPrefab;
-    private const string health = "health";
-    private const string armor = "armor";
-    private const string font = "Arial.ttf";
-    private Color fontColor;
-    private const string upgradeParent = "hp and ac upgrade";
+    // private const string health = "health";
+    // private const string armor = "armor";
+    private const string levelUpFont = "Arial.ttf";
+    // private Color fontColor;
+    private const string levelUpUpgradeParent = "LevelUp/hp and ac upgrade";
 
     private static LevelUpMenu levelUpMenu;
 
-    public override void Awake() {
-        base.Awake();
+    protected override void AdditionalSetUp() {
+        font = levelUpFont;
+        fontColor = new Color(.57f, .08f, 1f, 1f);
+        Debug.Log("upgrade parent is being set to what it should be");
+        upgradeParent = levelUpUpgradeParent;
+
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
         {
@@ -47,43 +51,36 @@ public class LevelUpMenu : Menu
             Debug.Log("no player object?");
         }
 
-        // gm = GetComponent<CanvasRenderer>().gameObject;
-        // HideLevelUpWindow();
-
         levelUpMenu = GetComponent<LevelUpMenu>();
-        
-
-        fontColor = new Color(.57f, .08f, 1f, 1f);
-        AddNonSpellUpgrades();
     }
 
-    private void AddNonSpellUpgrades() {
+    protected override void BuildButtonsAndText() {
         BuildText(health);
         BuildButton(health);
         BuildText(armor);
         BuildButton(armor);
     }
 
-    private void BuildText(string textType) {
-        GameObject o = new GameObject();
-        Text text = o.AddComponent<Text>();
-        text.font = Resources.GetBuiltinResource(typeof(Font), font) as Font;
-        text.color = fontColor;
-        text.fontStyle = FontStyle.Bold;
-        text.alignment = TextAnchor.MiddleCenter;
+    // private void BuildText(string textType) {
+    //     GameObject o = new GameObject();
+    //     Text text = o.AddComponent<Text>();
+    //     text.font = Resources.GetBuiltinResource(typeof(Font), font) as Font;
+    //     text.color = fontColor;
+    //     text.fontStyle = FontStyle.Bold;
+    //     text.alignment = TextAnchor.MiddleCenter;
 
-        if (textType == health)
-        {
-            o.AddComponent<HealthUpgradeText>();
-        } else if (textType == armor)
-        {
-            o.AddComponent<ArmorUpgradeText>();
-        } else
-        {
-            Debug.Log("wrong text type");
-        }
-        o.transform.SetParent(transform.Find(upgradeParent), false);
-    }
+    //     if (textType == health)
+    //     {
+    //         o.AddComponent<HealthUpgradeText>();
+    //     } else if (textType == armor)
+    //     {
+    //         o.AddComponent<ArmorUpgradeText>();
+    //     } else
+    //     {
+    //         Debug.Log("wrong text type");
+    //     }
+    //     o.transform.SetParent(transform.Find(upgradeParent), false);
+    // }
 
     private void BuildButton(string buttonType) {
         GameObject button = Instantiate(plusButtonPrefab) as GameObject;
@@ -108,9 +105,10 @@ public class LevelUpMenu : Menu
 
     public override void ShowMenu() {
         base.ShowMenu();
-        
-        if (levelDisplayStatic == null) {
-             levelDisplayStatic = levelDisplay;
+
+        if (levelDisplayStatic == null)
+        { ///TODO: move this back to additional setup and see what happens
+            levelDisplayStatic = levelDisplay;
         }
         UpdateLevelUpOptions();
     }
