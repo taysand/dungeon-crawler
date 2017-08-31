@@ -40,13 +40,13 @@ public class PauseMenu : Menu
             GameOverMenu.HideGameOver();
         }
         //TODO:
-        Debug.Log("restart level");
+        Debug.Log("restarting level");
     }
 
     public void OpenSettings() {
         HideMenu();
         //TODO:
-        Debug.Log("open settings");
+        Debug.Log("opening settings");
     }
 
     public void GoToMainMenu() {
@@ -58,6 +58,6 @@ public class PauseMenu : Menu
             GameOverMenu.HideGameOver();
         }
         //TODO:
-        Debug.Log("open main menu");
+        Debug.Log("opening main menu");
     }
 }

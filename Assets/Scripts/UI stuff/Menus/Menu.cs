@@ -19,7 +19,7 @@ public abstract class Menu : MonoBehaviour
     protected const string levelInfo = "level info";
     protected const string done = "Done";
     public LevelUpMenu lUM;//also not great because it's everywhere. TODO: maybe make it just Menu and then have it be the menu that I'm dealing with? or just have a Menu be an argument to the button thing
-	public PauseMenu pM; //TODO: also bad
+    public PauseMenu pM; //TODO: also bad
     protected HealthUpgradeText healthUpgradeText;
     protected ArmorUpgradeText armorUpgradeText;
     protected static DisplayLevelText levelDisplay;
@@ -37,7 +37,7 @@ public abstract class Menu : MonoBehaviour
 
     void Awake() {
         canvas = GetComponent<Canvas>().gameObject;
-		fontColor = new Color(.57f, .08f, 1f, 1f);
+        fontColor = new Color(.57f, .08f, 1f, 1f);
         AdditionalSetUp();
         BuildButtonsAndText();
         HideMenu();
@@ -82,44 +82,60 @@ public abstract class Menu : MonoBehaviour
     protected void BuildButton(string buttonType, Transform parent, GameObject buttonPrefab) {
         GameObject button = Instantiate(buttonPrefab) as GameObject;
 
-		Text text = button.transform.GetComponent<Text>();
-		if (text != null) {
-			text.text = buttonType;//TODO: fix this
-		}
+        Button actualButton = button.GetComponent<Button>();
 
         switch (buttonType)
         {
             case health:
-                button.GetComponent<Button>().onClick.AddListener(lUM.IncreaseHealth);
+                actualButton.onClick.AddListener(lUM.IncreaseHealth);
                 break;
             case armor:
-                button.GetComponent<Button>().onClick.AddListener(lUM.IncreaseArmor);
+                actualButton.onClick.AddListener(lUM.IncreaseArmor);
                 break;
             case done:
-                button.GetComponent<Button>().onClick.AddListener(lUM.HideMenu);
+                actualButton.onClick.AddListener(lUM.HideMenu);
                 break;
             case mainMenu:
-                //TODO: make the onClick
+                actualButton.onClick.AddListener(pM.GoToMainMenu);
                 break;
             case restart:
-                //TODO: make the onClick
+                actualButton.onClick.AddListener(pM.RestartLevel);
                 break;
             case resume:
-                button.GetComponent<Button>().onClick.AddListener(pM.HideMenu);
+                actualButton.onClick.AddListener(pM.HideMenu);
                 break;
             case levelUp:
-                button.GetComponent<Button>().onClick.AddListener(lUM.ShowMenu);
+                actualButton.onClick.AddListener(pM.HideMenu);
+                actualButton.onClick.AddListener(lUM.ShowMenu);
                 break;
-			case settings:
-				//TODO: make the onClick
+            case settings:
+                actualButton.onClick.AddListener(pM.OpenSettings);
                 break;
             default:
                 Debug.Log("wrong button type: " + buttonType);
                 break;
         }
 
-		button.transform.SetParent(parent, false);
+        button.transform.SetParent(parent, false);
 
+        Transform child = button.transform.GetChild(0);
+        if (child != null)
+        {
+            Text text = child.GetComponent<Text>();
+            if (text != null)
+            {
+                text.text = buttonType;
+            } else
+            {
+                Debug.Log("button text is null");
+            }
+        } else
+        {
+            Debug.Log("button has no children");
+        }
+
+
+        //removing this breaks stuff but I'm not sure why? I think because I use a null child text to decide what type of button it is? in the level up menu but check on that/improve that later TODO: 
         Transform childText = button.transform.Find("Text");
         if (childText != null)
         {

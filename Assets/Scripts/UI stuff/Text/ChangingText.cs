@@ -10,7 +10,6 @@ public abstract class ChangingText : MonoBehaviour {
 
 	void Awake () {
 		SetUpPlayerAndText();
-		//TODO: this weirdly isn't actually initializing things?
 	}
 
 	void Start() {
