@@ -8,8 +8,17 @@ public abstract class ChangingText : MonoBehaviour {
 	protected Player player;
 	protected Text textField;
 
-	// Use this for initialization
 	void Awake () {
+		SetUpPlayerAndText();
+	}
+
+	void Start() {
+		UpdateTextField();
+	}
+	
+	public abstract void UpdateTextField();
+
+	protected void SetUpPlayerAndText() {
 		textField = GetComponent<Text>();
 
 		GameObject playerGameObj = GameObject.Find(Game.playerTag);
@@ -19,10 +28,4 @@ public abstract class ChangingText : MonoBehaviour {
 			 Debug.Log("the player is gone");
 		}
 	}
-
-	void Start() {
-		UpdateTextField();
-	}
-	
-	public abstract void UpdateTextField();
 }

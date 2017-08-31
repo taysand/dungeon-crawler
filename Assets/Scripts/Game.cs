@@ -23,6 +23,10 @@ public class Game : MonoBehaviour
     private const string pauseKey = "Pause";
     private const string levelKey = "Open Level";
 
+    //menus
+    public Menu levelUpMenu;
+    public Menu pauseMenu;
+
     //public float fixedUpdateTime = .4f;
 
     void Awake()
@@ -52,11 +56,11 @@ public class Game : MonoBehaviour
     {
         //check for opening and closing menus, but only if a menu isn't already open
         //TODO: map
-        if (PauseWindow.Activated())
+        if (pauseMenu.Activated())
         {
             CheckPauseWindow();
         }
-        else if (LevelUp.Activated())
+        else if (levelUpMenu.Activated())
         {
             CheckLevelUpWindow();
         }
@@ -106,14 +110,14 @@ public class Game : MonoBehaviour
 
     private void CheckLevelUpWindow()
     {
-        if (Input.GetButtonUp(levelKey) && LevelUp.Activated())
+        if (Input.GetButtonUp(levelKey) && levelUpMenu.Activated())
         {
-            LevelUp.StaticHideLevelUpWindow();
+            levelUpMenu.HideMenu();
             //PlayAnimations(true);
         }
-        else if (Input.GetButtonUp(levelKey) && !LevelUp.Activated())
+        else if (Input.GetButtonUp(levelKey) && !levelUpMenu.Activated())
         {
-            LevelUp.ShowLevelUpWindow();
+            levelUpMenu.ShowMenu();
             //PlayAnimations(false);
         }
     }
@@ -122,12 +126,13 @@ public class Game : MonoBehaviour
     {
         if (Input.GetButtonUp(pauseKey) && !paused && !Spell.Casting())
         {
-            PauseWindow.ShowPauseWindow();
+            pauseMenu.ShowMenu();
+            Debug.Log("should show pause");
             //PlayAnimations(true);
         }
         else if (Input.GetButtonUp(pauseKey) && paused)
         {
-            PauseWindow.HidePauseWindow();
+            pauseMenu.HideMenu();
             //PlayAnimations(false);
         }
     }

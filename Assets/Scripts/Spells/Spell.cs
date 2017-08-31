@@ -100,7 +100,7 @@ public abstract class Spell : MonoBehaviour
 
     public void OnLevelUpClick(Button button)
     {
-        LevelUp.SpendLevelUpPoints();
+        LevelUpMenu.SpendLevelUpPoints();
         Player.LearnSpell(spellName);
         SpellButtons.CheckIfKnown(button);
 

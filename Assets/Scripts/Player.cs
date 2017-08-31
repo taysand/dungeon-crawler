@@ -27,6 +27,7 @@ public class Player : Moving
     private static List<string> knownSpells = new List<string>();
 
     public DisplayHealthText hpDisplay;
+    public Menu levelUpMenu;
     //private static List<string> unknownSpells = new List<string>();
 
     //private torch class probably 
@@ -72,7 +73,7 @@ public class Player : Moving
         PlayInjuredAnimation();
         if (hp <= 0)
         {
-            GameOver.ShowGameOver();
+            GameOverMenu.ShowGameOver();
         }
     }
 
@@ -212,7 +213,7 @@ public class Player : Moving
                 nextLevel = levels[level];
             }
 
-            LevelUp.GainLevelUpPoint();
+            LevelUpMenu.GainLevelUpPoint();
             StartCoroutine(ShowLevelUpStuff());
         }
     }
@@ -222,7 +223,7 @@ public class Player : Moving
         Message levelUpMessage = GameObject.Find(Message.levelUpMessageName).GetComponent<Message>();
         levelUpMessage.ShowMessage(levelMessageReadtime, levelMessageFadeRate, levelMessageFadeDelay);
         yield return new WaitForSeconds(delayAfterLevelUpMessage);
-        LevelUp.ShowLevelUpWindow();
+        levelUpMenu.ShowMenu();
     }
 
     public int GetExperience()
