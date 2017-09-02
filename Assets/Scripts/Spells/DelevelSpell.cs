@@ -20,6 +20,7 @@ public class DelevelSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
+            Debug.Log("reducing level");
             enemy.DecreaseLevel(decreaseBy);
             return true;
         }

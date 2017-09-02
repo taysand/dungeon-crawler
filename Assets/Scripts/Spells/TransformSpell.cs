@@ -22,6 +22,7 @@ public class TransformSpell : Spell
         //TODO: please
         if (enemy.GetLevel() <= maxLevelAffected)
         {
+            Debug.Log("transforming");
             //cast the spell
             return true;
         }
