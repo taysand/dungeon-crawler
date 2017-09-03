@@ -146,7 +146,7 @@ public class Game : MonoBehaviour
             enemy.GetComponent<Animator>().enabled = value;
             if (value == true)
             {
-                if (!enemy.IsFrozen()) {
+                if (enemy.ShouldMove()) {
                     enemy.StartMovement();
                 }
             }

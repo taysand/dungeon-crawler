@@ -31,7 +31,7 @@ public abstract class Enemy : Moving
     //movement
     protected Vector2 startingLocation;//starting location
     public Vector2 endLocation;//ending location, set per individual 
-    private bool followingPath;//TODO: switch back to private
+    private bool followingPath;
     private bool movingToPlayer;
     protected bool inRange;
 
@@ -260,12 +260,13 @@ public abstract class Enemy : Moving
     }
 
     public bool ShouldMove() {
-        return shouldMove;//TODO: fix this mess
+        return shouldMove;
     }
 
     public IEnumerator Scare(float additionalScareTime, int additionalScareDistance)
-    {//TODO: should the enemies move here?
+    {
         Debug.Log("scared");
+        shouldMove = false;
         scared = true;
         //TODO: play scared animation
 
@@ -286,7 +287,8 @@ public abstract class Enemy : Moving
     }
 
     public void NoLongerScared()
-    {//TODO: update should move?
+    {
+        shouldMove = true;
         Debug.Log("no longer scared");
         scared = false;
         //TODO: play no longer scared animation
