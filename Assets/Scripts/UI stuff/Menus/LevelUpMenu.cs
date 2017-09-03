@@ -13,26 +13,29 @@ public class LevelUpMenu : Menu
     private static Player player;
     private const float healthIncrease = 50;
     private const int armorIncrease = 5;
-    private const float maxHealth = 1000f;
-    private const int maxArmor = 20;
 
     //text fields
     public DisplayHealthText hpDisplay;
 
     //adding buttons and text fields 
-    private const string upgradePath = "LevelUp/upgrade options/hp and ac upgrade";
+    private const string healthUpgradePath = "LevelUp/upgrade options/hp and ac upgrade/hp upgrade"; private const string armorUpgradePath = "LevelUp/upgrade options/hp and ac upgrade/ac upgrade";
     private const string donePath = "LevelUp/done button panel";
     private const string titlePath = "LevelUp/title panel";
-    private Transform upgradeParent;
+    private Transform healthUpgradeParent;
+    private Transform armorUpgradeParent;
     private Transform doneParent;
     private Transform titleParent;
     public GameObject plusButtonPrefab;
     public GameObject doneButtonPrefab;
     private static LevelUpMenu levelUpMenu;
+    private static string spellButtonParentName = "level up spell buttons";
+    private static string acButtonParentName = "ac upgrade";
+    private static string hpButtonParentName = "hp upgrade";
 
     protected override void AdditionalSetUp() {
 
-        upgradeParent = transform.Find(upgradePath);
+        healthUpgradeParent = transform.Find(healthUpgradePath);
+        armorUpgradeParent = transform.Find(armorUpgradePath);
         doneParent = transform.Find(donePath);
         titleParent = transform.Find(titlePath);
 
@@ -50,10 +53,10 @@ public class LevelUpMenu : Menu
 
     protected override void BuildButtonsAndText() {
         BuildText(levelInfo, titleParent);
-        BuildText(health, upgradeParent);
-        BuildButton(health, upgradeParent, plusButtonPrefab);
-        BuildText(armor, upgradeParent);
-        BuildButton(armor, upgradeParent, plusButtonPrefab);
+        BuildText(health, healthUpgradeParent);
+        BuildButton(health, healthUpgradeParent, plusButtonPrefab);
+        BuildText(armor, armorUpgradeParent);
+        BuildButton(armor, armorUpgradeParent, plusButtonPrefab);
         BuildButton(done, doneParent, doneButtonPrefab);
     }
 
@@ -90,25 +93,37 @@ public class LevelUpMenu : Menu
             foreach (GameObject b in levelUpButtons)
             {
                 Button button = b.GetComponent<Button>();
-                Text text = button.GetComponentInChildren<Text>();
-                if (text != null)//a spell button
+                string parentName = b.transform.parent.name;
+
+                if (parentName == spellButtonParentName)
                 {
                     if (!Player.SpellIsKnown(button.GetComponent<Spell>().GetSpellName()))
                     {
                         button.interactable = true;
                     }
+                } else if (parentName == acButtonParentName)
+                {
+                    if (player.GetArmor() >= Player.maxAC)
+                    {
+                        button.interactable = false;
+                        armorUpgradeText.UpdateTextField();
+                    } else
+                    {
+                        button.interactable = true;
+                    }
+                } else if (parentName == hpButtonParentName)
+                {
+                    if (player.GetCurrentMaxHP() >= Player.maxMaxHP) 
+                    {
+                        button.interactable = false;
+                        healthUpgradeText.UpdateTextField();
+                    } else
+                    {
+                        button.interactable = true;
+                    }
                 } else
                 {
-                    //TODO: some sort of limits on max hp and ac
-                    if (player.GetArmor() < maxArmor)
-                    {
-                        //armor button is on
-                    }
-                    if (player.GetMaxHP() < maxHealth)
-                    {
-                        //health button is on
-                    }
-                    button.interactable = true;
+                    Debug.Log("parent of upgrade buttons not found");
                 }
             }
         } else

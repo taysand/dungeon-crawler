@@ -18,8 +18,8 @@ public class GemEnemy : Enemy
 
     protected override void SetStartingValues()
     {
-        maxHP = gemMaxHP;
-        hp = maxHP;
+        currentMaxHP = gemMaxHP;
+        hp = currentMaxHP;
         ac = gemAC;
         level = gemLevel;
         speed = gemSpeed;

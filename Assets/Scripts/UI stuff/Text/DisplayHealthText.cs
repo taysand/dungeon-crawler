@@ -9,7 +9,7 @@ public class DisplayHealthText : ChangingText {
 		if (!GameOverMenu.IsGameOver()) {
 			textField.text = player.GetHealthString();
 		} else {
-			textField.text = "HP: 0/" + player.GetMaxHP();
+			textField.text = "HP: 0/" + player.GetCurrentMaxHP();
 		}
 	}
 }
