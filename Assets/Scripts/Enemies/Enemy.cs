@@ -24,6 +24,7 @@ public abstract class Enemy : Moving
     protected bool frozen = false;
     protected bool scared = false;
     private bool illuminated = false;
+    private bool shouldMove;
 
     Player player;
 
@@ -58,6 +59,7 @@ public abstract class Enemy : Moving
         }
 
         startingLocation = transform.position;
+        shouldMove = true;
         StartFollowingPath();
         movingToPlayer = false;
         //do like a distance from it's "starting point" which can change?
@@ -77,7 +79,6 @@ public abstract class Enemy : Moving
 
     IEnumerator FollowPath()
     {
-        Debug.Log("following path");
         if (facingRight)
         {
             while (Vector2.Distance(transform.position, startingLocation) > .05f)
@@ -172,6 +173,7 @@ public abstract class Enemy : Moving
 
     public IEnumerator Sleep(float additionalSleepTime)
     {
+        shouldMove = false;
         Debug.Log("sleeping");
         sleeping = true;
         //TODO: play sleep animation 
@@ -184,6 +186,7 @@ public abstract class Enemy : Moving
     {
         Debug.Log("awake");
         sleeping = false;
+        shouldMove = true;
         //TODO: play wake animation 
         StartMovement();
     }
@@ -195,41 +198,59 @@ public abstract class Enemy : Moving
 
     public IEnumerator Freeze(float additionalFreezeTime)
     {
-        Debug.Log("frozen");
+        shouldMove = false;
+        Debug.Log("following path should be false and is: " + followingPath);
+        Debug.Log("frozen = " + frozen);
+        Debug.Log("about to freeze");
         frozen = true;
+        Debug.Log("frozen = " + frozen);
         //TODO: play freeze animation
         StopMovement();
+        Debug.Log("about to wait for " + freezeTime + " + " + additionalFreezeTime);
+        //the game unpauses here, which means the enemy starts moving again, before it should
         yield return new WaitForSeconds(freezeTime + additionalFreezeTime);
+        Debug.Log("entering Unfreeze");
+        //enemy is moving at this point, when it shouldn't be
         Unfreeze();
     }
 
     public void Unfreeze()
     {
-        Debug.Log("unfrozen");
+        Debug.Log("following path should be false and is: " + followingPath);
+        Debug.Log("frozen = " + frozen);
+        Debug.Log("about to unfreeze");
         frozen = false;
+        Debug.Log("frozen = " + frozen);
         //TODO: play unfreeze animation
+        shouldMove = true;
         StartMovement();
     }
 
     public void StartMovement() {
+        Debug.Log("starting movement");
         if (inRange)
         {
             StartMovingToPlayer();
+            Debug.Log("movingToPlayer should now be true and is: " + movingToPlayer);
         }
         else
         {
             StartFollowingPath();
+            Debug.Log("followingPath should now be true and is: " + followingPath);
         }
     }
 
     public void StopMovement() {
+        Debug.Log("stopping movement");
         if (movingToPlayer)
         {
             StopMovingToPlayer();
+            Debug.Log("movingToPlayer should now be false and is: " + movingToPlayer);
         }
         else
         {
             StopFollowingPath();
+            Debug.Log("followingPath should now be false and is: " + followingPath);
         }
     }
 
@@ -238,9 +259,14 @@ public abstract class Enemy : Moving
         return frozen;
     }
 
+    public bool ShouldMove() {
+        return shouldMove;
+    }
+
     public IEnumerator Scare(float additionalScareTime, int additionalScareDistance)
     {
         Debug.Log("scared");
+        shouldMove = false;
         scared = true;
         //TODO: play scared animation
 
@@ -262,6 +288,7 @@ public abstract class Enemy : Moving
 
     public void NoLongerScared()
     {
+        shouldMove = true;
         Debug.Log("no longer scared");
         scared = false;
         //TODO: play no longer scared animation

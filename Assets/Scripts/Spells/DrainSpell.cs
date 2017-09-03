@@ -24,6 +24,7 @@ public class DrainSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
+            Debug.Log("draining health");
             float drained = enemy.GetHealth() * percentage;
             enemy.TakeDamage(drained);
 

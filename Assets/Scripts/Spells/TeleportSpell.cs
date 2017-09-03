@@ -22,6 +22,7 @@ public class TeleportSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
+            Debug.Log("teleporting");
             float x = enemy.transform.position.x;
             float y = enemy.transform.position.y;
 

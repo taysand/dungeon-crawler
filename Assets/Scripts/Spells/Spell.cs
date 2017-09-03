@@ -116,10 +116,11 @@ public abstract class Spell : MonoBehaviour
     public IEnumerator TargetEnemy()
     {
         casting = true;
-        Game.Pause();
+        Game.Pause();//stops movement
         GameplayUI.ShowInstructions();
 
         activeSpell = GetComponent<Spell>();
+        Debug.Log("active spell is: " + activeSpell);
 
         bool success = false;
 
@@ -166,7 +167,6 @@ public abstract class Spell : MonoBehaviour
         //http://answers.unity3d.com/questions/904427/waiting-for-a-mouse-click-in-a-coroutine.html
         while (true)
         {
-            Debug.Log("wait for click");
             if (Input.GetMouseButtonDown(0))
             {
                 //https://forum.unity3d.com/threads/unity-2d-raycast-from-mouse-to-screen.211708/
