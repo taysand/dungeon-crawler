@@ -65,6 +65,7 @@ public abstract class Menu : MonoBehaviour
                 break;
             case levelInfo:
                 text.fontSize = titleFontSize;
+                text.resizeTextForBestFit = true;
                 levelDisplay = o.AddComponent<DisplayLevelText>();
                 break;
             case pauseTitle:

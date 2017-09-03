@@ -252,4 +252,8 @@ public class Player : Moving
     {
         IncreaseXP(nextLevel - xp);
     }
+
+    public int GetMaxLevel() {
+        return maxLevel;
+    }
 }
