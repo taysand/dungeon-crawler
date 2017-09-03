@@ -20,8 +20,8 @@ public abstract class Menu : MonoBehaviour
     protected const string done = "Done";
     public LevelUpMenu lUM;//also not great because it's everywhere. TODO: maybe make it just Menu and then have it be the menu that I'm dealing with? or just have a Menu be an argument to the button thing
     public PauseMenu pM; //TODO: also bad
-    protected HealthUpgradeText healthUpgradeText;
-    protected ArmorUpgradeText armorUpgradeText;
+    protected static HealthUpgradeText healthUpgradeText;
+    protected static ArmorUpgradeText armorUpgradeText;
     protected static DisplayLevelText levelDisplay;
 
     //for game over
@@ -134,8 +134,6 @@ public abstract class Menu : MonoBehaviour
             Debug.Log("button has no children");
         }
 
-
-        //removing this breaks stuff but I'm not sure why? I think because I use a null child text to decide what type of button it is? in the level up menu but check on that/improve that later TODO: 
         Transform childText = button.transform.Find("Text");
         if (childText != null)
         {

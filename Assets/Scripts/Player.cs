@@ -12,14 +12,14 @@ public class Player : Moving
 
     //leveling
     private int xp = 0;
-    private int[] levels = { 100, 300, 600, 1000 }; //or whatever
+    private int[] levels = { 100, 300, 600, 1000 }; //or whatever. TODO: add more levels
     private int nextLevel;
     private int maxLevel;
     private float delayAfterLevelUpMessage = .8f;
     private float levelMessageReadtime = .01f;
     private float levelMessageFadeRate = .04f;
     private float levelMessageFadeDelay = .03f;
-    public const int maxAC = 20;
+    public const int maxAC = 27;
     public const float maxMaxHP = 1000f;
 
     //conditions
@@ -103,7 +103,7 @@ public class Player : Moving
 
 
 
-        // if (Game.IsPlayersTurn() && !Game.IsPaused()) TODO: delete this if I don't do turn based
+        // if (Game.IsPlayersTurn() && !Game.IsPaused()) TODO delete this if I don't do turn based
         // {
         //     int horizontal = 0;
         //     int vertical = 0;
@@ -115,7 +115,7 @@ public class Player : Moving
         //     }
         //     if (horizontal != 0 || vertical != 0)
         //     {
-        //         //TODO: this is broken
+        //         //TODO this is broken
         //         if (facingRight && horizontal < 0) {
         //             Flip();
         //         }
@@ -127,57 +127,6 @@ public class Player : Moving
         //     }
         // }
     }
-
-    // public void CastSpell(string spellName)
-    // {
-    //     //TODO: please
-    //     //use a spell
-    //     //cast spell, pass the enemy the player's targeting 
-    //     //if spell works, then health - spell.GetHealthLost
-    //     bool success = false;
-    //     float healthLost = 0;
-
-    //     switch (spellName)
-    //     {
-    //         case Spell.delevelSpell:
-    //             healthLost = DelevelSpell.GetHealthLost();
-    //             success = true;
-    //             break;
-    //         case Spell.drainSpell:
-    //             healthLost = DrainSpell.GetHealthLost();
-    //             success = true;
-    //             break;
-    //         case Spell.freezeSpell:
-    //         healthLost = FreezeSpell.GetHealthLost();
-    //         success = true;
-    //         break;
-    //     case Spell.scareSpell:
-    //         healthLost = ScareSpell.GetHealthLost();
-    //         success = true;
-    //         break;
-    //     case Spell.teleportSpell:
-    //         healthLost = TeleportSpell.GetHealthLost();
-    //         success = true;
-    //         break;
-    //     case Spell.transformSpell:
-    //         healthLost = TransformSpell.GetHealthLost();
-    //         success = true;
-    //         break;
-    //     case Spell.sleepSpell:
-    //         healthLost = SleepSpell.GetHealthLost();
-    //         success = true;
-    //         break;
-    // }
-
-    // if (success)
-    //     // {
-    //         TakeDamage(healthLost);
-    //     }
-    //     else
-    //     {
-    //         //TODO: some sort of message about how the enemy is too powerful
-    //     }
-    // }
 
     public void UsePotion()
     {
