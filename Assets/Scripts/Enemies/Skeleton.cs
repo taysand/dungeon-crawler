@@ -19,8 +19,8 @@ public class Skeleton : Enemy
 
     protected override void SetStartingValues()
     {
-        maxHP = skeletonMaxHP;
-        hp = maxHP;
+        currentMaxHP = skeletonMaxHP;
+        hp = currentMaxHP;
         ac = skeletonAC;
         level = skeletonLevel;
         speed = skeletonSpeed;

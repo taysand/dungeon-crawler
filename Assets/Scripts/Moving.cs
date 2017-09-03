@@ -22,7 +22,7 @@ public abstract class Moving : MonoBehaviour
     protected int level;
     protected float hp;
     protected int ac;
-    protected float maxHP;
+    protected float currentMaxHP;
     protected float speed;
 
     protected virtual void Start()
@@ -79,9 +79,9 @@ public abstract class Moving : MonoBehaviour
         return hp;
     }
 
-    public float GetMaxHP()
+    public float GetCurrentMaxHP()
     {
-        return maxHP;
+        return currentMaxHP;
     }
 
     public virtual void TakeDamage(float amount)

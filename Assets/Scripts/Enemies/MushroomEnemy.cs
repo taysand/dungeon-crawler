@@ -18,8 +18,8 @@ public class MushroomEnemy : Enemy
 
     protected override void SetStartingValues()
     {
-        maxHP = mushroomMaxHP;
-        hp = maxHP;
+        currentMaxHP = mushroomMaxHP;
+        hp = currentMaxHP;
         ac = mushroomAC;
         level = mushroomLevel;
         speed = mushroomSpeed;

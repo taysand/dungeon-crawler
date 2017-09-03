@@ -13,8 +13,6 @@ public class LevelUpMenu : Menu
     private static Player player;
     private const float healthIncrease = 50;
     private const int armorIncrease = 5;
-    private const float maxHealth = 1000f;
-    private const int maxArmor = 20;
 
     //text fields
     public DisplayHealthText hpDisplay;
@@ -90,26 +88,62 @@ public class LevelUpMenu : Menu
             foreach (GameObject b in levelUpButtons)
             {
                 Button button = b.GetComponent<Button>();
-                Text text = button.GetComponentInChildren<Text>();
-                if (text != null)//a spell button
+                string parentName = b.transform.parent.name;
+
+                if (parentName == "level up spell buttons")
                 {
+                    //TODO:constant that string
                     if (!Player.SpellIsKnown(button.GetComponent<Spell>().GetSpellName()))
                     {
                         button.interactable = true;
                     }
+                } else if (parentName == "hp and ac upgrade") {//(parentName == "ac upgrade")
+                //{
+                    // if (player.GetArmor() >= Player.maxAC)
+                    // {
+                    //     Debug.Log("player armor is " + player.GetArmor() + " and max armor is " + Player.maxAC);
+                    //     //armor button is off
+                    //     //display some sort of message when this happens
+                    // } else
+                    // {
+                        button.interactable = true;
+                //     }
+                // } else if (parentName == "hp upgrade")
+                // {
+                //     if (player.GetCurrentMaxHP() >= Player.maxMaxHP)
+                //     {
+                //         Debug.Log("player health is " + player.GetCurrentMaxHP() + " and max health is " + Player.maxMaxHP);
+                //         //health button is off
+                //         //display some sort of message when this happens
+                //     } else
+                //     {
+                //         button.interactable = true;
+                //     }
                 } else
                 {
-                    //TODO: some sort of limits on max hp and ac
-                    if (player.GetArmor() < maxArmor)
-                    {
-                        //armor button is on
-                    }
-                    if (player.GetMaxHP() < maxHealth)
-                    {
-                        //health button is on
-                    }
-                    button.interactable = true;
+                    Debug.Log("parent of upgrade buttons not found");
                 }
+
+
+
+
+
+                // Text text = button.GetComponentInChildren<Text>();
+                // if (text != null){
+                //     //a spell button. TODO: this is a very bad way to do this. probably check what their parent is?
+                // //if the parent is "level up spell buttons" then it's a spell button
+
+                // //else if parent is "ac upgrade" it's the armor one
+                // //else if parent is "hp upgrade" it's the health one
+
+
+                // } else//plus buttons (armor and health) are named "plus button(Clone)"
+                // {
+                //     //TODO: some sort of limits on max hp and ac
+
+
+
+                //     }
             }
         } else
         {

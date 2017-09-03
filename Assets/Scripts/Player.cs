@@ -19,6 +19,8 @@ public class Player : Moving
     private float levelMessageReadtime = .01f;
     private float levelMessageFadeRate = .04f;
     private float levelMessageFadeDelay = .03f;
+    public const int maxAC = 20;
+    public const float maxMaxHP = 1000f;
 
     //conditions
     private bool hidden = false;
@@ -52,7 +54,7 @@ public class Player : Moving
         hp = playerStartingHP;
         ac = playerStartingAC;
         level = 0;
-        maxHP = playerStartingMaxHP;
+        currentMaxHP = playerStartingMaxHP;
         speed = playerStartingSpeed;
     }
 
@@ -184,9 +186,9 @@ public class Player : Moving
 
     public void Heal(float amount)
     {
-        if ((amount + hp) > maxHP)
+        if ((amount + hp) > currentMaxHP)
         {
-            hp = maxHP;
+            hp = currentMaxHP;
         }
         else
         {
@@ -197,7 +199,7 @@ public class Player : Moving
 
     public void IncreaseMaxHP(float amount)
     {
-        maxHP = amount + maxHP;
+        currentMaxHP = amount + currentMaxHP;
         hp = amount + hp;
         hpDisplay.UpdateTextField();
     }
@@ -283,7 +285,7 @@ public class Player : Moving
 
     public string GetHealthString()
     {
-        return "HP: " + hp + "/" + maxHP;
+        return "HP: " + hp + "/" + currentMaxHP;
     }
 
     public int GetNextLevelXP()

@@ -18,13 +18,13 @@ public class RockEnemy : Enemy
 
     protected override void SetStartingValues()
     {
-        maxHP = rockMaxHP;
-        hp = maxHP;
+        currentMaxHP = rockMaxHP;
+        hp = currentMaxHP;
         ac = rockAC;
         level = rockLevel;
         speed = rockSpeed;
         damagePerHit = rockDamage;
-        maxHP = rockMaxHP;
+        currentMaxHP = rockMaxHP;
         rangeRadius = rockRangeRadius;
         sleepTime = rockSleepTime;
         freezeTime = rockFreezeTime;
