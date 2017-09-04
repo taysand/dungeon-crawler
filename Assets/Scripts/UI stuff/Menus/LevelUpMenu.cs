@@ -18,7 +18,8 @@ public class LevelUpMenu : Menu
     public DisplayHealthText hpDisplay;
 
     //adding buttons and text fields 
-    private const string healthUpgradePath = "LevelUp/upgrade options/hp and ac upgrade/hp upgrade"; private const string armorUpgradePath = "LevelUp/upgrade options/hp and ac upgrade/ac upgrade";
+    private const string healthUpgradePath = "LevelUp/upgrade options/hp and ac upgrade/hp upgrade";
+    private const string armorUpgradePath = "LevelUp/upgrade options/hp and ac upgrade/ac upgrade";
     private const string donePath = "LevelUp/done button panel";
     private const string titlePath = "LevelUp/title panel";
     private Transform healthUpgradeParent;
@@ -45,7 +46,8 @@ public class LevelUpMenu : Menu
         if (playerGameObj != null)
         {
             player = playerGameObj.GetComponent<Player>();
-        } else
+        } 
+        else
         {
             Debug.Log("no player object?");
         }
@@ -113,7 +115,7 @@ public class LevelUpMenu : Menu
                     }
                 } else if (parentName == hpButtonParentName)
                 {
-                    if (player.GetCurrentMaxHP() >= Player.maxMaxHP) 
+                    if (player.GetCurrentMaxHP() >= Player.maxMaxHP)
                     {
                         button.interactable = false;
                         healthUpgradeText.UpdateTextField();
