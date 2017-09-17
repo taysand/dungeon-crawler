@@ -23,7 +23,7 @@ public class FreezeSpell : Spell
         if (enemy.GetLevel() <= maxLevelAffected)
         {
             Debug.Log("freezing");
-            StartCoroutine(enemy.Freeze(additionalFreezeTime));
+            // StartCoroutine(enemy.Freeze(additionalFreezeTime));
             return true;
         }
         return false;

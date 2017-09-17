@@ -79,26 +79,26 @@ public class Player : Moving
         }
     }
 
-    void FixedUpdate()
-    {
-        if (Game.IsPaused())
-        {
-            return;
-        }
+    // void FixedUpdate()
+    // {
+    //     if (Game.IsPaused())
+    //     {
+    //         return;
+    //     }
 
-        //https://unity3d.com/learn/tutorials/topics/2d-game-creation/2d-character-controllers?playlist=17093
-        var horizontal = Input.GetAxisRaw(Game.horizontalString);
-        var vertical = Input.GetAxisRaw(Game.verticalString);
-        rb2D.velocity = new Vector2(horizontal * speed, vertical * speed);
+    //     //https://unity3d.com/learn/tutorials/topics/2d-game-creation/2d-character-controllers?playlist=17093
+    //     var horizontal = Input.GetAxisRaw(Game.horizontalString);
+    //     var vertical = Input.GetAxisRaw(Game.verticalString);
+    //     rb2D.velocity = new Vector2(horizontal * speed, vertical * speed);
 
-        if (facingRight && horizontal < 0)
-        {
-            Flip();
-        }
-        if (!facingRight && horizontal > 0)
-        {
-            Flip();
-        }
+    //     if (facingRight && horizontal < 0)
+    //     {
+    //         Flip();
+    //     }
+    //     if (!facingRight && horizontal > 0)
+    //     {
+    //         Flip();
+    //     }
 
 
 
@@ -126,7 +126,7 @@ public class Player : Moving
         //         Game.SwitchTurns();
         //     }
         // }
-    }
+    // }
 
     public void UsePotion()
     {
@@ -256,4 +256,52 @@ public class Player : Moving
     public int GetMaxLevel() {
         return maxLevel;
     }
+
+    //FIXME: attempting turn based below
+
+    void Update () {
+		if(!Game.IsPlayersTurn()) {
+			return;
+		}
+
+		int horizontal = 0;
+		int vertical = 0;
+
+		horizontal = (int) (Input.GetAxisRaw (Game.horizontalString));
+		vertical = (int) (Input.GetAxisRaw(Game.verticalString));
+		if(horizontal != 0) {
+			vertical = 0;
+		}
+
+		if(horizontal != 0 || vertical != 0) {
+            AttemptMove<Wall> (horizontal, vertical);
+            // Debug.Log("about to attempt move with ten");
+			// AttemptMove<Wall> (horizontal * 10, vertical * 10);
+
+            // Debug.Log("about to attempt move with 100");
+			// AttemptMove<Wall> (horizontal * 100, vertical * 100);
+		}
+	}
+
+    protected override void AttemptMove <T> (int xDir, int yDir) {
+		base.AttemptMove <T> (xDir, yDir);
+
+		// RaycastHit2D hit;
+		// Move (xDir, yDir, out hit);
+
+
+		Game.SetPlayersTurn(false);
+
+        //just for testing movement. please delete later
+        StartCoroutine(WaitASecond());
+	}
+
+    private IEnumerator WaitASecond() {
+        yield return new WaitForSeconds(.4f);
+        Game.SetPlayersTurn(true);
+    }
+
+    protected override void OnCantMove <T> (T component) {
+		Wall hitWall = component as Wall;
+	}
 }

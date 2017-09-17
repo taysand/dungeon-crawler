@@ -60,82 +60,86 @@ public abstract class Enemy : Moving
 
         startingLocation = transform.position;
         shouldMove = true;
-        StartFollowingPath();
+        // StartFollowingPath();
         movingToPlayer = false;
         //do like a distance from it's "starting point" which can change?
+
+        //part of attempting turn based
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
 
-    private void StartFollowingPath()
-    {
-        StartCoroutine(followPath);
-        followingPath = true;
-    }
+    // private void StartFollowingPath()
+    // {
+    //     StartCoroutine(followPath);
+    //     followingPath = true;
+    // }
 
-    private void StopFollowingPath()
-    {
-        StopCoroutine(followPath);
-        followingPath = false;
-    }
+    // private void StopFollowingPath()
+    // {
+    //     StopCoroutine(followPath);
+    //     followingPath = false;
+    // }
 
-    IEnumerator FollowPath()
-    {
-        if (facingRight)
-        {
-            while (Vector2.Distance(transform.position, startingLocation) > .05f)
-            {
-                transform.position = Vector2.Lerp(transform.position, startingLocation, speed * Time.deltaTime);
-                yield return null;
-            }
-            Flip();
-        }
-        else
-        {
-            while (Vector2.Distance(transform.position, endLocation) > .05f)
-            {
-                transform.position = Vector2.Lerp(transform.position, endLocation, speed * Time.deltaTime);
-                yield return null;
-            }
-            Flip();
-        }
-        StartCoroutine(followPath);
-    }
+    // IEnumerator FollowPath()
+    // {
+    //     if (facingRight)
+    //     {
+    //         while (Vector2.Distance(transform.position, startingLocation) > .05f)
+    //         {
+    //             transform.position = Vector2.Lerp(transform.position, startingLocation, speed * Time.deltaTime);
+    //             yield return null;
+    //         }
+    //         Flip();
+    //     }
+    //     else
+    //     {
+    //         while (Vector2.Distance(transform.position, endLocation) > .05f)
+    //         {
+    //             transform.position = Vector2.Lerp(transform.position, endLocation, speed * Time.deltaTime);
+    //             yield return null;
+    //         }
+    //         Flip();
+    //     }
+    //     StartCoroutine(followPath);
+    // }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == Game.playerTag)
-        {
-            if (!frozen && !sleeping && !scared)
-            {
-                Attack(other.gameObject.GetComponent<Player>());
-            }
-        }
-    }
+    // void OnCollisionEnter2D(Collision2D other)
+    // {
+    //     if (other.gameObject.tag == Game.playerTag)
+    //     {
+    //         if (!frozen && !sleeping && !scared)
+    //         {
+    //             Attack(other.gameObject.GetComponent<Player>());
+    //         }
+    //     }
+    // }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if ((other.gameObject.tag == Game.playerTag) && !movingToPlayer)
-        {
-            inRange = true;
-            if (!frozen && !sleeping && !scared)
-            {
-                StopFollowingPath();
-                StartMovingToPlayer();
-            }
-        }
-    }
+    // void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if ((other.gameObject.tag == Game.playerTag) && !movingToPlayer)
+    //     {
+    //         inRange = true;
+    //         if (!frozen && !sleeping && !scared)
+    //         {
+    //             StopFollowingPath();
+    //             StartMovingToPlayer();
+    //         }
+    //     }
+    // }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if ((other.gameObject.tag == Game.playerTag) && !followingPath)
-        {
-            inRange = false;
-            if (!frozen && !sleeping && !scared)
-            {
-                StopMovingToPlayer();
-                StartFollowingPath();
-            }
-        }
-    }
+    // void OnTriggerExit2D(Collider2D other)
+    // {
+    //     if ((other.gameObject.tag == Game.playerTag) && !followingPath)
+    //     {
+    //         inRange = false;
+    //         if (!frozen && !sleeping && !scared)
+    //         {
+    //             StopMovingToPlayer();
+    //             StartFollowingPath();
+    //         }
+    //     }
+    // }
 
     // void FixedUpdate() FIXME: probably delete
     // {
@@ -171,129 +175,132 @@ public abstract class Enemy : Moving
         level = level - amount;
     }
 
-    public IEnumerator Sleep(float additionalSleepTime)
-    {
-        shouldMove = false;
-        Debug.Log("sleeping");
-        sleeping = true;
-        //TODO: play sleep animation 
-        StopMovement();
-        yield return new WaitForSeconds(sleepTime + additionalSleepTime);
-        WakeUp();
-    }
+    // public IEnumerator Sleep(float additionalSleepTime)
+    // {
+    //     shouldMove = false;
+    //     Debug.Log("sleeping");
+    //     sleeping = true;
+    //     //TODO: play sleep animation 
+    //     StopMovement();
+    //     yield return new WaitForSeconds(sleepTime + additionalSleepTime);
+    //     WakeUp();
+    // }
 
-    public void WakeUp()
-    {
-        Debug.Log("awake");
-        sleeping = false;
-        shouldMove = true;
-        //TODO: play wake animation 
-        StartMovement();
-    }
+    // public void WakeUp()
+    // {
+    //     Debug.Log("awake");
+    //     sleeping = false;
+    //     shouldMove = true;
+    //     //TODO: play wake animation 
+    //     StartMovement();
+    // }
 
     public bool IsSleeping()
     {
         return sleeping;
     }
 
-    public IEnumerator Freeze(float additionalFreezeTime)
-    {
-        shouldMove = false;
-        Debug.Log("following path should be false and is: " + followingPath);
-        Debug.Log("frozen = " + frozen);
-        Debug.Log("about to freeze");
-        frozen = true;
-        Debug.Log("frozen = " + frozen);
-        //TODO: play freeze animation
-        StopMovement();
-        Debug.Log("about to wait for " + freezeTime + " + " + additionalFreezeTime);
-        //the game unpauses here, which means the enemy starts moving again, before it should
-        yield return new WaitForSeconds(freezeTime + additionalFreezeTime);
-        Debug.Log("entering Unfreeze");
-        //enemy is moving at this point, when it shouldn't be
-        Unfreeze();
-    }
+    // public IEnumerator Freeze(float additionalFreezeTime)
+    // {
+    //     shouldMove = false;
+    //     Debug.Log("following path should be false and is: " + followingPath);
+    //     Debug.Log("frozen = " + frozen);
+    //     Debug.Log("about to freeze");
+    //     frozen = true;
+    //     Debug.Log("frozen = " + frozen);
+    //     //TODO: play freeze animation
+    //     StopMovement();
+    //     Debug.Log("about to wait for " + freezeTime + " + " + additionalFreezeTime);
+    //     //the game unpauses here, which means the enemy starts moving again, before it should
+    //     yield return new WaitForSeconds(freezeTime + additionalFreezeTime);
+    //     Debug.Log("entering Unfreeze");
+    //     //enemy is moving at this point, when it shouldn't be
+    //     Unfreeze();
+    // }
 
-    public void Unfreeze()
-    {
-        Debug.Log("following path should be false and is: " + followingPath);
-        Debug.Log("frozen = " + frozen);
-        Debug.Log("about to unfreeze");
-        frozen = false;
-        Debug.Log("frozen = " + frozen);
-        //TODO: play unfreeze animation
-        shouldMove = true;
-        StartMovement();
-    }
+    // public void Unfreeze()
+    // {
+    //     Debug.Log("following path should be false and is: " + followingPath);
+    //     Debug.Log("frozen = " + frozen);
+    //     Debug.Log("about to unfreeze");
+    //     frozen = false;
+    //     Debug.Log("frozen = " + frozen);
+    //     //TODO: play unfreeze animation
+    //     shouldMove = true;
+    //     StartMovement();
+    // }
 
-    public void StartMovement() {
-        Debug.Log("starting movement");
-        if (inRange)
-        {
-            StartMovingToPlayer();
-            Debug.Log("movingToPlayer should now be true and is: " + movingToPlayer);
-        }
-        else
-        {
-            StartFollowingPath();
-            Debug.Log("followingPath should now be true and is: " + followingPath);
-        }
-    }
+    // public void StartMovement()
+    // {
+    //     Debug.Log("starting movement");
+    //     if (inRange)
+    //     {
+    //         StartMovingToPlayer();
+    //         Debug.Log("movingToPlayer should now be true and is: " + movingToPlayer);
+    //     }
+    //     else
+    //     {
+    //         StartFollowingPath();
+    //         Debug.Log("followingPath should now be true and is: " + followingPath);
+    //     }
+    // }
 
-    public void StopMovement() {
-        Debug.Log("stopping movement");
-        if (movingToPlayer)
-        {
-            StopMovingToPlayer();
-            Debug.Log("movingToPlayer should now be false and is: " + movingToPlayer);
-        }
-        else
-        {
-            StopFollowingPath();
-            Debug.Log("followingPath should now be false and is: " + followingPath);
-        }
-    }
+    // public void StopMovement()
+    // {
+    //     Debug.Log("stopping movement");
+    //     if (movingToPlayer)
+    //     {
+    //         StopMovingToPlayer();
+    //         Debug.Log("movingToPlayer should now be false and is: " + movingToPlayer);
+    //     }
+    //     else
+    //     {
+    //         StopFollowingPath();
+    //         Debug.Log("followingPath should now be false and is: " + followingPath);
+    //     }
+    // }
 
     public bool IsFrozen()
     {
         return frozen;
     }
 
-    public bool ShouldMove() {
+    public bool ShouldMove()
+    {
         return shouldMove;
     }
 
-    public IEnumerator Scare(float additionalScareTime, int additionalScareDistance)
-    {
-        Debug.Log("scared");
-        shouldMove = false;
-        scared = true;
-        //TODO: play scared animation
+    // public IEnumerator Scare(float additionalScareTime, int additionalScareDistance)
+    // {
+    //     Debug.Log("scared");
+    //     shouldMove = false;
+    //     scared = true;
+    //     //TODO: play scared animation
 
-        StopMovement();
+    //     StopMovement();
 
-        while (Vector2.Distance(transform.position, player.transform.position) < scaredDistance + additionalScareDistance)
-        {
-            //http://answers.unity3d.com/questions/1137454/gameobject1-move-away-when-gameobject2-gets-close.html
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * speed * Time.deltaTime);
-            // if (oldX - transform.position.x) { TODO:
-            //     Flip();
-            // }
-            yield return null;
-        }
+    //     while (Vector2.Distance(transform.position, player.transform.position) < scaredDistance + additionalScareDistance)
+    //     {
+    //         //http://answers.unity3d.com/questions/1137454/gameobject1-move-away-when-gameobject2-gets-close.html
+    //         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, -1 * speed * Time.deltaTime);
+    //         // if (oldX - transform.position.x) { TODO:
+    //         //     Flip();
+    //         // }
+    //         yield return null;
+    //     }
 
-        yield return new WaitForSeconds(scaredTime + additionalScareTime);
-        NoLongerScared();
-    }
+    //     yield return new WaitForSeconds(scaredTime + additionalScareTime);
+    //     NoLongerScared();
+    // }
 
-    public void NoLongerScared()
-    {
-        shouldMove = true;
-        Debug.Log("no longer scared");
-        scared = false;
-        //TODO: play no longer scared animation
-        StartMovement();
-    }
+    // public void NoLongerScared()
+    // {
+    //     shouldMove = true;
+    //     Debug.Log("no longer scared");
+    //     scared = false;
+    //     //TODO: play no longer scared animation
+    //     StartMovement();
+    // }
 
     public bool IsScared()
     {
@@ -384,35 +391,76 @@ public abstract class Enemy : Moving
     //     }
     // }
 
-    private void StartMovingToPlayer()
-    {
-        StartCoroutine(moveToPlayer);
-        movingToPlayer = true;
-    }
+    // private void StartMovingToPlayer()
+    // {
+    //     StartCoroutine(moveToPlayer);
+    //     movingToPlayer = true;
+    // }
 
-    private void StopMovingToPlayer()
-    {
-        StopCoroutine(moveToPlayer);
-        movingToPlayer = false;
-    }
+    // private void StopMovingToPlayer()
+    // {
+    //     StopCoroutine(moveToPlayer);
+    //     movingToPlayer = false;
+    // }
 
-    IEnumerator MoveToPlayer()
+    // IEnumerator MoveToPlayer()
+    // {
+    //     Debug.Log("moving to player");
+    //     //float oldX = transform.position.x;
+    //     while (Vector2.Distance(transform.position, player.transform.position) > .5f)
+    //     {
+    //         transform.position = Vector2.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
+    //         // if (oldX - transform.position.x) { TODO:
+    //         //     Flip();
+    //         // }
+    //         yield return null;
+    //     }
+
+    //     //FIXME: probably delete 
+    //     //https://unity3d.com/learn/tutorials/topics/2d-game-creation/top-down-2d-game-basics?playlist=17093 
+    //     // float z = Mathf.Atan2((player.transform.position.y - transform.position.y), (player.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
+    //     // transform.eulerAngles = new Vector3(0, 0, z);
+    //     // rb2D.AddForce(gameObject.transform.up * speed * 10);
+    // }
+
+    //FIXME: attempting turn based below
+    private Transform target;
+    private bool skipMove;
+
+    protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        Debug.Log("moving to player");
-        //float oldX = transform.position.x;
-        while (Vector2.Distance(transform.position, player.transform.position) > .5f)
+        if (skipMove)
         {
-            transform.position = Vector2.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
-            // if (oldX - transform.position.x) { TODO:
-            //     Flip();
-            // }
-            yield return null;
+            skipMove = false;
+            return;
         }
 
-        //FIXME: probably delete 
-        //https://unity3d.com/learn/tutorials/topics/2d-game-creation/top-down-2d-game-basics?playlist=17093 
-        // float z = Mathf.Atan2((player.transform.position.y - transform.position.y), (player.transform.position.x - transform.position.x)) * Mathf.Rad2Deg - 90;
-        // transform.eulerAngles = new Vector3(0, 0, z);
-        // rb2D.AddForce(gameObject.transform.up * speed * 10);
+        base.AttemptMove<T>(xDir, yDir);
+
+        skipMove = true;
+    }
+
+    public void MoveEnemy()
+    {
+        int xDir = 0;
+        int yDir = 0;
+
+        if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
+        { //are enemy and player in the same column 
+            yDir = target.position.y > transform.position.y ? 1 : -1;
+        }
+        else
+        {
+            xDir = target.position.x > transform.position.x ? 1 : -1;
+        }
+
+        AttemptMove<Player>(xDir, yDir);
+    }
+
+    protected override void OnCantMove<T>(T component)
+    {
+        Player hitPlayer = component as Player;
+        animator.SetTrigger("EnemyAttack");
+        hitPlayer.TakeDamage(damagePerHit);
     }
 }

@@ -24,7 +24,7 @@ public class ScareSpell : Spell
         if (enemy.GetLevel() <= maxLevelAffected)
         {
             Debug.Log("scaring");
-            StartCoroutine(enemy.Scare(additionalScareTime, additionalScareDistance));
+            // StartCoroutine(enemy.Scare(additionalScareTime, additionalScareDistance));
             return true;
         }
         return false;
