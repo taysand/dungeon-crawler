@@ -33,7 +33,8 @@ public class LevelUpMenu : Menu
     private static string acButtonParentName = "ac upgrade";
     private static string hpButtonParentName = "hp upgrade";
 
-    protected override void AdditionalSetUp() {
+    protected override void AdditionalSetUp()
+    {
 
         healthUpgradeParent = transform.Find(healthUpgradePath);
         armorUpgradeParent = transform.Find(armorUpgradePath);
@@ -46,14 +47,15 @@ public class LevelUpMenu : Menu
         if (playerGameObj != null)
         {
             player = playerGameObj.GetComponent<Player>();
-        } 
+        }
         else
         {
             Debug.Log("no player object?");
         }
     }
 
-    protected override void BuildButtonsAndText() {
+    protected override void BuildButtonsAndText()
+    {
         BuildText(levelInfo, titleParent);
         BuildText(health, healthUpgradeParent);
         BuildButton(health, healthUpgradeParent, plusButtonPrefab);
@@ -62,25 +64,30 @@ public class LevelUpMenu : Menu
         BuildButton(done, doneParent, doneButtonPrefab);
     }
 
-    public override void ShowMenu() {
+    public override void ShowMenu()
+    {
         base.ShowMenu();
         UpdateLevelUpOptions();
     }
 
-    public static void GainLevelUpPoint() {
+    public static void GainLevelUpPoint()
+    {
         levelUpPoints++;
     }
 
-    public static int GetLevelUpPoints() {
+    public static int GetLevelUpPoints()
+    {
         return levelUpPoints;
     }
 
-    public static void SpendLevelUpPoints() {
+    public static void SpendLevelUpPoints()
+    {
         levelUpPoints--;
         UpdateLevelUpOptions();
     }
 
-    public static void UpdateLevelUpOptions() {
+    public static void UpdateLevelUpOptions()
+    {
         levelDisplay.UpdateTextField();
 
         levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
@@ -103,32 +110,38 @@ public class LevelUpMenu : Menu
                     {
                         button.interactable = true;
                     }
-                } else if (parentName == acButtonParentName)
+                }
+                else if (parentName == acButtonParentName)
                 {
                     if (player.GetArmor() >= Player.maxAC)
                     {
                         button.interactable = false;
                         armorUpgradeText.UpdateTextField();
-                    } else
+                    }
+                    else
                     {
                         button.interactable = true;
                     }
-                } else if (parentName == hpButtonParentName)
+                }
+                else if (parentName == hpButtonParentName)
                 {
                     if (player.GetCurrentMaxHP() >= Player.maxMaxHP)
                     {
                         button.interactable = false;
                         healthUpgradeText.UpdateTextField();
-                    } else
+                    }
+                    else
                     {
                         button.interactable = true;
                     }
-                } else
+                }
+                else
                 {
                     Debug.Log("parent of upgrade buttons not found");
                 }
             }
-        } else
+        }
+        else
         {
             foreach (GameObject b in levelUpButtons)
             {
@@ -138,14 +151,16 @@ public class LevelUpMenu : Menu
         }
     }
 
-    public void IncreaseHealth() {
+    public void IncreaseHealth()
+    {
         player.IncreaseMaxHP(healthIncrease);
         healthUpgradeText.UpdateTextField();
         SpendLevelUpPoints();
         hpDisplay.UpdateTextField();
     }
 
-    public void IncreaseArmor() {
+    public void IncreaseArmor()
+    {
         player.IncreaseArmor(armorIncrease);
         armorUpgradeText.UpdateTextField();
         SpendLevelUpPoints();
