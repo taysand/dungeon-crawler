@@ -32,13 +32,13 @@ public abstract class Enemy : Moving
     //movement
     public Vector3 startingLocation;//starting location, set per individual 
     public Vector3 endLocation;//ending location, set per individual 
-    private bool followingPath;
+    // private bool followingPath;
     private bool movingToPlayer;
-    protected bool inRange;
+    // protected bool inRange;
 
     // Coroutine names
-    private const string followPath = "FollowPath";
-    private const string moveToPlayer = "MoveToPlayer";
+    // private const string followPath = "FollowPath";
+    // private const string moveToPlayer = "MoveToPlayer";
 
     protected override void Start()
     {
@@ -118,31 +118,37 @@ public abstract class Enemy : Moving
         }
     }
 
-    // void OnTriggerEnter2D(Collider2D other)
-    // {
-    //     if ((other.gameObject.tag == Game.playerTag) && !movingToPlayer)
-    //     {
-    //         inRange = true;
-    //         if (!frozen && !sleeping && !scared)
-    //         {
-    //             StopFollowingPath();
-    //             StartMovingToPlayer();
-    //         }
-    //     }
-    // }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if ((other.gameObject.tag == Game.playerTag) && !movingToPlayer)
+        {
+            // inRange = true;
+            if (!frozen && !sleeping && !scared)
+            {
+                // StopFollowingPath();
+                // StartMovingToPlayer();
+                movingToPlayer = true;
+                Debug.Log("movingToPlayer is now " + movingToPlayer);
+            }
+        }
+    }
 
-    // void OnTriggerExit2D(Collider2D other)
-    // {
-    //     if ((other.gameObject.tag == Game.playerTag) && !followingPath)
-    //     {
-    //         inRange = false;
-    //         if (!frozen && !sleeping && !scared)
-    //         {
-    //             StopMovingToPlayer();
-    //             StartFollowingPath();
-    //         }
-    //     }
-    // }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        Debug.Log("exit trigger");
+        if ((other.gameObject.tag == Game.playerTag)) //&& !followingPath)
+        {
+            Debug.Log("no longer moving to player");
+            // inRange = false;
+            if (!frozen && !sleeping && !scared)
+            {
+                // StopMovingToPlayer();
+                // StartFollowingPath();
+                movingToPlayer = false;
+                Debug.Log("movingToPlayer is now " + movingToPlayer);
+            }
+        }
+    }
 
     // void FixedUpdate() FIXME: probably delete
     // {
@@ -452,8 +458,30 @@ public abstract class Enemy : Moving
     {
         // Debug.Log("setting direction");
 
-        if (movingToEnd)
+        if (movingToPlayer)
         {
+            Debug.Log("moving to player");
+            if (transform.position.x > player.transform.position.x)
+            {
+                xDirection = -1;
+            }
+            else
+            {
+                xDirection = 1;
+            }
+
+            if (transform.position.y > player.transform.position.y)
+            {
+                yDirection = -1;
+            }
+            else
+            {
+                yDirection = 1;
+            }
+        }
+        else if (movingToEnd)
+        {
+            Debug.Log("moving to end");
             if (transform.position.x > endLocation.x)
             {
                 xDirection = -1;
@@ -472,8 +500,9 @@ public abstract class Enemy : Moving
                 yDirection = 1;
             }
         }
-        else
+        else if (!movingToEnd)
         {
+            Debug.Log("moving to start");
             if (transform.position.x < startingLocation.x)
             {
                 xDirection = 1;

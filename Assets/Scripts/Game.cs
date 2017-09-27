@@ -229,7 +229,6 @@ public class Game : MonoBehaviour
             enemies[i].MoveEnemy();
             yield return new WaitForSeconds(enemies[i].moveTime);
         }
-        Debug.Log("waiting for enemies");
         yield return new WaitForSeconds(turnDelay);
 
         playersTurn = true;
@@ -254,7 +253,6 @@ public class Game : MonoBehaviour
         }
 
         // ControlAnimations();//TODO: does the roguelike code deal with this
-        Debug.Log("is it the player's turn? " + playersTurn);
         //TODO: bring this back later to deal with enemy movement and actually taking turns
         if (playersTurn || enemiesMoving)
         {
