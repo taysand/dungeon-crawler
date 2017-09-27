@@ -259,6 +259,7 @@ public class Player : Moving
 
     //FIXME: attempting turn based below
 
+    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     void Update () {
 		if(!Game.IsPlayersTurn()) {
 			return;
@@ -283,6 +284,7 @@ public class Player : Moving
 		}
 	}
 
+    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     protected override void AttemptMove <T> (int xDir, int yDir) {
 		base.AttemptMove <T> (xDir, yDir);
 
@@ -292,16 +294,18 @@ public class Player : Moving
 
 		Game.SetPlayersTurn(false);
 
-        //just for testing movement. please delete later
-        StartCoroutine(WaitASecond());
+        // //just for testing movement. please delete later
+        // StartCoroutine(WaitASecond());
 	}
 
-    private IEnumerator WaitASecond() {
-        yield return new WaitForSeconds(.4f);
-        Game.SetPlayersTurn(true);
-    }
+    // //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
+    // private IEnumerator WaitASecond() {
+    //     yield return new WaitForSeconds(.4f);
+    //     Game.SetPlayersTurn(true);
+    // }
 
-    protected override void OnCantMove <T> (T component) {
-		Wall hitWall = component as Wall;
-	}
+    // //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
+    // protected override void OnCantMove <T> (T component) {
+	// 	Wall hitWall = component as Wall;
+	// }
 }

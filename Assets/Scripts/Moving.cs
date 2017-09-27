@@ -102,6 +102,7 @@ public abstract class Moving : MonoBehaviour
     // private Rigidbody2D rb2D;
     private float inverseMoveTime;
 
+    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
         //returning bool and also returning RaycastHit2D called hit
@@ -123,6 +124,7 @@ public abstract class Moving : MonoBehaviour
         return false; //couldn't move
     }
 
+    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     protected IEnumerator SmoothMovement(Vector3 end)
     {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
@@ -136,6 +138,7 @@ public abstract class Moving : MonoBehaviour
         }
     }
 
+    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     protected virtual void AttemptMove<T>(int xDir, int yDir)
         where T : Component
     {
@@ -148,14 +151,15 @@ public abstract class Moving : MonoBehaviour
         }
 
         //if something was hit
-        T hitComponent = hit.transform.GetComponent<T>();
+        // T hitComponent = hit.transform.GetComponent<T>();
 
-        if (!canMove && hitComponent != null)
-        {
-            OnCantMove(hitComponent);
-        }
+        // if (!canMove && hitComponent != null)
+        // {
+        //     OnCantMove(hitComponent);
+        // }
     }
 
-    protected abstract void OnCantMove<T>(T component)
-        where T : Component;
+    // //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
+    // protected abstract void OnCantMove<T>(T component)
+    //     where T : Component;
 }

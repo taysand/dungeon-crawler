@@ -107,16 +107,16 @@ public abstract class Enemy : Moving
     //     StartCoroutine(followPath);
     // }
 
-    // void OnCollisionEnter2D(Collision2D other)
-    // {
-    //     if (other.gameObject.tag == Game.playerTag)
-    //     {
-    //         if (!frozen && !sleeping && !scared)
-    //         {
-    //             Attack(other.gameObject.GetComponent<Player>());
-    //         }
-    //     }
-    // }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == Game.playerTag)
+        {
+            if (!frozen && !sleeping && !scared)
+            {
+                Attack(other.gameObject.GetComponent<Player>());
+            }
+        }
+    }
 
     // void OnTriggerEnter2D(Collider2D other)
     // {
@@ -566,10 +566,11 @@ public abstract class Enemy : Moving
         // Debug.Log("now enemy is at " + transform.position);
     }
 
-    protected override void OnCantMove<T>(T component)
-    {
-        Player hitPlayer = component as Player;
-        animator.SetTrigger("EnemyAttack");
-        hitPlayer.TakeDamage(damagePerHit);
-    }
+    // //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
+    // protected override void OnCantMove<T>(T component)
+    // {
+    //     Player hitPlayer = component as Player;
+    //     animator.SetTrigger("EnemyAttack");
+    //     hitPlayer.TakeDamage(damagePerHit);
+    // }
 }

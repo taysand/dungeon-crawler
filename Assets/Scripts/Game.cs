@@ -215,6 +215,7 @@ public class Game : MonoBehaviour
         playersTurn = value;
     }
 
+    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     IEnumerator MoveEnemies()
     {
         enemiesMoving = true;
@@ -235,6 +236,7 @@ public class Game : MonoBehaviour
         enemiesMoving = false;
     }
 
+    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     void Update()
     {
         if (pauseMenu.Activated())
