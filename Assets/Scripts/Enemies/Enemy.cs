@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public abstract class Enemy : Moving
 {
@@ -29,8 +30,8 @@ public abstract class Enemy : Moving
     Player player;
 
     //movement
-    protected Vector2 startingLocation;//starting location
-    public Vector2 endLocation;//ending location, set per individual 
+    public Vector3 startingLocation;//starting location, set per individual 
+    public Vector3 endLocation;//ending location, set per individual 
     private bool followingPath;
     private bool movingToPlayer;
     protected bool inRange;
@@ -58,8 +59,10 @@ public abstract class Enemy : Moving
             Debug.Log("no player object?");
         }
 
-        startingLocation = transform.position;
+        transform.position = startingLocation;
+        lastMovedX = false;
         shouldMove = true;
+        movingToEnd = true;
         // StartFollowingPath();
         movingToPlayer = false;
         //do like a distance from it's "starting point" which can change?
@@ -425,36 +428,142 @@ public abstract class Enemy : Moving
 
     //FIXME: attempting turn based below
     private Transform target;
-    private bool skipMove;
+    int yDirection;
+    int xDirection;
+    bool lastMovedX;
+    bool movingToEnd;
 
-    protected override void AttemptMove<T>(int xDir, int yDir)
+    // private bool skipMove;
+
+    // protected override void AttemptMove<T>(int xDir, int yDir)
+    // {
+    //     // if (skipMove)
+    //     // {
+    //     //     skipMove = false;
+    //     //     return;
+    //     // }
+
+    //     base.AttemptMove<T>(xDir, yDir);
+
+    //     // skipMove = true;
+    // }
+
+    private void SetDirections()
     {
-        if (skipMove)
+        // Debug.Log("setting direction");
+
+        if (movingToEnd)
         {
-            skipMove = false;
-            return;
+            if (transform.position.x > endLocation.x)
+            {
+                xDirection = -1;
+            }
+            else
+            {
+                xDirection = 1;
+            }
+
+            if (transform.position.y > endLocation.y)
+            {
+                yDirection = -1;
+            }
+            else
+            {
+                yDirection = 1;
+            }
         }
+        else
+        {
+            if (transform.position.x < startingLocation.x)
+            {
+                xDirection = 1;
+            }
+            else
+            {
+                xDirection = -1;
+            }
 
-        base.AttemptMove<T>(xDir, yDir);
+            if (transform.position.y < startingLocation.y)
+            {
+                yDirection = 1;
+            }
+            else
+            {
+                yDirection = -1;
+            }
+        }
+    }
 
-        skipMove = true;
+    private Vector2 MoveOne()
+    {
+        int x = 0;
+        int y = 0;
+        if (lastMovedX)
+        {
+            y = 1 * yDirection;
+            // Debug.Log("moving y");
+            lastMovedX = false;
+        }
+        else
+        {
+            x = 1 * xDirection;
+            // Debug.Log("moving x");
+            lastMovedX = true;
+        }
+        return new Vector2(x, y);
     }
 
     public void MoveEnemy()
     {
-        int xDir = 0;
-        int yDir = 0;
+        Vector2 movement;
+        SetDirections();
 
-        if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
-        { //are enemy and player in the same column 
-            yDir = target.position.y > transform.position.y ? 1 : -1;
-        }
-        else
+        // Debug.Log("enemy is at " + transform.position);
+
+        // if (movingToEnd)
+        // {
+
+
+
+        movement = MoveOne();
+
+        // }
+        // else
+        // {
+        //     //move to endLocation
+        //     Debug.Log("moving to the end, which is at " + endLocation);
+        //     movement = MoveOne();
+        // }
+        if (Math.Abs(transform.position.x - endLocation.x) < 1 && Math.Abs(transform.position.y - endLocation.y) < 1 && movingToEnd)
         {
-            xDir = target.position.x > transform.position.x ? 1 : -1;
+            // Debug.Log("reached the end positiion");
+            //turn around and go back to startLocation
+            // SetDirections();
+            Flip();
+            movingToEnd = false;
         }
+        else if (Math.Abs(transform.position.x - startingLocation.x) < 1 && Math.Abs(transform.position.y - startingLocation.y) < 1 && !movingToEnd)
+        {
+            // Debug.Log("reached the start positiion");
+            //turn around and go back to endLocation
+            // SetDirections();
+            Flip();
+            movingToEnd = true;
+        }
+        // Debug.Log("moving to end? " + movingToEnd);
 
-        AttemptMove<Player>(xDir, yDir);
+        // if (Mathf.Abs(target.position.x - transform.position.x) < float.Epsilon)
+        // { //are enemy and player in the same column 
+        // Debug.Log("enemy and player are in the same column? so it's tracking you");
+        //     yDir = target.position.y > transform.position.y ? 1 : -1;
+        // }
+        // else
+        // {
+        //     xDir = target.position.x > transform.position.x ? 1 : -1;
+        // }
+
+        AttemptMove<Player>((int)movement.x, (int)movement.y);
+        // Debug.Log("now enemy is at " + transform.position);
     }
 
     protected override void OnCantMove<T>(T component)

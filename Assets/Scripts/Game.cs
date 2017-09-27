@@ -200,7 +200,7 @@ public class Game : MonoBehaviour
     }
 
     //FIXME: attempting turn based below
-    public float turnDelay = 0.1f;
+    public float turnDelay = .1f;
     private bool enemiesMoving;
 
     private static bool playersTurn = true;
@@ -218,7 +218,6 @@ public class Game : MonoBehaviour
     IEnumerator MoveEnemies()
     {
         enemiesMoving = true;
-        yield return new WaitForSeconds(turnDelay);
         if (enemies.Count == 0)
         {
             yield return new WaitForSeconds(turnDelay);
@@ -229,6 +228,8 @@ public class Game : MonoBehaviour
             enemies[i].MoveEnemy();
             yield return new WaitForSeconds(enemies[i].moveTime);
         }
+        Debug.Log("waiting for enemies");
+        yield return new WaitForSeconds(turnDelay);
 
         playersTurn = true;
         enemiesMoving = false;
@@ -251,7 +252,7 @@ public class Game : MonoBehaviour
         }
 
         // ControlAnimations();//TODO: does the roguelike code deal with this
-
+        Debug.Log("is it the player's turn? " + playersTurn);
         //TODO: bring this back later to deal with enemy movement and actually taking turns
         if (playersTurn || enemiesMoving)
         {

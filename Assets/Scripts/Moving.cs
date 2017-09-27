@@ -95,7 +95,7 @@ public abstract class Moving : MonoBehaviour
     }
 
     //FIXME: attempting turn based below
-    public float moveTime = 0.1f;
+    public float moveTime = .1f;
     public LayerMask blockingLayer;
 
     // private BoxCollider2D boxCollider;
@@ -115,7 +115,7 @@ public abstract class Moving : MonoBehaviour
 
         if (hit.transform == null)
         { //check if anything was hit
-            // StartCoroutine(SmoothMovement(end));TODO: fix this
+            StartCoroutine(SmoothMovement(end));//TODO: fix this
             transform.position = end;
             return true; //able to move
         }
