@@ -262,8 +262,11 @@ public class Player : Moving
     //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     void Update () {
 		if(!Game.IsPlayersTurn()) {
+            // Debug.Log("not player's turn");
 			return;
 		}
+
+        // Debug.Log("player's turn");
 
 		int horizontal = 0;
 		int vertical = 0;

@@ -10,7 +10,7 @@ public class MushroomEnemy : Enemy
     private const float mushroomSpeed = 2f;
     private const float mushroomMaxHP = 20f;
     private const int mushroomLevel = 3;
-    private const float mushroomRangeRadius = 10f;
+    private const float mushroomRangeRadius = 50f;
     private const int mushroomSleepTime = 2;
     private const int mushroomFreezeTime = 4;
     private const int mushroomScaredTime = 1;

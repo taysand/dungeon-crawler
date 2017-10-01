@@ -319,7 +319,10 @@ public abstract class Enemy : Moving
     public void Attack(Player player)
     {
         PlayAttackAnimation();
-        player.TakeDamage(damagePerHit);
+        if (!Game.IsPlayersTurn())
+        {
+            player.TakeDamage(damagePerHit);
+        }
     }
 
     //https://forum.unity3d.com/threads/left-and-right-enemy-moving-in-2d-platformer.364716/ FIXME: probably delete
@@ -456,12 +459,12 @@ public abstract class Enemy : Moving
 
     private void SetDirections()
     {
-        // Debug.Log("setting direction");
+        Debug.Log("setting direction");
 
         if (movingToPlayer)
         {
             Debug.Log("moving to player");
-            if (transform.position.x > player.transform.position.x)
+            if (connectedJoint.position.x > player.transform.position.x)
             {
                 xDirection = -1;
             }
@@ -470,7 +473,7 @@ public abstract class Enemy : Moving
                 xDirection = 1;
             }
 
-            if (transform.position.y > player.transform.position.y)
+            if (connectedJoint.position.y > player.transform.position.y)
             {
                 yDirection = -1;
             }
@@ -482,7 +485,7 @@ public abstract class Enemy : Moving
         else if (movingToEnd)
         {
             Debug.Log("moving to end");
-            if (transform.position.x > endLocation.x)
+            if (connectedJoint.position.x > endLocation.x)
             {
                 xDirection = -1;
             }
@@ -491,7 +494,7 @@ public abstract class Enemy : Moving
                 xDirection = 1;
             }
 
-            if (transform.position.y > endLocation.y)
+            if (connectedJoint.position.y > endLocation.y)
             {
                 yDirection = -1;
             }
@@ -503,7 +506,7 @@ public abstract class Enemy : Moving
         else if (!movingToEnd)
         {
             Debug.Log("moving to start");
-            if (transform.position.x < startingLocation.x)
+            if (connectedJoint.position.x < startingLocation.x)
             {
                 xDirection = 1;
             }
@@ -512,7 +515,7 @@ public abstract class Enemy : Moving
                 xDirection = -1;
             }
 
-            if (transform.position.y < startingLocation.y)
+            if (connectedJoint.position.y < startingLocation.y)
             {
                 yDirection = 1;
             }
@@ -563,7 +566,7 @@ public abstract class Enemy : Moving
         //     Debug.Log("moving to the end, which is at " + endLocation);
         //     movement = MoveOne();
         // }
-        if (Math.Abs(transform.position.x - endLocation.x) < 1 && Math.Abs(transform.position.y - endLocation.y) < 1 && movingToEnd)
+        if (Math.Abs(connectedJoint.position.x - endLocation.x) < 1 && Math.Abs(connectedJoint.position.y - endLocation.y) < 1 && movingToEnd)
         {
             // Debug.Log("reached the end positiion");
             //turn around and go back to startLocation
@@ -571,7 +574,7 @@ public abstract class Enemy : Moving
             Flip();
             movingToEnd = false;
         }
-        else if (Math.Abs(transform.position.x - startingLocation.x) < 1 && Math.Abs(transform.position.y - startingLocation.y) < 1 && !movingToEnd)
+        else if (Math.Abs(connectedJoint.position.x - startingLocation.x) < 1 && Math.Abs(connectedJoint.position.y - startingLocation.y) < 1 && !movingToEnd)
         {
             // Debug.Log("reached the start positiion");
             //turn around and go back to endLocation

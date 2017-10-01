@@ -193,15 +193,17 @@ public class Game : MonoBehaviour
     public static void AddEnemyToList(Enemy badGuy)
     {
         enemies.Add(badGuy);
-        Debug.Log("enemies list looks like this right now: ");
-        for (int i = 0; i < enemies.Count; i++) {
-            Debug.Log(enemies[i]);
-        }
+        // Debug.Log("enemies list looks like this right now: ");
+        // for (int i = 0; i < enemies.Count; i++) {
+        //     Debug.Log(enemies[i]);
+        // }
     }
 
     //FIXME: attempting turn based below
     public float turnDelay = .1f;
     private bool enemiesMoving;
+
+    private const float playerTurnDelay = .5f;
 
     private static bool playersTurn = true;
 
@@ -231,9 +233,19 @@ public class Game : MonoBehaviour
         }
         yield return new WaitForSeconds(turnDelay);
 
+        // StartCoroutine(WaitBeforePlayerCanMoveAgain());
         playersTurn = true;
         enemiesMoving = false;
     }
+
+    // IEnumerator WaitBeforePlayerCanMoveAgain()
+    // {
+    //     // Debug.Log("waiting for player's turn");
+    //     yield return new WaitForSeconds(playerTurnDelay);
+    //     // Debug.Log("setting player's turn to go");
+    //     playersTurn = true;
+    //     // Debug.Log("player's turn should be true and is: " + playersTurn);
+    // }
 
     //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     void Update()
@@ -253,7 +265,7 @@ public class Game : MonoBehaviour
         }
 
         // ControlAnimations();//TODO: does the roguelike code deal with this
-        //TODO: bring this back later to deal with enemy movement and actually taking turns
+
         if (playersTurn || enemiesMoving)
         {
             return;

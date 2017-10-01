@@ -12,7 +12,7 @@ public abstract class Moving : MonoBehaviour
     protected BoxCollider2D boxCollider;
     protected Rigidbody2D rb2D;
     protected bool facingRight;
-    protected SpriteRenderer sr;
+    protected SpriteRenderer spriteRenderer;
 
     //moving stuff, this stuff is from the tutorial TODO: delete this if I don't do turn based
     // private float inverseMoveTime;
@@ -31,7 +31,7 @@ public abstract class Moving : MonoBehaviour
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //inverseMoveTime = 1f / moveTime; //this stuff is from the tutorial  TODO: delete this if I don't do turn based
         rb2D.drag = 5;
     }
@@ -43,7 +43,7 @@ public abstract class Moving : MonoBehaviour
     protected void Flip()
     {
         facingRight = !facingRight;
-        sr.flipX = facingRight;
+        spriteRenderer.flipX = facingRight;
     }
 
     // public void Move(int x, int y) TODO: delete this if I don't do turn based
@@ -101,14 +101,18 @@ public abstract class Moving : MonoBehaviour
     // private BoxCollider2D boxCollider;
     // private Rigidbody2D rb2D;
     private float inverseMoveTime;
+    public Transform connectedJoint;
 
     //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     protected bool Move(int xDir, int yDir, out RaycastHit2D hit)
     {
         //returning bool and also returning RaycastHit2D called hit
 
-        Vector2 start = transform.position;
+        Vector2 start = connectedJoint.position;
+        Debug.Log("start position is: " + start);
         Vector2 end = start + new Vector2(xDir, yDir);
+
+         Debug.Log("end position is: " + end);
 
         boxCollider.enabled = false;
         hit = Physics2D.Linecast(start, end, blockingLayer);
@@ -116,8 +120,9 @@ public abstract class Moving : MonoBehaviour
 
         if (hit.transform == null)
         { //check if anything was hit
-            StartCoroutine(SmoothMovement(end));//TODO: fix this
-            transform.position = end;
+            // StartCoroutine(SmoothMovement(end));//TODO: fix this
+            connectedJoint.position = end;
+
             return true; //able to move
         }
 
