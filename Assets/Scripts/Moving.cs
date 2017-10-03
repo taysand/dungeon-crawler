@@ -46,29 +46,6 @@ public abstract class Moving : MonoBehaviour
         spriteRenderer.flipX = facingRight;
     }
 
-    // public void Move(int x, int y) TODO: delete this if I don't do turn based
-    // {
-    //     Vector2 start = transform.position;
-    //     Vector2 end = start + new Vector2(x, y);
-    //     //StartCoroutine(SmoothMovement(end)); //this stuff is from the tutorial 
-    //     transform.position = end;
-    // }
-
-    //TODO: delete this if I don't do turn based
-    //fixes the wall clipping problem, but now they get stuck in walls. also enemies don't have good movement 
-    // protected IEnumerator SmoothMovement(Vector3 end)
-    // { //this stuff is from the tutorial 
-    //     float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-
-    //     while (sqrRemainingDistance > float.Epsilon)
-    //     {
-    //         Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime); //inverseMoveTime * Time.deltaTime units closer to end
-    //         rb2D.MovePosition(newPosition);
-    //         sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-    //         yield return null;
-    //     }
-    // }
-
     public int GetLevel()
     {
         return level;
@@ -109,10 +86,10 @@ public abstract class Moving : MonoBehaviour
         //returning bool and also returning RaycastHit2D called hit
 
         Vector2 start = connectedJoint.position;
-        Debug.Log("start position is: " + start);
+        // Debug.Log("start position is: " + start);
         Vector2 end = start + new Vector2(xDir, yDir);
 
-         Debug.Log("end position is: " + end);
+        //  Debug.Log("end position is: " + end);
 
         boxCollider.enabled = false;
         hit = Physics2D.Linecast(start, end, blockingLayer);

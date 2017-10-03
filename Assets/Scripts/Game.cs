@@ -266,11 +266,12 @@ public class Game : MonoBehaviour
 
         // ControlAnimations();//TODO: does the roguelike code deal with this
 
-        if (playersTurn || enemiesMoving)
+        if (playersTurn || enemiesMoving || paused)
         {
             return;
         }
 
+        Debug.Log("enemies' turn");
         StartCoroutine(MoveEnemies());
     }
 }
