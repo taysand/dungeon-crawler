@@ -26,16 +26,19 @@ public class TeleportSpell : Spell
             float x = enemy.transform.position.x;
             float y = enemy.transform.position.y;
 
+            //TODO: checks to keep them out of walls
             System.Random random = new System.Random();
             if (random.Next(0, 2) == 1)
             {
                 x = x + distance;
+                y = y + distance;
             }
             else
             {
-                y = y + distance;
+                x = x - distance;
+                y = y - distance;
             }
-            enemy.transform.position = new Vector2(x, y);
+            enemy.Teleport((int) x, (int) y);
 
             return true;
         }

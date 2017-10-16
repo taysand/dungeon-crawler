@@ -91,10 +91,10 @@ public class LevelUpMenu : Menu
 
         levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
 
-        foreach (GameObject b in levelUpButtons)
-        {
-            Debug.Log(b);
-        }
+        // foreach (GameObject b in levelUpButtons)
+        // {
+        //     Debug.Log(b);
+        // }
 
         if (levelUpPoints > 0)
         {

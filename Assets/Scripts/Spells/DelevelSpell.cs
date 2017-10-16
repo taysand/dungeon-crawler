@@ -7,7 +7,7 @@ public class DelevelSpell : Spell
 {
     private int decreaseBy = 1;
     private const int delevelHealthLost = 10;
-    private const int delevelMaxLevelAffected = 2;
+    private const int delevelMaxLevelAffected = 20;
 
     protected override void InitializeStats()
     {

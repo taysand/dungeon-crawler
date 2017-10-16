@@ -12,7 +12,7 @@ public class Player : Moving
 
     //leveling
     private int xp = 0;
-    private int[] levels = { 100, 300, 600, 1000 }; //or whatever. TODO: add more levels
+    private int[] levels = { 100, 300, 600, 1000 }; //TODO: add more levels
     private int nextLevel;
     private int maxLevel;
     private float delayAfterLevelUpMessage = .8f;
@@ -30,13 +30,6 @@ public class Player : Moving
 
     public DisplayHealthText hpDisplay;
     public Menu levelUpMenu;
-    //private static List<string> unknownSpells = new List<string>();
-
-    //private torch class probably 
-    //does weak damage
-    //can only illuminate 6 spaces
-    //can't see through walls
-    //need logic to make sure tiles on the other side of walls don't show up
 
     protected override void Start()
     {
@@ -44,9 +37,31 @@ public class Player : Moving
         nextLevel = levels[level];
         maxLevel = levels.Length;
 
-        facingRight = true;
+        // facingRight = spriteRenderer.flipX;
+    }
 
-        //unknownSpells = Spell.GetAllSpellNames();
+    void Update()
+    {
+        if (!Game.IsPlayersTurn())
+        {
+            return;
+        }
+
+        int horizontal = 0;
+        int vertical = 0;
+
+        horizontal = (int)(Input.GetAxisRaw(Game.horizontalString));
+        vertical = (int)(Input.GetAxisRaw(Game.verticalString));
+        if (horizontal != 0)
+        {
+            vertical = 0;
+        }
+
+        if (horizontal != 0 || vertical != 0)
+        {
+            Move(horizontal, vertical);
+            Game.SetPlayersTurn(false);
+        }
     }
 
     protected override void SetStartingValues()
@@ -79,55 +94,6 @@ public class Player : Moving
         }
     }
 
-    // void FixedUpdate()
-    // {
-    //     if (Game.IsPaused())
-    //     {
-    //         return;
-    //     }
-
-    //     //https://unity3d.com/learn/tutorials/topics/2d-game-creation/2d-character-controllers?playlist=17093
-    //     var horizontal = Input.GetAxisRaw(Game.horizontalString);
-    //     var vertical = Input.GetAxisRaw(Game.verticalString);
-    //     rb2D.velocity = new Vector2(horizontal * speed, vertical * speed);
-
-    //     if (facingRight && horizontal < 0)
-    //     {
-    //         Flip();
-    //     }
-    //     if (!facingRight && horizontal > 0)
-    //     {
-    //         Flip();
-    //     }
-
-
-
-
-        // if (Game.IsPlayersTurn() && !Game.IsPaused()) TODO delete this if I don't do turn based
-        // {
-        //     int horizontal = 0;
-        //     int vertical = 0;
-        //     horizontal = (int)(Input.GetAxisRaw(Game.horizontalString));
-        //     vertical = (int)(Input.GetAxisRaw(Game.verticalString));
-        //     if (horizontal != 0)
-        //     {
-        //         vertical = 0;
-        //     }
-        //     if (horizontal != 0 || vertical != 0)
-        //     {
-        //         //TODO this is broken
-        //         if (facingRight && horizontal < 0) {
-        //             Flip();
-        //         }
-        //         if (!facingRight && horizontal > 0) {
-        //             Flip();
-        //         }
-        //         Move(horizontal, vertical);
-        //         Game.SwitchTurns();
-        //     }
-        // }
-    // }
-
     public void UsePotion()
     {
         //TODO: please
@@ -135,7 +101,7 @@ public class Player : Moving
 
     public void Heal(float amount)
     {
-        if ((amount + hp) > currentMaxHP)
+        if ((amount + hp) >= currentMaxHP)
         {
             hp = currentMaxHP;
         }
@@ -216,15 +182,9 @@ public class Player : Moving
         return knownSpells;
     }
 
-    // public static List<string> GetUnknownSpells()
-    // {
-    //     return unknownSpells;
-    // }
-
     public static void LearnSpell(string spell)
     {
         knownSpells.Add(spell);
-        //unknownSpells.Remove(spell);
     }
 
     public static void ResetSpellList()
@@ -253,62 +213,8 @@ public class Player : Moving
         IncreaseXP(nextLevel - xp);
     }
 
-    public int GetMaxLevel() {
+    public int GetMaxLevel()
+    {
         return maxLevel;
     }
-
-    //FIXME: attempting turn based below
-
-    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
-    void Update () {
-		if(!Game.IsPlayersTurn()) {
-            // Debug.Log("not player's turn");
-			return;
-		}
-
-        // Debug.Log("player's turn");
-
-		int horizontal = 0;
-		int vertical = 0;
-
-		horizontal = (int) (Input.GetAxisRaw (Game.horizontalString));
-		vertical = (int) (Input.GetAxisRaw(Game.verticalString));
-		if(horizontal != 0) {
-			vertical = 0;
-		}
-
-		if(horizontal != 0 || vertical != 0) {
-            AttemptMove<Wall> (horizontal, vertical);
-            // Debug.Log("about to attempt move with ten");
-			// AttemptMove<Wall> (horizontal * 10, vertical * 10);
-
-            // Debug.Log("about to attempt move with 100");
-			// AttemptMove<Wall> (horizontal * 100, vertical * 100);
-		}
-	}
-
-    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
-    protected override void AttemptMove <T> (int xDir, int yDir) {
-		base.AttemptMove <T> (xDir, yDir);
-
-		// RaycastHit2D hit;
-		// Move (xDir, yDir, out hit);
-
-
-		Game.SetPlayersTurn(false);
-
-        // //just for testing movement. please delete later
-        // StartCoroutine(WaitASecond());
-	}
-
-    // //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
-    // private IEnumerator WaitASecond() {
-    //     yield return new WaitForSeconds(.4f);
-    //     Game.SetPlayersTurn(true);
-    // }
-
-    // //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
-    // protected override void OnCantMove <T> (T component) {
-	// 	Wall hitWall = component as Wall;
-	// }
 }

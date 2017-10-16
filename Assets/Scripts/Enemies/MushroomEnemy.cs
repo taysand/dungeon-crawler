@@ -13,7 +13,7 @@ public class MushroomEnemy : Enemy
     private const float mushroomRangeRadius = 50f;
     private const int mushroomSleepTime = 2;
     private const int mushroomFreezeTime = 4;
-    private const int mushroomScaredTime = 1;
+    private const int mushroomScaredTime = 3;
 
     protected override void SetStartingValues()
     {
