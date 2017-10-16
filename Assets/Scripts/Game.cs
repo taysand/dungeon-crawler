@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    private static List<Vector3> visibleSpots = new List<Vector3>();
     private static bool paused;
     private static bool animationsPaused;
     private Player player;
     private static List<Enemy> enemies;
-    //private static bool playersTurn = true;
-    // private static bool enemiesTurn;
-    // public float turnDelay = 0.1f;
+
+    public float turnDelay = .1f;
+    private bool enemiesMoving;
+    private static bool playersTurn = true;
 
     public const string playerTag = "Player";
     public const string wallTag = "Wall";
@@ -27,13 +27,11 @@ public class Game : MonoBehaviour
     public Menu levelUpMenu;
     public Menu pauseMenu;
 
-    //public float fixedUpdateTime = .4f;
 
     void Awake()
     {
         enemies = new List<Enemy>();
         Spell.BuildSpellNameList();
-        //Time.fixedDeltaTime = fixedUpdateTime;
     }
 
     void Start()
@@ -52,46 +50,32 @@ public class Game : MonoBehaviour
         }
     }
 
-    // void Update()
-    // {
-    //     //check for opening and closing menus, but only if a menu isn't already open
-    //     //TODO: map
-    //     if (pauseMenu.Activated())
-    //     {
-    //         CheckPauseWindow();
-    //     }
-    //     else if (levelUpMenu.Activated())
-    //     {
-    //         CheckLevelUpWindow();
-    //     }
-    //     else
-    //     {
-    //         CheckPauseWindow();
-    //         CheckLevelUpWindow();
-    //     }
+    void Update()
+    {
+        if (pauseMenu.Activated())
+        {
+            CheckPauseWindow();
+        }
+        else if (levelUpMenu.Activated())
+        {
+            CheckLevelUpWindow();
+        }
+        else
+        {
+            CheckPauseWindow();
+            CheckLevelUpWindow();
+        }
 
-    //     ControlAnimations();
-    // }
+        // ControlAnimations();//TODO: does the roguelike code deal with this
 
-    // void FixedUpdate()
-    // {
-    //     if (!paused)
-    //     {
-    //         if (playersTurn)
-    //         {
-    //             return;
-    //         }
+        if (playersTurn || enemiesMoving || paused)
+        {
+            return;
+        }
 
-    //         if (enemiesTurn)
-    //         {
-    //             for (int i = 0; i < enemies.Count; i++)
-    //             {
-    //                 enemies[i].Act();
-    //             }
-    //             SwitchTurns();
-    //         }
-    //     }
-    // }
+        Debug.Log("enemies' turn");
+        StartCoroutine(MoveEnemies());
+    }
 
     // private void ControlAnimations()
     // {
@@ -104,6 +88,7 @@ public class Game : MonoBehaviour
     //         PlayAnimations(true);
     //     }
     // }
+
     //TODO: check visible tiles, update visible tiles, update map
     //Game.UpdateMap();
     //Game.UpdateVisibility();
@@ -159,11 +144,6 @@ public class Game : MonoBehaviour
     //     animationsPaused = !value;
     // }
 
-    public static List<Vector3> GetVisibleSpots()
-    {
-        return visibleSpots;
-    }
-
     public static bool IsPaused()
     {
         return paused;
@@ -179,17 +159,6 @@ public class Game : MonoBehaviour
         paused = false;
     }
 
-    // public static bool IsPlayersTurn()
-    // {
-    //     return playersTurn;
-    // }
-
-    // public static void SwitchTurns()
-    // {
-    //     playersTurn = !playersTurn;
-    //     enemiesTurn = !enemiesTurn;
-    // }
-
     public static void AddEnemyToList(Enemy badGuy)
     {
         enemies.Add(badGuy);
@@ -198,14 +167,6 @@ public class Game : MonoBehaviour
         //     Debug.Log(enemies[i]);
         // }
     }
-
-    //FIXME: attempting turn based below
-    public float turnDelay = .1f;
-    private bool enemiesMoving;
-
-    private const float playerTurnDelay = .5f;
-
-    private static bool playersTurn = true;
 
     public static bool IsPlayersTurn()
     {
@@ -217,7 +178,6 @@ public class Game : MonoBehaviour
         playersTurn = value;
     }
 
-    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
     IEnumerator MoveEnemies()
     {
         enemiesMoving = true;
@@ -233,45 +193,7 @@ public class Game : MonoBehaviour
         }
         yield return new WaitForSeconds(turnDelay);
 
-        // StartCoroutine(WaitBeforePlayerCanMoveAgain());
         playersTurn = true;
         enemiesMoving = false;
-    }
-
-    // IEnumerator WaitBeforePlayerCanMoveAgain()
-    // {
-    //     // Debug.Log("waiting for player's turn");
-    //     yield return new WaitForSeconds(playerTurnDelay);
-    //     // Debug.Log("setting player's turn to go");
-    //     playersTurn = true;
-    //     // Debug.Log("player's turn should be true and is: " + playersTurn);
-    // }
-
-    //https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
-    void Update()
-    {
-        if (pauseMenu.Activated())
-        {
-            CheckPauseWindow();
-        }
-        else if (levelUpMenu.Activated())
-        {
-            CheckLevelUpWindow();
-        }
-        else
-        {
-            CheckPauseWindow();
-            CheckLevelUpWindow();
-        }
-
-        // ControlAnimations();//TODO: does the roguelike code deal with this
-
-        if (playersTurn || enemiesMoving || paused)
-        {
-            return;
-        }
-
-        Debug.Log("enemies' turn");
-        StartCoroutine(MoveEnemies());
     }
 }
