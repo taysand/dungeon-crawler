@@ -23,7 +23,7 @@ public class GameplayUI : MonoBehaviour
 
     public static void HideInstructions()
     {
-        Debug.Log("hiding instructions");
+        // Debug.Log("hiding instructions");
         instructionsImage.SetActive(false);
     }
 

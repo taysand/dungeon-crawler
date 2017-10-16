@@ -21,7 +21,7 @@ public class SleepSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
-            Debug.Log("putting enemy to sleep");
+            // Debug.Log("putting enemy to sleep");
             enemy.Sleep(additionalSleepTime);
             return true;
         }
