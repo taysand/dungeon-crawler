@@ -10,7 +10,7 @@ public abstract class Moving : MonoBehaviour
     protected Animator animator;
     protected BoxCollider2D boxCollider;
     protected Rigidbody2D rb2D;
-    protected bool facingRight;
+    // protected bool facingRight;
     protected SpriteRenderer spriteRenderer;
     public float moveTime = .1f;
     public Transform connectedJoint;
@@ -36,11 +36,11 @@ public abstract class Moving : MonoBehaviour
 
     public abstract void PlayAttackAnimation();
 
-    protected void Flip()
-    {
-        facingRight = !facingRight;
-        spriteRenderer.flipX = facingRight;
-    }
+    // protected void Flip()
+    // {
+    //     facingRight = !facingRight;
+    //     spriteRenderer.flipX = facingRight;
+    // }
 
     public int GetLevel()
     {

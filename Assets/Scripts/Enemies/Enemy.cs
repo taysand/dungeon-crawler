@@ -37,13 +37,15 @@ public abstract class Enemy : Moving
     private bool lastMovedX;
     private bool movingToEnd;
 
+    private bool facingRight;
+    private bool lastRight;
+
     protected override void Start()
     {
         base.Start();
         Game.AddEnemyToList(this);
 
         GetComponent<CircleCollider2D>().radius = rangeRadius;
-        facingRight = false;
 
         GameObject playerGameObj = GameObject.Find(Game.playerTag);
         if (playerGameObj != null)
@@ -57,8 +59,19 @@ public abstract class Enemy : Moving
 
         transform.position = startingLocation;
         lastMovedX = false;
-        movingToEnd = true;
         movingToPlayer = false;
+        movingToEnd = true;
+        facingRight = spriteRenderer.flipX;
+        lastRight = facingRight;
+    }
+
+    void Update()
+    {
+        if (lastRight != facingRight)
+        {
+            spriteRenderer.flipX = facingRight;
+            lastRight = facingRight;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -196,10 +209,46 @@ public abstract class Enemy : Moving
         if (connectedJoint.position.x > goal.x)
         {
             xDirection = -1 * direction;
+            if (direction == 1)
+            {
+                if (facingRight)
+                {
+                    Debug.Log("flipping left");
+                    lastRight = true;
+                }
+                facingRight = false;
+            }
+            else
+            {
+                if (!facingRight)
+                {
+                    Debug.Log("flipping right");
+                    lastRight = false;
+                }
+                facingRight = true;
+            }
         }
         else
         {
             xDirection = 1 * direction;
+            if (direction == 1)
+            {
+                if (!facingRight)
+                {
+                    Debug.Log("flipping right");
+                    lastRight = false;
+                }
+                facingRight = true;
+            }
+            else
+            {
+                if (facingRight)
+                {
+                    Debug.Log("flipping left");
+                    lastRight = true;
+                }
+                facingRight = false;
+            }
         }
 
         if (connectedJoint.position.y > goal.y)
@@ -274,13 +323,19 @@ public abstract class Enemy : Moving
         if (Math.Abs(connectedJoint.position.x - endLocation.x) < 1 && Math.Abs(connectedJoint.position.y - endLocation.y) < 1 && movingToEnd)
         {
             // Debug.Log("reached the end positiion");
-            Flip();
+            // if (!movingToPlayer)
+            // {
+            //     Flip();
+            // }
             movingToEnd = false;
         }
         else if (Math.Abs(connectedJoint.position.x - startingLocation.x) < 1 && Math.Abs(connectedJoint.position.y - startingLocation.y) < 1 && !movingToEnd)
         {
             // Debug.Log("reached the start positiion");
-            Flip();
+            // if (!movingToPlayer)
+            // {
+            //     Flip();
+            // }
             movingToEnd = true;
         }
 
@@ -291,4 +346,10 @@ public abstract class Enemy : Moving
     {
         Move(x, y);
     }
+
+    // private void UpdateFlipped() {
+    //     if (facingRight) {
+    //         facingRight = !facingRight;
+    //     }
+    // }
 }

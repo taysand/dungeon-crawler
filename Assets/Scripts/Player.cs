@@ -37,7 +37,7 @@ public class Player : Moving
         nextLevel = levels[level];
         maxLevel = levels.Length;
 
-        facingRight = true;
+        // facingRight = spriteRenderer.flipX;
     }
 
     void Update()
