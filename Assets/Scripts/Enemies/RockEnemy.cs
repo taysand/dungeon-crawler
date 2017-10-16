@@ -14,7 +14,7 @@ public class RockEnemy : Enemy
     private const int rockSleepTime = 6;
     private const int rockFreezeTime = 4;
     private const int rockScaredTime = 1;
-    private const int rockScaredDistance = 8;
+    // private const int rockScaredDistance = 8;
 
     protected override void SetStartingValues()
     {
@@ -29,6 +29,6 @@ public class RockEnemy : Enemy
         sleepTime = rockSleepTime;
         freezeTime = rockFreezeTime;
         scaredTime = rockScaredTime;
-        scaredDistance = rockScaredDistance;
+        // scaredDistance = rockScaredDistance;
     }
 }

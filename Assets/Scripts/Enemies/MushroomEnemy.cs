@@ -10,11 +10,11 @@ public class MushroomEnemy : Enemy
     private const float mushroomSpeed = 2f;
     private const float mushroomMaxHP = 20f;
     private const int mushroomLevel = 3;
-    private const float mushroomRangeRadius = 10f;
+    private const float mushroomRangeRadius = 50f;
     private const int mushroomSleepTime = 2;
     private const int mushroomFreezeTime = 4;
     private const int mushroomScaredTime = 1;
-    private const int mushroomScaredDistance = 20;
+    // private const int mushroomScaredDistance = 20;
 
     protected override void SetStartingValues()
     {
@@ -28,6 +28,6 @@ public class MushroomEnemy : Enemy
         sleepTime = mushroomSleepTime;
         freezeTime = mushroomFreezeTime;
         scaredTime = mushroomScaredTime;
-        scaredDistance = mushroomScaredDistance;
+        // scaredDistance = mushroomScaredDistance;
     }
 }

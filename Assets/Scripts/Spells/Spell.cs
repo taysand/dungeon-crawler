@@ -115,7 +115,7 @@ public abstract class Spell : MonoBehaviour
 
     public IEnumerator TargetEnemy()
     {
-        casting = true;
+        casting = true;//TODO: do I need this
         Game.Pause();//stops movement
         GameplayUI.ShowInstructions();
 

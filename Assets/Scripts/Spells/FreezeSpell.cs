@@ -8,22 +8,22 @@ public class FreezeSpell : Spell
     //can purchase after level one
 
     private const int freezeHealthLost = 10;
-    private const int freezeMaxLevelAffected = 2;
-    private float additionalFreezeTime = 0;
+    private const int freezeMaxLevelAffected = 10;
+    private int additionalFreezeTime = 0;
 
     protected override void InitializeStats()
     {
         spellName = freezeSpell;
         healthLost = freezeHealthLost;
         maxLevelAffected = freezeMaxLevelAffected;
-	}
+    }
 
     public override bool Cast(Enemy enemy)
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
             Debug.Log("freezing");
-            StartCoroutine(enemy.Freeze(additionalFreezeTime));
+            enemy.Freeze(additionalFreezeTime);
             return true;
         }
         return false;

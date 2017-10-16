@@ -11,11 +11,11 @@ public class Skeleton : Enemy
     private const float skeletonSpeed = 3f;
     private const float skeletonMaxHP = 25f;
     private const int skeletonLevel = 1;
-    private const float skeletonRangeRadius = 40f;
+    private const float skeletonRangeRadius = 100f;
     private const int skeletonSleepTime = 3;
     private const int skeletonFreezeTime = 5;
     private const int skeletonScaredTime = 4;
-    private const int skeletonScaredDistance = 10;
+    // private const int skeletonScaredDistance = 10;
 
     protected override void SetStartingValues()
     {
@@ -29,7 +29,7 @@ public class Skeleton : Enemy
 		sleepTime = skeletonSleepTime;
 		freezeTime = skeletonFreezeTime;
 		scaredTime = skeletonScaredTime;
-        scaredDistance = skeletonScaredDistance;
+        // scaredDistance = skeletonScaredDistance;
     }
 }
 

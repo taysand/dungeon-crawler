@@ -9,7 +9,7 @@ public class SleepSpell : Spell
 
     private const int sleepHealthLost = 10;
     private const int sleepMaxLevelAffected = 3;
-    private const float additionalSleepTime = 0f;
+    private const int additionalSleepTime = 0;
 
     protected override void InitializeStats() {
         spellName = sleepSpell;
@@ -22,7 +22,7 @@ public class SleepSpell : Spell
         if (enemy.GetLevel() <= maxLevelAffected)
         {
             Debug.Log("putting enemy to sleep");
-            StartCoroutine(enemy.Sleep(additionalSleepTime));
+            enemy.Sleep(additionalSleepTime);
             return true;
         }
         return false;
