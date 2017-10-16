@@ -73,7 +73,7 @@ public class Game : MonoBehaviour
             return;
         }
 
-        Debug.Log("enemies' turn");
+        // Debug.Log("enemies' turn");
         StartCoroutine(MoveEnemies());
     }
 

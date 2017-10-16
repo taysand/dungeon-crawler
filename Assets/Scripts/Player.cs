@@ -101,7 +101,7 @@ public class Player : Moving
 
     public void Heal(float amount)
     {
-        if ((amount + hp) > currentMaxHP)
+        if ((amount + hp) >= currentMaxHP)
         {
             hp = currentMaxHP;
         }

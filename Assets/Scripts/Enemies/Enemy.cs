@@ -102,7 +102,7 @@ public abstract class Enemy : Moving
 
     public void Sleep(int additionalSleepTurns)
     {
-        // Debug.Log("sleeping");
+        Debug.Log("sleeping");
         sleeping = true;
         turnsToSleep = sleepTime + additionalSleepTurns;
         //TODO: play sleep animation 
@@ -114,11 +114,6 @@ public abstract class Enemy : Moving
         turnsSpentSleeping = 0;
         sleeping = false;
         //TODO: play wake animation 
-    }
-
-    public bool IsSleeping()
-    {
-        return sleeping;
     }
 
     public void Freeze(int additionalFreezeTime)
@@ -137,14 +132,9 @@ public abstract class Enemy : Moving
         //TODO: play unfreeze animation
     }
 
-    public bool IsFrozen()
-    {
-        return frozen;
-    }
-
     public void Scare(int additionalScareTime, int additionalScareDistance)
     {
-        // Debug.Log("scared");
+        // Debug.Log("enemy is " + transform.GetComponent<Enemy>() + "is now scared");
         scared = true;
         turnsToScare = scaredTime + additionalScareTime;
         //TODO: play scared animation
@@ -156,11 +146,6 @@ public abstract class Enemy : Moving
         scared = false;
         turnsSpentScared = 0;
         //TODO: play no longer scared animation
-    }
-
-    public bool IsScared()
-    {
-        return scared;
     }
 
     public void Attack(Player player)
