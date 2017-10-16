@@ -339,4 +339,8 @@ public abstract class Enemy : Moving
 
         Move((int)movement.x, (int)movement.y);
     }
+
+    public void Teleport(int x, int y) {
+         Move(x, y);
+    }
 }
