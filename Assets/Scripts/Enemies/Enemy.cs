@@ -177,23 +177,7 @@ public abstract class Enemy : Moving
         if (scared)
         {
             // Debug.Log("scared movement");
-            if (connectedJoint.position.x > player.connectedJoint.transform.position.x)
-            {
-                xDirection = 1;
-            }
-            else
-            {
-                xDirection = -1;
-            }
-
-            if (connectedJoint.position.y > player.connectedJoint.transform.position.y)
-            {
-                yDirection = 1;
-            }
-            else
-            {
-                yDirection = -1;
-            }
+            DetailSetDirection(player.connectedJoint.transform.position, false);
             turnsSpentScared++;
             if (turnsSpentScared >= turnsToScare)
             {
@@ -203,65 +187,43 @@ public abstract class Enemy : Moving
         else if (movingToPlayer)
         {
             // Debug.Log("moving to player and player is at " + player.connectedJoint.transform.position);
-            if (connectedJoint.position.x > player.connectedJoint.transform.position.x)
-            {
-                xDirection = -1;
-            }
-            else
-            {
-                xDirection = 1;
-            }
-
-            if (connectedJoint.position.y > player.connectedJoint.transform.position.y)
-            {
-                yDirection = -1;
-            }
-            else
-            {
-                yDirection = 1;
-            }
+            DetailSetDirection(player.connectedJoint.transform.position, true);
         }
         else if (movingToEnd)
         {
             // Debug.Log("moving to end and end is " + endLocation);
-            if (connectedJoint.position.x > endLocation.x)
-            {
-                xDirection = -1;
-            }
-            else
-            {
-                xDirection = 1;
-            }
-
-            if (connectedJoint.position.y > endLocation.y)
-            {
-                yDirection = -1;
-            }
-            else
-            {
-                yDirection = 1;
-            }
+            DetailSetDirection(endLocation, true);
         }
         else if (!movingToEnd)
         {
+            DetailSetDirection(startingLocation, true);
             // Debug.Log("moving to start and start is " + startingLocation);
-            if (connectedJoint.position.x < startingLocation.x)
-            {
-                xDirection = 1;
-            }
-            else
-            {
-                xDirection = -1;
-            }
+        }
+    }
 
-            if (connectedJoint.position.y < startingLocation.y)
-            {
-                yDirection = 1;
-            }
-            else
-            {
-                yDirection = -1;
-            }
+    private void DetailSetDirection(Vector2 goal, bool movingTo)
+    {
+        int direction = 1;
+        if (!movingTo)
+        {
+            direction = -1;
+        }
+        if (connectedJoint.position.x > goal.x)
+        {
+            xDirection = -1 * direction;
+        }
+        else
+        {
+            xDirection = 1 * direction;
+        }
+
+        if (connectedJoint.position.y > goal.y)
+        {
+            yDirection = -1 * direction;
+        }
+        else
+        {
+            yDirection = 1 * direction;
         }
     }
 
@@ -340,7 +302,8 @@ public abstract class Enemy : Moving
         Move((int)movement.x, (int)movement.y);
     }
 
-    public void Teleport(int x, int y) {
-         Move(x, y);
+    public void Teleport(int x, int y)
+    {
+        Move(x, y);
     }
 }
