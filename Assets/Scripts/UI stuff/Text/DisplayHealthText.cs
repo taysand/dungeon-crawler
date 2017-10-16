@@ -5,7 +5,7 @@ using UnityEngine;
 public class DisplayHealthText : ChangingText {
 
 	public override void UpdateTextField() {
-		Debug.Log("updating health display");
+		// Debug.Log("updating health display");
 		if (!GameOverMenu.IsGameOver()) {
 			textField.text = player.GetHealthString();
 		} else {

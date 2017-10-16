@@ -22,7 +22,7 @@ public class FreezeSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
-            Debug.Log("freezing");
+            // Debug.Log("freezing");
             enemy.Freeze(additionalFreezeTime);
             return true;
         }

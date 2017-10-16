@@ -35,7 +35,6 @@ public class LevelUpMenu : Menu
 
     protected override void AdditionalSetUp()
     {
-
         healthUpgradeParent = transform.Find(healthUpgradePath);
         armorUpgradeParent = transform.Find(armorUpgradePath);
         doneParent = transform.Find(donePath);

@@ -23,7 +23,7 @@ public class ScareSpell : Spell
     {
         if (enemy.GetLevel() <= maxLevelAffected)
         {
-            Debug.Log("scaring");
+            // Debug.Log("scaring");
             enemy.Scare(additionalScareTime, additionalScareDistance);
             return true;
         }

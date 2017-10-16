@@ -152,7 +152,7 @@ public abstract class Menu : MonoBehaviour
     public virtual void ShowMenu() {
         activated = true;
         canvas.SetActive(activated);
-        Debug.Log("the canvas is " + canvas);
+        // Debug.Log("the canvas is " + canvas);
         GameplayUI.HideGameplayUI();
         Game.Pause();
     }
