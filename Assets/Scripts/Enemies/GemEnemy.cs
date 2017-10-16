@@ -14,7 +14,7 @@ public class GemEnemy : Enemy
     private const int gemSleepTime = 4;
     private const int gemFreezeTime = 1;
     private const int gemScaredTime = 6;
-    private const int gemScaredDistance = 15;
+    // private const int gemScaredDistance = 15;
 
     protected override void SetStartingValues()
     {
@@ -28,6 +28,6 @@ public class GemEnemy : Enemy
         sleepTime = gemSleepTime;
         freezeTime = gemFreezeTime;
         scaredTime = gemScaredTime;
-        scaredDistance = gemScaredDistance;
+        // scaredDistance = gemScaredDistance;
     }
 }

@@ -16,7 +16,7 @@ public class FreezeSpell : Spell
         spellName = freezeSpell;
         healthLost = freezeHealthLost;
         maxLevelAffected = freezeMaxLevelAffected;
-	}
+    }
 
     public override bool Cast(Enemy enemy)
     {

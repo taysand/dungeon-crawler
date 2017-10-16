@@ -14,7 +14,7 @@ public class MushroomEnemy : Enemy
     private const int mushroomSleepTime = 2;
     private const int mushroomFreezeTime = 4;
     private const int mushroomScaredTime = 1;
-    private const int mushroomScaredDistance = 20;
+    // private const int mushroomScaredDistance = 20;
 
     protected override void SetStartingValues()
     {
@@ -28,6 +28,6 @@ public class MushroomEnemy : Enemy
         sleepTime = mushroomSleepTime;
         freezeTime = mushroomFreezeTime;
         scaredTime = mushroomScaredTime;
-        scaredDistance = mushroomScaredDistance;
+        // scaredDistance = mushroomScaredDistance;
     }
 }
