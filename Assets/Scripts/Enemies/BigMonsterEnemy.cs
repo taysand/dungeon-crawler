@@ -9,7 +9,7 @@ public class BigMonsterEnemy : Enemy
     private const float bigMonsterSpeed = 2f;
     private const float bigMonsterMaxHP = 50f;
     private const int bigMonsterLevel = 10;
-    private const float bigMonsterRangeRadius = 40f;
+    private const float bigMonsterRangeRadius = 30f;
     private const int bigMonsterSleepTime = 1;
     private const int bigMonsterFreezeTime = 1;
     private const int bigMonsterScaredTime = 1;
