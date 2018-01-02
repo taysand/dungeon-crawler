@@ -54,6 +54,10 @@
         "Temp/":true
     },
     "cSpell.words": [
-        "collider"
+        "behaviour",
+        "collider",
+        "lerp",
+        "mathf",
+        "unpause"
     ]
 }
