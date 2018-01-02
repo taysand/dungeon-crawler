@@ -185,18 +185,18 @@ public abstract class Enemy : Moving
         }
         else if (movingToPlayer)
         {
-            Debug.Log("moving to player and player is at " + player.connectedJoint.transform.position);
+            // Debug.Log("moving to player and player is at " + player.connectedJoint.transform.position);
             DetailSetDirection(player.connectedJoint.transform.position, true);
         }
         else if (movingToEnd)
         {
-            Debug.Log("moving to end and end is " + endLocation);
+            // Debug.Log("moving to end and end is " + endLocation);
             DetailSetDirection(endLocation, true);
         }
         else if (!movingToEnd)
         {
             DetailSetDirection(startingLocation, true);
-            Debug.Log("moving to start and start is " + startingLocation);
+            // Debug.Log("moving to start and start is " + startingLocation);
         }
     }
 
@@ -214,7 +214,7 @@ public abstract class Enemy : Moving
             {
                 if (facingRight)
                 {
-                    Debug.Log("flipping left");
+                    // Debug.Log("flipping left");
                     lastRight = true;
                 }
                 facingRight = false;
@@ -223,7 +223,7 @@ public abstract class Enemy : Moving
             {
                 if (!facingRight)
                 {
-                    Debug.Log("flipping right");
+                    // Debug.Log("flipping right");
                     lastRight = false;
                 }
                 facingRight = true;
@@ -236,7 +236,7 @@ public abstract class Enemy : Moving
             {
                 if (!facingRight)
                 {
-                    Debug.Log("flipping right");
+                    // Debug.Log("flipping right");
                     lastRight = false;
                 }
                 facingRight = true;
@@ -245,7 +245,7 @@ public abstract class Enemy : Moving
             {
                 if (facingRight)
                 {
-                    Debug.Log("flipping left");
+                    // Debug.Log("flipping left");
                     lastRight = true;
                 }
                 facingRight = false;
