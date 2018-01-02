@@ -62,6 +62,7 @@ public abstract class Enemy : Moving
         movingToPlayer = false;
         movingToEnd = true;
         facingRight = spriteRenderer.flipX;
+        Debug.Log("facing right is " + facingRight);
         lastRight = facingRight;
     }
 
@@ -184,18 +185,18 @@ public abstract class Enemy : Moving
         }
         else if (movingToPlayer)
         {
-            // Debug.Log("moving to player and player is at " + player.connectedJoint.transform.position);
+            Debug.Log("moving to player and player is at " + player.connectedJoint.transform.position);
             DetailSetDirection(player.connectedJoint.transform.position, true);
         }
         else if (movingToEnd)
         {
-            // Debug.Log("moving to end and end is " + endLocation);
+            Debug.Log("moving to end and end is " + endLocation);
             DetailSetDirection(endLocation, true);
         }
         else if (!movingToEnd)
         {
             DetailSetDirection(startingLocation, true);
-            // Debug.Log("moving to start and start is " + startingLocation);
+            Debug.Log("moving to start and start is " + startingLocation);
         }
     }
 
@@ -322,7 +323,7 @@ public abstract class Enemy : Moving
 
         if (Math.Abs(connectedJoint.position.x - endLocation.x) < 1 && Math.Abs(connectedJoint.position.y - endLocation.y) < 1 && movingToEnd)
         {
-            // Debug.Log("reached the end positiion");
+            Debug.Log("reached the end position");
             // if (!movingToPlayer)
             // {
             //     Flip();
@@ -331,7 +332,7 @@ public abstract class Enemy : Moving
         }
         else if (Math.Abs(connectedJoint.position.x - startingLocation.x) < 1 && Math.Abs(connectedJoint.position.y - startingLocation.y) < 1 && !movingToEnd)
         {
-            // Debug.Log("reached the start positiion");
+            Debug.Log("reached the start position");
             // if (!movingToPlayer)
             // {
             //     Flip();
