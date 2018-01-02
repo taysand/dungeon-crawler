@@ -35,6 +35,11 @@ public class Game : MonoBehaviour {
     public Canvas gameplayCanvas;
     public Text storyText;
     private const string firstStory = "You wake up in a cave surrounded by treasure. There are heavy footsteps coming from the darkness ahead of you. What's going on? You grab the torch next to you and plan your escape.";
+    private const string secondStory = "second story text"; //TODO:
+    public static bool toNextStory = true;
+    private string[] storyArray = {firstStory, secondStory};
+    private int storyIndex = 0;
+    private bool firstLevel = true;
 
     //camera zoom
     private Camera mainCamera;
@@ -54,18 +59,21 @@ public class Game : MonoBehaviour {
         } else {
             Debug.Log ("no player object?");
         }
+        animationsPaused = false;
     }
 
-    void Start () {
-        animationsPaused = false;
-        LevelSetup (firstStory);
-    }
+    // void Start () {
+        
+    //     LevelSetup (firstStory);
+    // }
     #endregion //startup
 
     #region levels
     public void LevelSetup (string levelText) {
         Pause ();
+        PlayAnimations (false);
         gameplayCanvas.gameObject.SetActive (false);
+        storyCanvas.gameObject.SetActive (true);
         mainCamera.fieldOfView = cameraIn;
         storyText.text = levelText;
     }
@@ -85,11 +93,22 @@ public class Game : MonoBehaviour {
         }
         doneZooming = true;
         Unpause ();
+        if (!firstLevel) {
+            player.LevelUp();
+        } else {
+            firstLevel = false;
+            Debug.Log("first level has started now");
+        }
     }
     #endregion //levels
 
     #region check input
     void Update () {
+        if (toNextStory) {
+            toNextStory = false;
+            LevelSetup(storyArray[storyIndex++]);
+        }
+
         if (pauseMenu.Activated ()) {
             CheckPauseWindow ();
         } else if (levelUpMenu.Activated ()) {
@@ -133,13 +152,18 @@ public class Game : MonoBehaviour {
 
     #region animations
     private void ControlAnimations () {
+        // Debug.Log("paused is " + paused + " and animationsPaused is " + animationsPaused);
         if (zoomingOut) {
+            // Debug.Log("zooming out");
             PlayAnimations (true);
             zoomingOut = false;
         } else if (doneZooming) {
+            // Debug.Log("done zooming");
             if (paused && !animationsPaused) {
+                // Debug.Log("no more animation");
                 PlayAnimations (false);
             } else if (!paused && animationsPaused) {
+                // Debug.Log("yes more animation");
                 PlayAnimations (true);
             }
         }

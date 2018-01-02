@@ -119,7 +119,7 @@ public class Player : Moving
         hpDisplay.UpdateTextField();
     }
 
-    public void LevelUpM()
+    public void LevelUp()
     {
         if (level < maxLevel)
         {
@@ -153,7 +153,7 @@ public class Player : Moving
         xp = xp + amount;
         if (xp >= nextLevel)
         {
-            LevelUpM();
+            LevelUp();
         }
     }
 
