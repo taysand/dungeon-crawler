@@ -18,6 +18,7 @@ public class Game : MonoBehaviour {
     public const string playerTag = "Player";
     public const string wallTag = "Wall";
     public const string enemyTag = "Enemy";
+    public const string torchTag = "torch";
 
     //input names
     public const string horizontalString = "Horizontal";
@@ -39,6 +40,8 @@ public class Game : MonoBehaviour {
     private Camera mainCamera;
     private float cameraIn = 30;
     private float cameraOut = 70;
+    private bool zoomingOut = false;
+    private bool doneZooming = false;
 
     #region startup
     void Awake () {
@@ -54,11 +57,19 @@ public class Game : MonoBehaviour {
     }
 
     void Start () {
-        FirstLevel ();
+        animationsPaused = false;
+        LevelSetup (firstStory);
     }
     #endregion //startup
 
     #region levels
+    public void LevelSetup (string levelText) {
+        Pause ();
+        gameplayCanvas.gameObject.SetActive (false);
+        mainCamera.fieldOfView = cameraIn;
+        storyText.text = levelText;
+    }
+
     public void StartLevel () {
         gameplayCanvas.gameObject.SetActive (true);
         storyCanvas.gameObject.SetActive (false);
@@ -66,19 +77,14 @@ public class Game : MonoBehaviour {
     }
 
     private IEnumerator CameraZoomOut () {
+        zoomingOut = true;
         yield return new WaitForSeconds (.5f);
         while (mainCamera.fieldOfView < cameraOut) {
             mainCamera.fieldOfView += 2;
             yield return new WaitForSeconds (.05f);
         }
-        animationsPaused = false;
+        doneZooming = true;
         Unpause ();
-    }
-
-    public void FirstLevel () {
-        gameplayCanvas.gameObject.SetActive (false);
-        mainCamera.fieldOfView = cameraIn;
-        storyText.text = firstStory;
     }
     #endregion //levels
 
@@ -93,7 +99,7 @@ public class Game : MonoBehaviour {
             CheckLevelUpWindow ();
         }
 
-        // ControlAnimations();//TODO: does the roguelike code deal with this
+        ControlAnimations ();
 
         if (playersTurn || enemiesMoving || paused) {
             return;
@@ -106,10 +112,10 @@ public class Game : MonoBehaviour {
     private void CheckLevelUpWindow () {
         if (Input.GetButtonUp (levelKey) && levelUpMenu.Activated ()) {
             levelUpMenu.HideMenu ();
-            //PlayAnimations(true);
+            PlayAnimations (true);
         } else if (Input.GetButtonUp (levelKey) && !levelUpMenu.Activated ()) {
             levelUpMenu.ShowMenu ();
-            //PlayAnimations(false);
+            PlayAnimations (false);
         }
     }
 
@@ -117,48 +123,44 @@ public class Game : MonoBehaviour {
         if (Input.GetButtonUp (pauseKey) && !paused && !Spell.Casting ()) {
             pauseMenu.ShowMenu ();
             Debug.Log ("should show pause");
-            //PlayAnimations(true);
+            PlayAnimations (true);
         } else if (Input.GetButtonUp (pauseKey) && paused) {
             pauseMenu.HideMenu ();
-            //PlayAnimations(false);
+            PlayAnimations (false);
         }
     }
     #endregion //check input
 
     #region animations
-    // private void ControlAnimations()
-    // {
-    //     if (paused && !animationsPaused)
-    //     {
-    //         PlayAnimations(false);
-    //     }
-    //     else if (!paused && animationsPaused)
-    //     {
-    //         PlayAnimations(true);
-    //     }
-    // }
+    private void ControlAnimations () {
+        if (zoomingOut) {
+            PlayAnimations (true);
+            zoomingOut = false;
+        } else if (doneZooming) {
+            if (paused && !animationsPaused) {
+                PlayAnimations (false);
+            } else if (!paused && animationsPaused) {
+                PlayAnimations (true);
+            }
+        }
+    }
 
-    // private void PlayAnimations(bool value)
-    // {
-    //     player.GetComponent<Animator>().enabled = value;
-    //     for (int i = 0; i < enemies.Count; i++)
-    //     {
-    //         Enemy enemy = enemies[i];
-    //         enemy.GetComponent<Animator>().enabled = value;
-    //         if (value == true)
-    //         {
-    //             if (enemy.ShouldMove())
-    //             {
-    //                 enemy.StartMovement();
-    //             }
-    //         }
-    //         else
-    //         {
-    //             enemy.StopMovement();
-    //         }
-    //     }
-    //     animationsPaused = !value;
-    // }
+    private void PlayAnimations (bool value) {
+        player.GetComponent<Animator> ().enabled = value;
+
+        //enemies
+        for (int i = 0; i < enemies.Count; i++) {
+            enemies[i].GetComponent<Animator> ().enabled = value;
+        }
+
+        //torches
+        GameObject[] torches = GameObject.FindGameObjectsWithTag (torchTag);
+        foreach (GameObject torch in torches) {
+            torch.GetComponent<Animator> ().enabled = value;
+        }
+
+        animationsPaused = !value;
+    }
     #endregion //animations
 
     #region control
