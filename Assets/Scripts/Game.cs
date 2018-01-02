@@ -39,6 +39,7 @@ public class Game : MonoBehaviour {
     public static bool toNextStory = true;
     private string[] storyArray = {firstStory, secondStory};
     private int storyIndex = 0;
+    private bool firstLevel = true;
 
     //camera zoom
     private Camera mainCamera;
@@ -92,6 +93,12 @@ public class Game : MonoBehaviour {
         }
         doneZooming = true;
         Unpause ();
+        if (!firstLevel) {
+            player.LevelUp();
+        } else {
+            firstLevel = false;
+            Debug.Log("first level has started now");
+        }
     }
     #endregion //levels
 
