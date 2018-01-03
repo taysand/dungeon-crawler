@@ -8,12 +8,14 @@ public class DelevelSpell : Spell
     private int decreaseBy = 1;
     private const int delevelHealthLost = 10;
     private const int delevelMaxLevelAffected = 20;
+    private int delevelRequiredLevel = 4;
 
     protected override void InitializeStats()
     {
         spellName = delevelSpell;
         healthLost = delevelHealthLost;
         maxLevelAffected = delevelMaxLevelAffected;
+        requiredLevel = delevelRequiredLevel;
     }
 
     public override bool Cast(Enemy enemy)

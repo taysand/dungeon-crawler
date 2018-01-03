@@ -12,12 +12,14 @@ public class DrainSpell : Spell
 
     private const int drainHealthLost = 0;
     private const int drainMaxLevelAffected = 6;
+    private int drainRequiredLevel = 7;
 
     protected override void InitializeStats()
     {
         spellName = drainSpell;
         healthLost = drainHealthLost;
         maxLevelAffected = drainMaxLevelAffected;
+        requiredLevel = drainRequiredLevel;
     }
 
     public override bool Cast(Enemy enemy)

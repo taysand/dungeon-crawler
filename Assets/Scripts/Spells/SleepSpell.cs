@@ -10,11 +10,13 @@ public class SleepSpell : Spell
     private const int sleepHealthLost = 10;
     private const int sleepMaxLevelAffected = 3;
     private const int additionalSleepTime = 0;
+    private int sleepRequiredLevel = 1;
 
     protected override void InitializeStats() {
         spellName = sleepSpell;
         healthLost = sleepHealthLost;
         maxLevelAffected = sleepMaxLevelAffected;
+        requiredLevel = sleepRequiredLevel;
     }
 
     public override bool Cast(Enemy enemy)
