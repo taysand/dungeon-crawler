@@ -21,9 +21,11 @@ public class PauseMenu : Menu
         BuildText(pauseTitle, parent);
         BuildButton(resume, parent, buttonPrefab);
         BuildButton(levelUp, parent, buttonPrefab);
-        BuildButton(restart, parent, buttonPrefab);
-        BuildButton(settings, parent, buttonPrefab);
-        BuildButton(mainMenu, parent, buttonPrefab);
+
+        //options for later
+        // BuildButton(restart, parent, buttonPrefab); 
+        // BuildButton(settings, parent, buttonPrefab);
+        // BuildButton(mainMenu, parent, buttonPrefab);
     }
 
     public void ShowLevelUp() {

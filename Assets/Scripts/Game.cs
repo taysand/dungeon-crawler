@@ -36,8 +36,9 @@ public class Game : MonoBehaviour {
     public Text storyText;
     private const string firstStory = "You wake up in a cave surrounded by treasure. There are heavy footsteps coming from the darkness ahead of you. What's going on? You grab the torch next to you and plan your escape.";
     private const string secondStory = "second story text"; //TODO:
+    private const string thirdStory = "third story text"; //TODO:
     public static bool toNextStory = true;
-    private string[] storyArray = { firstStory, secondStory };
+    private string[] storyArray = { firstStory, secondStory, thirdStory };
     private int storyIndex = 0;
     private bool firstLevel = true;
 
