@@ -21,7 +21,7 @@ public class GameOverMenu : Menu
     }
 
     protected override void BuildButtonsAndText() {
-        BuildButton(mainMenu, buttonsParent, buttonPrefab);
+        // BuildButton(mainMenu, buttonsParent, buttonPrefab);
         BuildButton(restart, buttonsParent, buttonPrefab);
     }
 
