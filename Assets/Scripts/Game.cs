@@ -77,9 +77,9 @@ public class Game : MonoBehaviour {
         StartCoroutine (CameraZoomOut ());
     }
 
-    public void ShowLevelUpInstructions() {
-        levelUpMenu.ShowMenu ();
-    }
+    // public void ShowLevelUpInstructions() {
+    //     levelUpMenu.ShowMenu ();
+    // }
 
     private IEnumerator CameraZoomOut () {
         zoomingOut = true;
