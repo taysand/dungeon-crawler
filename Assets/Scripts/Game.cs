@@ -77,9 +77,11 @@ public class Game : MonoBehaviour {
         StartCoroutine (CameraZoomOut ());
     }
 
-    // public void ShowLevelUpInstructions() {
-    //     levelUpMenu.ShowMenu ();
-    // }
+    public void ShowLevelUpInstructions() {
+        Message levelUpInstructions = GameObject.Find(Message.levelUpInstructionsMessageName).GetComponent<Message>();
+        levelUpInstructions.ShowMessage(2.6f, .04f, .03f);
+        levelUpMenu.ShowMenu ();
+    }
 
     private IEnumerator CameraZoomOut () {
         zoomingOut = true;
@@ -94,6 +96,7 @@ public class Game : MonoBehaviour {
             player.LevelUp ();
         } else {
             firstLevel = false;
+            ShowLevelUpInstructions();
             Debug.Log ("first level has started now");
         }
     }
