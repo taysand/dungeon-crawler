@@ -11,12 +11,14 @@ public class ScareSpell : Spell
     private const int scareMaxLevelAffected = 2;
     private int additionalScareTime = 0;
     private int additionalScareDistance = 0;
+    private int scareRequiredLevel = 2;
 
     protected override void InitializeStats()
     {
         spellName = scareSpell;
         healthLost = scareHealthLost;
         maxLevelAffected = scareMaxLevelAffected;
+        requiredLevel = scareRequiredLevel;
     }
 
     public override bool Cast(Enemy enemy)

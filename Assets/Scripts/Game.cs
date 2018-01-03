@@ -37,7 +37,7 @@ public class Game : MonoBehaviour {
     private const string firstStory = "You wake up in a cave surrounded by treasure. There are heavy footsteps coming from the darkness ahead of you. What's going on? You grab the torch next to you and plan your escape.";
     private const string secondStory = "second story text"; //TODO:
     public static bool toNextStory = true;
-    private string[] storyArray = {firstStory, secondStory};
+    private string[] storyArray = { firstStory, secondStory };
     private int storyIndex = 0;
     private bool firstLevel = true;
 
@@ -48,7 +48,6 @@ public class Game : MonoBehaviour {
     private bool zoomingOut = false;
     private bool doneZooming = false;
 
-    #region startup
     void Awake () {
         mainCamera = GetComponent<Camera> ();
         enemies = new List<Enemy> ();
@@ -61,12 +60,6 @@ public class Game : MonoBehaviour {
         }
         animationsPaused = false;
     }
-
-    // void Start () {
-        
-    //     LevelSetup (firstStory);
-    // }
-    #endregion //startup
 
     #region levels
     public void LevelSetup (string levelText) {
@@ -84,6 +77,10 @@ public class Game : MonoBehaviour {
         StartCoroutine (CameraZoomOut ());
     }
 
+    public void ShowLevelUpInstructions() {
+        levelUpMenu.ShowMenu ();
+    }
+
     private IEnumerator CameraZoomOut () {
         zoomingOut = true;
         yield return new WaitForSeconds (.5f);
@@ -94,10 +91,10 @@ public class Game : MonoBehaviour {
         doneZooming = true;
         Unpause ();
         if (!firstLevel) {
-            player.LevelUp();
+            player.LevelUp ();
         } else {
             firstLevel = false;
-            Debug.Log("first level has started now");
+            Debug.Log ("first level has started now");
         }
     }
     #endregion //levels
@@ -106,7 +103,7 @@ public class Game : MonoBehaviour {
     void Update () {
         if (toNextStory) {
             toNextStory = false;
-            LevelSetup(storyArray[storyIndex++]);
+            LevelSetup (storyArray[storyIndex++]);
         }
 
         if (pauseMenu.Activated ()) {

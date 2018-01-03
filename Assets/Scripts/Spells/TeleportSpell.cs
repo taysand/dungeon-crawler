@@ -10,12 +10,14 @@ public class TeleportSpell : Spell
     private int distance = 5;
     private const int teleportHealthLost = 20;
     private const int teleportMaxLevelAffected = 4;
+    private int teleportRequiredLevel = 5;
 
     protected override void InitializeStats()
     {
         spellName = teleportSpell;
         healthLost = teleportHealthLost;
         maxLevelAffected = teleportMaxLevelAffected;
+        requiredLevel = teleportRequiredLevel;
     }
  
     public override bool Cast(Enemy enemy)

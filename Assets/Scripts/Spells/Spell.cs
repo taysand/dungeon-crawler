@@ -11,6 +11,7 @@ public abstract class Spell : MonoBehaviour
     protected float healthLost;
     protected int maxLevelAffected;
     protected int level = 0;
+    protected int requiredLevel;
 
     //spell name constants
     public const string delevelSpell = "Reduce Level";
@@ -72,6 +73,10 @@ public abstract class Spell : MonoBehaviour
     public string GetSpellName()
     {
         return spellName;
+    }
+
+    public int GetRequiredLevel() {
+        return requiredLevel;
     }
 
     protected virtual void LevelUpSpell()

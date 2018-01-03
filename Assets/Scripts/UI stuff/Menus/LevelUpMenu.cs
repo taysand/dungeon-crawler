@@ -105,7 +105,9 @@ public class LevelUpMenu : Menu
 
                 if (parentName == spellButtonParentName)
                 {
-                    if (!Player.SpellIsKnown(button.GetComponent<Spell>().GetSpellName()))
+                    Spell currentSpell = button.GetComponent<Spell>();
+                    // Debug.Log("current spell is " + currentSpell.GetSpellName() + " and requires " + currentSpell.GetRequiredLevel() + ". player is level " + player.GetLevel());
+                    if (!Player.SpellIsKnown(currentSpell.GetSpellName()) && currentSpell.GetRequiredLevel() <= player.GetLevel())
                     {
                         button.interactable = true;
                     }

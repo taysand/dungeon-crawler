@@ -12,7 +12,7 @@ public class Player : Moving
 
     //leveling
     private int xp = 0;
-    private int[] levels = { 100, 300, 600, 1000 }; //TODO: add more levels
+    private int[] levels = {100, 300, 600, 1000, 1500, 2100, 2800};
     private int nextLevel;
     private int maxLevel;
     private float delayAfterLevelUpMessage = .8f;
