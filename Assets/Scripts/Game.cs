@@ -10,7 +10,7 @@ public class Game : MonoBehaviour {
     private static List<Enemy> enemies;
 
     //movement
-    public float turnDelay = .1f;
+    public float turnDelay = .5f;
     private bool enemiesMoving;
     private static bool playersTurn = true;
 
@@ -37,7 +37,9 @@ public class Game : MonoBehaviour {
     private const string firstStory = "You wake up in a cave surrounded by treasure. There are heavy footsteps coming from the darkness ahead of you. What's going on? You grab the torch next to you and plan your escape.";
     private const string secondStory = "second story text"; //TODO:
     private const string thirdStory = "third story text"; //TODO:
+    private const string endStory = "you won!"; //TODO:
     public static bool toNextStory = true;
+    public static bool beatGame = false;
     private string[] storyArray = { firstStory, secondStory, thirdStory };
     private int storyIndex = 0;
     private bool firstLevel = true;
@@ -105,6 +107,11 @@ public class Game : MonoBehaviour {
 
     #region check input
     void Update () {
+        if (beatGame) {
+            LevelSetup(endStory);
+            //TODO: show end menu? quit game? pause? restart?
+        }
+
         if (toNextStory) {
             toNextStory = false;
             LevelSetup (storyArray[storyIndex++]);
@@ -213,6 +220,9 @@ public class Game : MonoBehaviour {
     #region enemies
     IEnumerator MoveEnemies () {
         enemiesMoving = true;
+
+        yield return new WaitForSeconds (turnDelay);
+
         if (enemies.Count == 0) {
             yield return new WaitForSeconds (turnDelay);
         }

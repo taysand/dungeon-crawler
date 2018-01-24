@@ -15,6 +15,8 @@ public class Message : MonoBehaviour
     public const string levelUpMessageName = "LevelUpMessage";
     public const string cantCastMessageName = "CantCastMessage";
     public const string levelUpInstructionsMessageName = "LevelUpInstructionsMessage";
+    public const string gotFriendMessageName = "gotFriendMessage";
+    public const string needFriendsMessageName = "needFriendsMessage";
 
     void Start()
     {
