@@ -13,10 +13,11 @@ public class Corridor : MonoBehaviour {
                 if (playerGameObj != null) {
                     Player player = playerGameObj.GetComponent<Player> ();
                     if (player.GetNumFriends() < 1) {
-                        //TODO: message that you need more friends
+                        Message needFriendsMessage = GameObject.Find(Message.needFriendsMessageName).GetComponent<Message>();
+                        needFriendsMessage.ShowMessage(2.6f, .04f, .03f);
                         Debug.Log("get more friends");
                     } else {
-                        //TODO: end story message
+                        Game.beatGame = true;
                         Debug.Log("you win!");
                     }
                 } else {

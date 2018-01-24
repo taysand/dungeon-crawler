@@ -68,7 +68,8 @@ public class Player : Moving {
         if ((other.gameObject.tag == friendTag)) {
             numFriends++;
             friendsDisplay.UpdateTextField ();
-            //TODO: update friend ui
+            Message gotFriendMessage = GameObject.Find (Message.gotFriendMessageName).GetComponent<Message> ();
+            gotFriendMessage.ShowMessage (2.6f, .04f, .03f);
             other.gameObject.SetActive (false);
         }
     }
