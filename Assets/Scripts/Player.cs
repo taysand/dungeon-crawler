@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Moving
-{
+public class Player : Moving {
     //stats
-    public float playerStartingHP = 100f;//should be constant
-    public int playerStartingAC = 2;//should be constant
-    public float playerStartingMaxHP = 100f;//should be constant
+    public float playerStartingHP = 100f; //should be constant
+    public int playerStartingAC = 2; //should be constant
+    public float playerStartingMaxHP = 100f; //should be constant
     public float playerStartingSpeed = 10f; //should be constant
 
     //leveling
     private int xp = 0;
-    private int[] levels = {100, 300, 600, 1000, 1500, 2100, 2800};
+    private int[] levels = { 100, 300, 600, 1000, 1500, 2100, 2800 };
     private int nextLevel;
     private int maxLevel;
     private float delayAfterLevelUpMessage = .8f;
@@ -26,46 +25,54 @@ public class Player : Moving
     private bool hidden = false;
 
     //magic stuff
-    private static List<string> knownSpells = new List<string>();
+    private static List<string> knownSpells = new List<string> ();
 
+    //menu things
     public DisplayHealthText hpDisplay;
     public Menu levelUpMenu;
+    public DisplayFriendsText friendsDisplay;
 
-    protected override void Start()
-    {
-        base.Start();
+    //friendship
+    public int numFriends = 0;
+
+    protected override void Start () {
+        base.Start ();
         nextLevel = levels[level];
         maxLevel = levels.Length;
 
         // facingRight = spriteRenderer.flipX;
     }
 
-    void Update()
-    {
-        if (!Game.IsPlayersTurn())
-        {
+    void Update () {
+        if (!Game.IsPlayersTurn ()) {
             return;
         }
 
         int horizontal = 0;
         int vertical = 0;
 
-        horizontal = (int)(Input.GetAxisRaw(Game.horizontalString));
-        vertical = (int)(Input.GetAxisRaw(Game.verticalString));
-        if (horizontal != 0)
-        {
+        horizontal = (int) (Input.GetAxisRaw (Game.horizontalString));
+        vertical = (int) (Input.GetAxisRaw (Game.verticalString));
+        if (horizontal != 0) {
             vertical = 0;
         }
 
-        if (horizontal != 0 || vertical != 0)
-        {
-            Move(horizontal, vertical);
-            Game.SetPlayersTurn(false);
+        if (horizontal != 0 || vertical != 0) {
+            Move (horizontal, vertical);
+            Game.SetPlayersTurn (false);
         }
     }
 
-    protected override void SetStartingValues()
-    {
+    void OnTriggerEnter2D (Collider2D other) {
+        if ((other.gameObject.tag == Game.friendTag)) {
+            numFriends++;
+            friendsDisplay.UpdateTextField ();
+            //TODO: update friend ui
+            other.gameObject.SetActive (false);
+        }
+    }
+
+    protected override void SetStartingValues () {
         hp = playerStartingHP;
         ac = playerStartingAC;
         level = 0;
@@ -73,148 +80,123 @@ public class Player : Moving
         speed = playerStartingSpeed;
     }
 
-    public override void PlayAttackAnimation()
-    {
+    public override void PlayAttackAnimation () {
         //TODO: player attack animation stuff
     }
 
-    public void PlayInjuredAnimation()
-    {
-        animator.SetTrigger(Moving.playerInjuredAnimation);
+    public void PlayInjuredAnimation () {
+        animator.SetTrigger (Moving.playerInjuredAnimation);
     }
 
-    public override void TakeDamage(float amount)
-    {
-        base.TakeDamage(amount);
-        hpDisplay.UpdateTextField();
-        PlayInjuredAnimation();
-        if (hp <= 0)
-        {
-            GameOverMenu.ShowGameOver();
+    public override void TakeDamage (float amount) {
+        base.TakeDamage (amount);
+        hpDisplay.UpdateTextField ();
+        PlayInjuredAnimation ();
+        if (hp <= 0) {
+            GameOverMenu.ShowGameOver ();
         }
     }
 
-    public void UsePotion()
-    {
+    public void UsePotion () {
         //TODO: please
     }
 
-    public void Heal(float amount)
-    {
-        if ((amount + hp) >= currentMaxHP)
-        {
+    public void Heal (float amount) {
+        if ((amount + hp) >= currentMaxHP) {
             hp = currentMaxHP;
-        }
-        else
-        {
+        } else {
             hp = hp + amount;
         }
-        hpDisplay.UpdateTextField();
+        hpDisplay.UpdateTextField ();
     }
 
-    public void IncreaseMaxHP(float amount)
-    {
+    public void IncreaseMaxHP (float amount) {
         currentMaxHP = amount + currentMaxHP;
         hp = amount + hp;
-        hpDisplay.UpdateTextField();
+        hpDisplay.UpdateTextField ();
     }
 
-    public void LevelUp()
-    {
-        if (level < maxLevel)
-        {
+    public void LevelUp () {
+        if (level < maxLevel) {
             level++;
 
-            if (level < maxLevel)
-            {
+            if (level < maxLevel) {
                 nextLevel = levels[level];
             }
 
-            LevelUpMenu.GainLevelUpPoint();
-            StartCoroutine(ShowLevelUpStuff());
+            LevelUpMenu.GainLevelUpPoint ();
+            StartCoroutine (ShowLevelUpStuff ());
         }
     }
 
-    private IEnumerator ShowLevelUpStuff()
-    {
-        Message levelUpMessage = GameObject.Find(Message.levelUpMessageName).GetComponent<Message>();
-        levelUpMessage.ShowMessage(levelMessageReadtime, levelMessageFadeRate, levelMessageFadeDelay);
-        yield return new WaitForSeconds(delayAfterLevelUpMessage);
-        levelUpMenu.ShowMenu();
+    private IEnumerator ShowLevelUpStuff () {
+        Message levelUpMessage = GameObject.Find (Message.levelUpMessageName).GetComponent<Message> ();
+        levelUpMessage.ShowMessage (levelMessageReadtime, levelMessageFadeRate, levelMessageFadeDelay);
+        yield return new WaitForSeconds (delayAfterLevelUpMessage);
+        levelUpMenu.ShowMenu ();
     }
 
-    public int GetExperience()
-    {
+    public int GetExperience () {
         return xp;
     }
 
-    public void IncreaseXP(int amount)
-    {
+    public void IncreaseXP (int amount) {
         xp = xp + amount;
-        if (xp >= nextLevel)
-        {
-            LevelUp();
+        if (xp >= nextLevel) {
+            LevelUp ();
         }
     }
 
-    public void Hide()
-    {
+    public void Hide () {
         hidden = true;
     }
 
-    public void NotHide()
-    {
+    public void NotHide () {
         hidden = false;
     }
 
-    public bool Hidden()
-    {
+    public bool Hidden () {
         return hidden;
     }
 
-    public void IncreaseArmor(int amount)
-    {
+    public void IncreaseArmor (int amount) {
         ac = ac + amount;
     }
 
-    public static List<string> GetKnownSpells()
-    {
+    public static List<string> GetKnownSpells () {
         return knownSpells;
     }
 
-    public static void LearnSpell(string spell)
-    {
-        knownSpells.Add(spell);
+    public static void LearnSpell (string spell) {
+        knownSpells.Add (spell);
     }
 
-    public static void ResetSpellList()
-    {
-        knownSpells = new List<string>();
+    public static void ResetSpellList () {
+        knownSpells = new List<string> ();
     }
 
-    public string GetHealthString()
-    {
+    public string GetHealthString () {
         return "HP: " + hp + "/" + currentMaxHP;
     }
 
-    public int GetNextLevelXP()
-    {
+    public int GetNextLevelXP () {
         return nextLevel;
     }
 
-    public static bool SpellIsKnown(string spellName)
-    {
-        return GetKnownSpells().Contains(spellName);
+    public static bool SpellIsKnown (string spellName) {
+        return GetKnownSpells ().Contains (spellName);
     }
 
     //to test leveling up. there's a button which should also be deleted
-    public void TempLevelUpButton()
-    {
-        IncreaseXP(nextLevel - xp);
+    public void TempLevelUpButton () {
+        IncreaseXP (nextLevel - xp);
     }
 
-    public int GetMaxLevel()
-    {
+    public int GetMaxLevel () {
         return maxLevel;
+    }
+
+    public int GetNumFriends () {
+        return numFriends;
     }
 }
