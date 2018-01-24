@@ -19,7 +19,6 @@ public class Game : MonoBehaviour {
     public const string wallTag = "Wall";
     public const string enemyTag = "Enemy";
     public const string torchTag = "torch";
-    public const string friendTag = "friend";
 
     //input names
     public const string horizontalString = "Horizontal";

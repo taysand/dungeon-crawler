@@ -34,6 +34,7 @@ public class Player : Moving {
 
     //friendship
     public int numFriends = 0;
+    private const string friendTag = "friend";
 
     protected override void Start () {
         base.Start ();
@@ -64,7 +65,7 @@ public class Player : Moving {
     }
 
     void OnTriggerEnter2D (Collider2D other) {
-        if ((other.gameObject.tag == Game.friendTag)) {
+        if ((other.gameObject.tag == friendTag)) {
             numFriends++;
             friendsDisplay.UpdateTextField ();
             //TODO: update friend ui
