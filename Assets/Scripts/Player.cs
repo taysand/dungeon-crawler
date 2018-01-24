@@ -52,8 +52,8 @@ public class Player : Moving {
         int horizontal = 0;
         int vertical = 0;
 
-        horizontal = (int) (Input.GetAxisRaw (Game.horizontalString));
-        vertical = (int) (Input.GetAxisRaw (Game.verticalString));
+        horizontal = 2 * (int) (Input.GetAxisRaw (Game.horizontalString));
+        vertical = 2 * (int) (Input.GetAxisRaw (Game.verticalString));
         if (horizontal != 0) {
             vertical = 0;
         }

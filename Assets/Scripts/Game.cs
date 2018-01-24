@@ -10,7 +10,7 @@ public class Game : MonoBehaviour {
     private static List<Enemy> enemies;
 
     //movement
-    public float turnDelay = .1f;
+    public float turnDelay = .5f;
     private bool enemiesMoving;
     private static bool playersTurn = true;
 
@@ -220,6 +220,9 @@ public class Game : MonoBehaviour {
     #region enemies
     IEnumerator MoveEnemies () {
         enemiesMoving = true;
+
+        yield return new WaitForSeconds (turnDelay);
+
         if (enemies.Count == 0) {
             yield return new WaitForSeconds (turnDelay);
         }

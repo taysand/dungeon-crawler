@@ -25,6 +25,7 @@ public class Corridor : MonoBehaviour {
                 }
             } else {
                 Game.toNextStory = true;
+                gameObject.GetComponent<Collider2D>().enabled = false;
             }
         }
     }
