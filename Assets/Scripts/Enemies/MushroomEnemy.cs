@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MushroomEnemy : Enemy
 {
-
     private const float mushroomDamage = 5.0f;
     private const int mushroomAC = 1;
     private const float mushroomSpeed = 2f;

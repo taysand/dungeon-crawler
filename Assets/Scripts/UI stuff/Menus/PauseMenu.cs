@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseMenu : Menu
-{
-
+public class PauseMenu : Menu {
     public Menu levelUpMenu;
     private static PauseMenu pauseMenu;
     private const string path = "Pause";
     private Transform parent;
     public GameObject buttonPrefab;
 
-    protected override void AdditionalSetUp() {
-        pauseMenu = GetComponent<PauseMenu>();
+    protected override void AdditionalSetUp () {
+        pauseMenu = GetComponent<PauseMenu> ();
 
-        parent = transform.Find(path);
+        parent = transform.Find (path);
     }
 
-    protected override void BuildButtonsAndText() {
-        BuildText(pauseTitle, parent);
-        BuildButton(resume, parent, buttonPrefab);
-        BuildButton(levelUp, parent, buttonPrefab);
+    protected override void BuildButtonsAndText () {
+        BuildText (pauseTitle, parent);
+        BuildButton (resume, parent, buttonPrefab);
+        BuildButton (levelUp, parent, buttonPrefab);
 
         //options for later
         // BuildButton(restart, parent, buttonPrefab); 
@@ -28,38 +26,35 @@ public class PauseMenu : Menu
         // BuildButton(mainMenu, parent, buttonPrefab);
     }
 
-    public void ShowLevelUp() {
-        HideMenu();
-        levelUpMenu.ShowMenu();
+    public void ShowLevelUp () {
+        HideMenu ();
+        levelUpMenu.ShowMenu ();
     }
 
-    public void RestartLevel() {
+    public void RestartLevel () {
         if (activated) //pause window is open
         {
-            HideMenu();
+            HideMenu ();
         } else //game over window is open
         {
-            GameOverMenu.HideGameOver();
+            GameOverMenu.HideGameOver ();
         }
-        //TODO:
-        Debug.Log("restarting level");
+        Debug.Log ("restarting level");
     }
 
-    public void OpenSettings() {
-        HideMenu();
-        //TODO:
-        Debug.Log("opening settings");
+    public void OpenSettings () {
+        HideMenu ();
+        Debug.Log ("opening settings");
     }
 
-    public void GoToMainMenu() {
+    public void GoToMainMenu () {
         if (activated) //pause window is open
         {
-            HideMenu();
+            HideMenu ();
         } else //game over window is open
         {
-            GameOverMenu.HideGameOver();
+            GameOverMenu.HideGameOver ();
         }
-        //TODO:
-        Debug.Log("opening main menu");
+        Debug.Log ("opening main menu");
     }
 }

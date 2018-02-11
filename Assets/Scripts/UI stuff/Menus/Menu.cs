@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public abstract class Menu : MonoBehaviour
 {
-
     protected GameObject canvas;
     protected bool activated;
 
@@ -152,7 +151,6 @@ public abstract class Menu : MonoBehaviour
     public virtual void ShowMenu() {
         activated = true;
         canvas.SetActive(activated);
-        // Debug.Log("the canvas is " + canvas);
         GameplayUI.HideGameplayUI();
         Game.Pause();
     }

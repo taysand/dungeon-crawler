@@ -80,9 +80,9 @@ public class Game : MonoBehaviour {
         StartCoroutine (CameraZoomOut ());
     }
 
-    public void ShowLevelUpInstructions() {
-        Message levelUpInstructions = GameObject.Find(Message.levelUpInstructionsMessageName).GetComponent<Message>();
-        levelUpInstructions.ShowMessage(2.6f, .04f, .03f);
+    public void ShowLevelUpInstructions () {
+        Message levelUpInstructions = GameObject.Find (Message.levelUpInstructionsMessageName).GetComponent<Message> ();
+        levelUpInstructions.ShowMessage (2.6f, .04f, .03f);
         levelUpMenu.ShowMenu ();
     }
 
@@ -99,7 +99,7 @@ public class Game : MonoBehaviour {
             player.LevelUp ();
         } else {
             firstLevel = false;
-            ShowLevelUpInstructions();
+            ShowLevelUpInstructions ();
             Debug.Log ("first level has started now");
         }
     }
@@ -108,8 +108,8 @@ public class Game : MonoBehaviour {
     #region check input
     void Update () {
         if (beatGame) {
-            LevelSetup(endStory);
-            //TODO: show end menu? quit game? pause? restart?
+            LevelSetup (endStory);
+            //show end menu? quit game? pause? restart?
         }
 
         if (toNextStory) {
@@ -132,7 +132,6 @@ public class Game : MonoBehaviour {
             return;
         }
 
-        // Debug.Log("enemies' turn");
         StartCoroutine (MoveEnemies ());
     }
 
@@ -149,7 +148,6 @@ public class Game : MonoBehaviour {
     private void CheckPauseWindow () {
         if (Input.GetButtonUp (pauseKey) && !paused && !Spell.Casting ()) {
             pauseMenu.ShowMenu ();
-            Debug.Log ("should show pause");
             PlayAnimations (true);
         } else if (Input.GetButtonUp (pauseKey) && paused) {
             pauseMenu.HideMenu ();
@@ -160,18 +158,13 @@ public class Game : MonoBehaviour {
 
     #region animations
     private void ControlAnimations () {
-        // Debug.Log("paused is " + paused + " and animationsPaused is " + animationsPaused);
         if (zoomingOut) {
-            // Debug.Log("zooming out");
             PlayAnimations (true);
             zoomingOut = false;
         } else if (doneZooming) {
-            // Debug.Log("done zooming");
             if (paused && !animationsPaused) {
-                // Debug.Log("no more animation");
                 PlayAnimations (false);
             } else if (!paused && animationsPaused) {
-                // Debug.Log("yes more animation");
                 PlayAnimations (true);
             }
         }
@@ -239,10 +232,6 @@ public class Game : MonoBehaviour {
 
     public static void AddEnemyToList (Enemy badGuy) {
         enemies.Add (badGuy);
-        // Debug.Log("enemies list looks like this right now: ");
-        // for (int i = 0; i < enemies.Count; i++) {
-        //     Debug.Log(enemies[i]);
-        // }
     }
     #endregion //enemies
 }

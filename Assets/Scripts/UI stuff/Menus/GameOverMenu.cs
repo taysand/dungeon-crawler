@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameOverMenu : Menu
 {
-
     private static bool gameOver;
     private static GameOverMenu gameOverMenu;
 

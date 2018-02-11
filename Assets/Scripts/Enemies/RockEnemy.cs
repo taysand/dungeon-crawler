@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RockEnemy : Enemy
 {
-
     private const float rockDamage = 15.0f;
     private const int rockAC = 5;
     private const float rockSpeed = 1f;

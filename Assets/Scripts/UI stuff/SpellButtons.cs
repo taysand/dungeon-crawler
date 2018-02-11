@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpellButtons : MonoBehaviour
-{
+public class SpellButtons : MonoBehaviour {
     //adding buttons: http://answers.unity3d.com/questions/875588/unity-ui-dynamic-buttons.html and https://unity3d.com/learn/tutorials/topics/user-interface-ui/adding-buttons-script
-    private List<string> allSpellNames = new List<string>();
-    private static List<Button> allSpellButtons = new List<Button>();
-    private static List<Button> allCastingButtons = new List<Button>();
+    private List<string> allSpellNames = new List<string> ();
+    private static List<Button> allSpellButtons = new List<Button> ();
+    private static List<Button> allCastingButtons = new List<Button> ();
 
     public GameObject castingButtonPrefab;
     public GameObject levelUpButtonPrefab;
@@ -25,151 +24,123 @@ public class SpellButtons : MonoBehaviour
     public const string levelUpButtonTag = "LevelUpButton";
     public const string castSpellButtonTag = "CastSpellButton";
 
-    void Start()
-    {
-        allSpellNames = Spell.GetAllSpellNames();
-        AddButtons(castingButtonPrefab);
-        AddButtons(levelUpButtonPrefab);
-        FinishButtons();
+    void Start () {
+        allSpellNames = Spell.GetAllSpellNames ();
+        AddButtons (castingButtonPrefab);
+        AddButtons (levelUpButtonPrefab);
+        FinishButtons ();
     }
 
-    private void AddButtons(GameObject prefab)
-    {
-        for (int i = 0; i < allSpellNames.Count; i++)
-        {
+    private void AddButtons (GameObject prefab) {
+        for (int i = 0; i < allSpellNames.Count; i++) {
             string spellName = allSpellNames[i];
-            GameObject button = Instantiate(prefab) as GameObject;
+            GameObject button = Instantiate (prefab) as GameObject;
 
-            switch (spellName)
-            {
+            switch (spellName) {
                 case Spell.delevelSpell:
-                    button.AddComponent<DelevelSpell>();
+                    button.AddComponent<DelevelSpell> ();
                     break;
                 case Spell.drainSpell:
-                    button.AddComponent<DrainSpell>();
+                    button.AddComponent<DrainSpell> ();
                     break;
                 case Spell.freezeSpell:
-                    button.AddComponent<FreezeSpell>();
+                    button.AddComponent<FreezeSpell> ();
                     break;
                 case Spell.scareSpell:
-                    button.AddComponent<ScareSpell>();
+                    button.AddComponent<ScareSpell> ();
                     break;
                 case Spell.teleportSpell:
-                    button.AddComponent<TeleportSpell>();
+                    button.AddComponent<TeleportSpell> ();
                     break;
                 case Spell.transformSpell:
-                    button.AddComponent<TransformSpell>();
+                    button.AddComponent<TransformSpell> ();
                     break;
                 case Spell.sleepSpell:
-                    button.AddComponent<SleepSpell>();
+                    button.AddComponent<SleepSpell> ();
                     break;
                 default:
-                    Debug.Log("spell name not found");
+                    Debug.Log ("spell name not found");
                     break;
             }
 
-            Button buttonInstance = button.GetComponent<Button>();
+            Button buttonInstance = button.GetComponent<Button> ();
 
-            allSpellButtons.Add(buttonInstance);
+            allSpellButtons.Add (buttonInstance);
         }
     }
 
-    private void FinishButtons()
-    {
-        for (int i = 0; i < allSpellButtons.Count; i++)
-        {
+    private void FinishButtons () {
+        for (int i = 0; i < allSpellButtons.Count; i++) {
             Button button = allSpellButtons[i];
 
-            if (button.tag == castSpellButtonTag)
-            {
-                button.transform.SetParent(castingParent, false);
+            if (button.tag == castSpellButtonTag) {
+                button.transform.SetParent (castingParent, false);
 
-                GameObject numberSpot = button.transform.GetChild(numberIndex).gameObject;
-                if (numberSpot != null)
-                {
-                    numberSpot.GetComponent<Text>().text = "" + i;
-                }
-                else
-                {
-                    Debug.Log("no number text spot");
+                GameObject numberSpot = button.transform.GetChild (numberIndex).gameObject;
+                if (numberSpot != null) {
+                    numberSpot.GetComponent<Text> ().text = "" + i;
+                } else {
+                    Debug.Log ("no number text spot");
                 }
 
-                UpdateSpellSlots(button);
+                UpdateSpellSlots (button);
 
                 //https://forum.unity3d.com/threads/why-wont-onclick-addlistener-accept-a-field.357791/
-                button.onClick.AddListener(button.GetComponent<Spell>().OnCastingClick);
+                button.onClick.AddListener (button.GetComponent<Spell> ().OnCastingClick);
 
-                allCastingButtons.Add(button);
-            }
-            else if (button.tag == levelUpButtonTag)
-            {
-                button.transform.SetParent(levelUpParent, false);
-                CheckIfKnown(button);
-                button.onClick.AddListener(() => button.GetComponent<Spell>().OnLevelUpClick(button));
+                allCastingButtons.Add (button);
+            } else if (button.tag == levelUpButtonTag) {
+                button.transform.SetParent (levelUpParent, false);
+                CheckIfKnown (button);
+                button.onClick.AddListener (() => button.GetComponent<Spell> ().OnLevelUpClick (button));
             }
         }
     }
 
-    public static void UpdateSpellSlots(Button button)
-    {
-        GameObject nameSpot = button.transform.GetChild(nameIndex).gameObject;
-        string spellName = button.GetComponent<Spell>().GetSpellName();
-        if (nameSpot != null)
-        {
-            Text nameText = nameSpot.GetComponent<Text>();
-            if (Player.SpellIsKnown(spellName))
-            {
+    public static void UpdateSpellSlots (Button button) {
+        GameObject nameSpot = button.transform.GetChild (nameIndex).gameObject;
+        string spellName = button.GetComponent<Spell> ().GetSpellName ();
+        if (nameSpot != null) {
+            Text nameText = nameSpot.GetComponent<Text> ();
+            if (Player.SpellIsKnown (spellName)) {
                 nameText.text = spellName;
                 button.interactable = true;
-            }
-            else
-            {
+            } else {
                 nameText.text = "Unknown";
                 button.interactable = false;
             }
-        }
-        else
-        {
-            Debug.Log("no name text spot");
+        } else {
+            Debug.Log ("no name text spot");
         }
     }
 
-    public static void CheckIfKnown(Button button)
-    {
-        Text name = button.GetComponentInChildren<Text>();
-        string spellName = button.GetComponent<Spell>().GetSpellName();
-        if (Player.SpellIsKnown(spellName))
-        {
+    public static void CheckIfKnown (Button button) {
+        Text name = button.GetComponentInChildren<Text> ();
+        string spellName = button.GetComponent<Spell> ().GetSpellName ();
+        if (Player.SpellIsKnown (spellName)) {
             name.text = spellName + ": Learned!";
             button.interactable = false;
-        }
-        else
-        {
+        } else {
             name.text = spellName;
         }
     }
 
-    public static List<Button> GetAllCastingButtons()
-    {
+    public static List<Button> GetAllCastingButtons () {
         return allCastingButtons;
     }
 
-    public void CancelCasting()
-    {
-        Spell.StopCoroutines(Spell.GetActiveSpell());
+    public void CancelCasting () {
+        Spell.StopCoroutines (Spell.GetActiveSpell ());
     }
 
-    public static void ActivateCastingButtons(bool value)
-    {
-        GameObject[] castingButtons = GameObject.FindGameObjectsWithTag(SpellButtons.castSpellButtonTag);
+    public static void ActivateCastingButtons (bool value) {
+        GameObject[] castingButtons = GameObject.FindGameObjectsWithTag (SpellButtons.castSpellButtonTag);
 
-        for (int i = 0; i < castingButtons.Length; i++)
-        {
-            Button button = castingButtons[i].GetComponent<Button>();
-            string spellName = button.GetComponent<Spell>().GetSpellName();
+        for (int i = 0; i < castingButtons.Length; i++) {
+            Button button = castingButtons[i].GetComponent<Button> ();
+            string spellName = button.GetComponent<Spell> ().GetSpellName ();
 
-            if (!(spellName == Spell.GetActiveSpell().GetSpellName()) && Player.SpellIsKnown(spellName))
-            {
+            if (!(spellName == Spell.GetActiveSpell ().GetSpellName ()) && Player.SpellIsKnown (spellName)) {
                 button.interactable = value;
             }
         }

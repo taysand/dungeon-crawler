@@ -40,8 +40,6 @@ public class Player : Moving {
         base.Start ();
         nextLevel = levels[level];
         maxLevel = levels.Length;
-
-        // facingRight = spriteRenderer.flipX;
     }
 
     void Update () {
@@ -82,9 +80,7 @@ public class Player : Moving {
         speed = playerStartingSpeed;
     }
 
-    public override void PlayAttackAnimation () {
-        //TODO: player attack animation stuff
-    }
+    public override void PlayAttackAnimation () { }
 
     public void PlayInjuredAnimation () {
         animator.SetTrigger (Moving.playerInjuredAnimation);
@@ -99,9 +95,7 @@ public class Player : Moving {
         }
     }
 
-    public void UsePotion () {
-        //TODO: please
-    }
+    public void UsePotion () { }
 
     public void Heal (float amount) {
         if ((amount + hp) >= currentMaxHP) {
@@ -189,7 +183,7 @@ public class Player : Moving {
         return GetKnownSpells ().Contains (spellName);
     }
 
-    //to test leveling up. there's a button which should also be deleted
+    //FIXME: to test leveling up. there's a button which should also be deleted
     public void TempLevelUpButton () {
         IncreaseXP (nextLevel - xp);
     }

@@ -4,28 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class ChangingText : MonoBehaviour {
-
 	protected Player player;
 	protected Text textField;
 
 	void Awake () {
-		SetUpPlayerAndText();
+		SetUpPlayerAndText ();
 	}
 
-	void Start() {
-		UpdateTextField();
+	void Start () {
+		UpdateTextField ();
 	}
-	
-	public abstract void UpdateTextField();
 
-	protected void SetUpPlayerAndText() {
-		textField = GetComponent<Text>();
+	public abstract void UpdateTextField ();
 
-		GameObject playerGameObj = GameObject.Find(Game.playerTag);
+	protected void SetUpPlayerAndText () {
+		textField = GetComponent<Text> ();
+
+		GameObject playerGameObj = GameObject.Find (Game.playerTag);
 		if (playerGameObj != null) {
-    		player = playerGameObj.GetComponent<Player>();
+			player = playerGameObj.GetComponent<Player> ();
 		} else {
-			 Debug.Log("the player is gone");
+			Debug.Log ("the player is gone");
 		}
 	}
 }

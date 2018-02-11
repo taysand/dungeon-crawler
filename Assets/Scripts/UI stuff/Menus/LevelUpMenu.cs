@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelUpMenu : Menu
-{
+public class LevelUpMenu : Menu {
     //tracking levels
     private static int levelUpPoints = 0;
     private static GameObject[] levelUpButtons;
@@ -33,137 +32,100 @@ public class LevelUpMenu : Menu
     private static string acButtonParentName = "ac upgrade";
     private static string hpButtonParentName = "hp upgrade";
 
-    protected override void AdditionalSetUp()
-    {
-        healthUpgradeParent = transform.Find(healthUpgradePath);
-        armorUpgradeParent = transform.Find(armorUpgradePath);
-        doneParent = transform.Find(donePath);
-        titleParent = transform.Find(titlePath);
+    protected override void AdditionalSetUp () {
+        healthUpgradeParent = transform.Find (healthUpgradePath);
+        armorUpgradeParent = transform.Find (armorUpgradePath);
+        doneParent = transform.Find (donePath);
+        titleParent = transform.Find (titlePath);
 
-        levelUpMenu = GetComponent<LevelUpMenu>();
+        levelUpMenu = GetComponent<LevelUpMenu> ();
 
-        GameObject playerGameObj = GameObject.Find(Game.playerTag);
-        if (playerGameObj != null)
-        {
-            player = playerGameObj.GetComponent<Player>();
-        }
-        else
-        {
-            Debug.Log("no player object?");
+        GameObject playerGameObj = GameObject.Find (Game.playerTag);
+        if (playerGameObj != null) {
+            player = playerGameObj.GetComponent<Player> ();
+        } else {
+            Debug.Log ("no player object?");
         }
     }
 
-    protected override void BuildButtonsAndText()
-    {
-        BuildText(levelInfo, titleParent);
-        BuildText(health, healthUpgradeParent);
-        BuildButton(health, healthUpgradeParent, plusButtonPrefab);
-        BuildText(armor, armorUpgradeParent);
-        BuildButton(armor, armorUpgradeParent, plusButtonPrefab);
-        BuildButton(done, doneParent, doneButtonPrefab);
+    protected override void BuildButtonsAndText () {
+        BuildText (levelInfo, titleParent);
+        BuildText (health, healthUpgradeParent);
+        BuildButton (health, healthUpgradeParent, plusButtonPrefab);
+        BuildText (armor, armorUpgradeParent);
+        BuildButton (armor, armorUpgradeParent, plusButtonPrefab);
+        BuildButton (done, doneParent, doneButtonPrefab);
     }
 
-    public override void ShowMenu()
-    {
-        base.ShowMenu();
-        UpdateLevelUpOptions();
+    public override void ShowMenu () {
+        base.ShowMenu ();
+        UpdateLevelUpOptions ();
     }
 
-    public static void GainLevelUpPoint()
-    {
+    public static void GainLevelUpPoint () {
         levelUpPoints++;
     }
 
-    public static int GetLevelUpPoints()
-    {
+    public static int GetLevelUpPoints () {
         return levelUpPoints;
     }
 
-    public static void SpendLevelUpPoints()
-    {
+    public static void SpendLevelUpPoints () {
         levelUpPoints--;
-        UpdateLevelUpOptions();
+        UpdateLevelUpOptions ();
     }
 
-    public static void UpdateLevelUpOptions()
-    {
-        levelDisplay.UpdateTextField();
+    public static void UpdateLevelUpOptions () {
+        levelDisplay.UpdateTextField ();
 
-        levelUpButtons = GameObject.FindGameObjectsWithTag(SpellButtons.levelUpButtonTag);
+        levelUpButtons = GameObject.FindGameObjectsWithTag (SpellButtons.levelUpButtonTag);
 
-        // foreach (GameObject b in levelUpButtons)
-        // {
-        //     Debug.Log(b);
-        // }
-
-        if (levelUpPoints > 0)
-        {
-            foreach (GameObject b in levelUpButtons)
-            {
-                Button button = b.GetComponent<Button>();
+        if (levelUpPoints > 0) {
+            foreach (GameObject b in levelUpButtons) {
+                Button button = b.GetComponent<Button> ();
                 string parentName = b.transform.parent.name;
 
-                if (parentName == spellButtonParentName)
-                {
-                    Spell currentSpell = button.GetComponent<Spell>();
-                    // Debug.Log("current spell is " + currentSpell.GetSpellName() + " and requires " + currentSpell.GetRequiredLevel() + ". player is level " + player.GetLevel());
-                    if (!Player.SpellIsKnown(currentSpell.GetSpellName()) && currentSpell.GetRequiredLevel() <= player.GetLevel())
-                    {
+                if (parentName == spellButtonParentName) {
+                    Spell currentSpell = button.GetComponent<Spell> ();
+                    if (!Player.SpellIsKnown (currentSpell.GetSpellName ()) && currentSpell.GetRequiredLevel () <= player.GetLevel ()) {
                         button.interactable = true;
                     }
-                }
-                else if (parentName == acButtonParentName)
-                {
-                    if (player.GetArmor() >= Player.maxAC)
-                    {
+                } else if (parentName == acButtonParentName) {
+                    if (player.GetArmor () >= Player.maxAC) {
                         button.interactable = false;
-                        armorUpgradeText.UpdateTextField();
-                    }
-                    else
-                    {
+                        armorUpgradeText.UpdateTextField ();
+                    } else {
                         button.interactable = true;
                     }
-                }
-                else if (parentName == hpButtonParentName)
-                {
-                    if (player.GetCurrentMaxHP() >= Player.maxMaxHP)
-                    {
+                } else if (parentName == hpButtonParentName) {
+                    if (player.GetCurrentMaxHP () >= Player.maxMaxHP) {
                         button.interactable = false;
-                        healthUpgradeText.UpdateTextField();
-                    }
-                    else
-                    {
+                        healthUpgradeText.UpdateTextField ();
+                    } else {
                         button.interactable = true;
                     }
-                }
-                else
-                {
-                    Debug.Log("parent of upgrade buttons not found");
+                } else {
+                    Debug.Log ("parent of upgrade buttons not found");
                 }
             }
-        }
-        else
-        {
-            foreach (GameObject b in levelUpButtons)
-            {
-                Button button = b.GetComponent<Button>();
+        } else {
+            foreach (GameObject b in levelUpButtons) {
+                Button button = b.GetComponent<Button> ();
                 button.interactable = false;
             }
         }
     }
 
-    public void IncreaseHealth()
-    {
-        player.IncreaseMaxHP(healthIncrease);
-        healthUpgradeText.UpdateTextField();
-        SpendLevelUpPoints();
-        hpDisplay.UpdateTextField();
+    public void IncreaseHealth () {
+        player.IncreaseMaxHP (healthIncrease);
+        healthUpgradeText.UpdateTextField ();
+        SpendLevelUpPoints ();
+        hpDisplay.UpdateTextField ();
     }
 
-    public void IncreaseArmor()
-    {
-        player.IncreaseArmor(armorIncrease);
-        armorUpgradeText.UpdateTextField();
-        SpendLevelUpPoints();
+    public void IncreaseArmor () {
+        player.IncreaseArmor (armorIncrease);
+        armorUpgradeText.UpdateTextField ();
+        SpendLevelUpPoints ();
     }
 }

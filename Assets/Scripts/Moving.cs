@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Moving : MonoBehaviour
-{
+public abstract class Moving : MonoBehaviour {
     public const string playerInjuredAnimation = "PlayerInjured";
     public const string attackAnimation = "Attack";
 
     protected Animator animator;
     protected BoxCollider2D boxCollider;
     protected Rigidbody2D rb2D;
-    // protected bool facingRight;
     protected SpriteRenderer spriteRenderer;
     public float moveTime = .1f;
     public Transform connectedJoint;
@@ -22,57 +20,42 @@ public abstract class Moving : MonoBehaviour
     protected float currentMaxHP;
     protected float speed;
 
-    protected virtual void Start()
-    {
-        SetStartingValues();
-        animator = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider2D>();
-        rb2D = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+    protected virtual void Start () {
+        SetStartingValues ();
+        animator = GetComponent<Animator> ();
+        boxCollider = GetComponent<BoxCollider2D> ();
+        rb2D = GetComponent<Rigidbody2D> ();
+        spriteRenderer = GetComponent<SpriteRenderer> ();
         rb2D.drag = 5;
     }
 
-    protected abstract void SetStartingValues();
+    protected abstract void SetStartingValues ();
 
-    public abstract void PlayAttackAnimation();
+    public abstract void PlayAttackAnimation ();
 
-    // protected void Flip()
-    // {
-    //     facingRight = !facingRight;
-    //     spriteRenderer.flipX = facingRight;
-    // }
-
-    public int GetLevel()
-    {
+    public int GetLevel () {
         return level;
     }
 
-    public float GetHealth()
-    {
+    public float GetHealth () {
         return hp;
     }
 
-    public float GetCurrentMaxHP()
-    {
+    public float GetCurrentMaxHP () {
         return currentMaxHP;
     }
 
-    public virtual void TakeDamage(float amount)
-    {
+    public virtual void TakeDamage (float amount) {
         hp = hp - amount;
     }
 
-    public int GetArmor()
-    {
+    public int GetArmor () {
         return ac;
     }
 
-    protected void Move(int xDir, int yDir)
-    {
+    protected void Move (int xDir, int yDir) {
         Vector2 start = connectedJoint.position;
-        // Debug.Log("start position is: " + start);
-        Vector2 end = start + new Vector2(xDir, yDir);
-        //  Debug.Log("end position is: " + end);
+        Vector2 end = start + new Vector2 (xDir, yDir);
         connectedJoint.position = end;
     }
 }

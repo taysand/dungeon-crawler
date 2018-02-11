@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Skeleton : Enemy
 {
-
     private const float skeletonDamage = 5.0f;
     private const float skeletonHP = 25.0f;
     private const int skeletonAC = 2;

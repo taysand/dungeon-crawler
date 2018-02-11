@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GemEnemy : Enemy
 {
-
     private const float gemDamage = 10.0f;
     private const int gemAC = 3;
     private const float gemSpeed = 1f;
