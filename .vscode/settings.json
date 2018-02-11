@@ -59,6 +59,8 @@
         "delevel",
         "lerp",
         "mathf",
-        "unpause"
+        "rect",
+        "unpause",
+        "unpaused"
     ]
 }

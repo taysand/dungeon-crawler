@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Spell : MonoBehaviour
-{
-
+public abstract class Spell : MonoBehaviour {
     //spell stats
     protected string spellName;
     protected float healthLost;
@@ -34,188 +32,150 @@ public abstract class Spell : MonoBehaviour
     private float cantCastReadTime = .5f;
     private float cantCastFade = .03f;
 
-    private static List<string> allSpellNames = new List<string>();
+    private static List<string> allSpellNames = new List<string> ();
 
-    void Awake()
-    {
-        InitializeStats();
-        GameObject playerGameObj = GameObject.Find(Game.playerTag);
-        if (playerGameObj != null)
-        {
-            player = playerGameObj.GetComponent<Player>();
-        }
-        else
-        {
-            Debug.Log("no player object?");
+    void Awake () {
+        InitializeStats ();
+        GameObject playerGameObj = GameObject.Find (Game.playerTag);
+        if (playerGameObj != null) {
+            player = playerGameObj.GetComponent<Player> ();
+        } else {
+            Debug.Log ("no player object?");
         }
     }
 
-    protected abstract void InitializeStats();
+    protected abstract void InitializeStats ();
 
-    public static void BuildSpellNameList()
-    {
-        allSpellNames.Add(delevelSpell);
-        allSpellNames.Add(drainSpell);
-        allSpellNames.Add(freezeSpell);
-        allSpellNames.Add(scareSpell);
-        allSpellNames.Add(teleportSpell);
-        allSpellNames.Add(transformSpell);
-        allSpellNames.Add(sleepSpell);
+    public static void BuildSpellNameList () {
+        allSpellNames.Add (delevelSpell);
+        allSpellNames.Add (drainSpell);
+        allSpellNames.Add (freezeSpell);
+        allSpellNames.Add (scareSpell);
+        allSpellNames.Add (teleportSpell);
+        allSpellNames.Add (transformSpell);
+        allSpellNames.Add (sleepSpell);
     }
 
-    public abstract bool Cast(Enemy enemy);
+    public abstract bool Cast (Enemy enemy);
 
-    public float GetHealthLost()
-    {
+    public float GetHealthLost () {
         return healthLost;
     }
 
-    public string GetSpellName()
-    {
+    public string GetSpellName () {
         return spellName;
     }
 
-    public int GetRequiredLevel() {
+    public int GetRequiredLevel () {
         return requiredLevel;
     }
 
-    protected virtual void LevelUpSpell()
-    {
+    protected virtual void LevelUpSpell () {
         level++;
         maxLevelAffected += 5;
-        //TODO: 
-        //option to decrease healthLost
-        //a cap on the number of times you can level up a spell
     }
 
-    public static List<string> GetAllSpellNames()
-    {
+    public static List<string> GetAllSpellNames () {
         return allSpellNames;
     }
 
-    public static bool Casting()
-    {
+    public static bool Casting () {
         return casting;
     }
 
-    public void OnCastingClick()
-    {
-        StartCoroutine(targetEnemy);
+    public void OnCastingClick () {
+        StartCoroutine (targetEnemy);
     }
 
-    public void OnLevelUpClick(Button button)
-    {
-        LevelUpMenu.SpendLevelUpPoints();
-        Player.LearnSpell(spellName);
-        SpellButtons.CheckIfKnown(button);
+    public void OnLevelUpClick (Button button) {
+        LevelUpMenu.SpendLevelUpPoints ();
+        Player.LearnSpell (spellName);
+        SpellButtons.CheckIfKnown (button);
 
-        int buttonIndex = allSpellNames.IndexOf(spellName);
+        int buttonIndex = allSpellNames.IndexOf (spellName);
 
-        //Button castingButton = GameObject.FindGameObjectsWithTag(SpellButtons.castSpellButtonTag)[buttonIndex].GetComponent<Button>(); TODO: returns an empty list for some reason? this method is definitely called after the creation of all the buttons so they should all be there. maybe figure this out later. maybe don't
-
-        Button castingButton = SpellButtons.GetAllCastingButtons()[buttonIndex];
-        SpellButtons.UpdateSpellSlots(castingButton);
+        Button castingButton = SpellButtons.GetAllCastingButtons () [buttonIndex];
+        SpellButtons.UpdateSpellSlots (castingButton);
 
     }
 
-    public IEnumerator TargetEnemy()
-    {
-        casting = true;//TODO: do I need this
-        Game.Pause();//stops movement
-        GameplayUI.ShowInstructions();
+    public IEnumerator TargetEnemy () {
+        casting = true; //TODO: do I need this
+        Game.Pause (); //stops movement
+        GameplayUI.ShowInstructions ();
 
-        activeSpell = GetComponent<Spell>();
-        Debug.Log("active spell is: " + activeSpell);
+        activeSpell = GetComponent<Spell> ();
+        Debug.Log ("active spell is: " + activeSpell);
 
         bool success = false;
 
-        while (true)
-        {
-            yield return StartCoroutine(waitForClick);
+        while (true) {
+            yield return StartCoroutine (waitForClick);
 
-            success = Cast(enemy);
+            success = Cast (enemy);
 
-            if (success)
-            {
-                float healthLost = GetHealthLost();
+            if (success) {
+                float healthLost = GetHealthLost ();
 
-                Debug.Log("spell cast");
+                Debug.Log ("spell cast");
 
                 //https://stackoverflow.com/questions/3561202/check-if-instance-of-a-type
-                if (!(GetType() == typeof(DrainSpell)))
-                {
-                    GameObject playerGameObj = GameObject.Find(Game.playerTag);
-                    if (playerGameObj != null)
-                    {
-                        playerGameObj.GetComponent<Player>().TakeDamage(healthLost);
-                    }
-                    else
-                    {
-                        Debug.Log("no player object?");
+                if (!(GetType () == typeof (DrainSpell))) {
+                    GameObject playerGameObj = GameObject.Find (Game.playerTag);
+                    if (playerGameObj != null) {
+                        playerGameObj.GetComponent<Player> ().TakeDamage (healthLost);
+                    } else {
+                        Debug.Log ("no player object?");
                     }
                 }
                 break;
-            }
-            else
-            {
-                Message cantCastMessage = GameObject.Find(Message.cantCastMessageName).GetComponent<Message>();
-                cantCastMessage.ShowMessage(cantCastReadTime, cantCastFade, cantCastFade);
+            } else {
+                Message cantCastMessage = GameObject.Find (Message.cantCastMessageName).GetComponent<Message> ();
+                cantCastMessage.ShowMessage (cantCastReadTime, cantCastFade, cantCastFade);
             }
         }
-        End();
+        End ();
     }
 
-    protected IEnumerator WaitForClick()
-    {
-        SpellButtons.ActivateCastingButtons(false);
+    protected IEnumerator WaitForClick () {
+        SpellButtons.ActivateCastingButtons (false);
 
         //http://answers.unity3d.com/questions/904427/waiting-for-a-mouse-click-in-a-coroutine.html
-        while (true)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
+        while (true) {
+            if (Input.GetMouseButtonDown (0)) {
                 //https://forum.unity3d.com/threads/unity-2d-raycast-from-mouse-to-screen.211708/
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
 
-                if (hit.collider != null)
-                {
-                    if (hit.transform.tag == Game.enemyTag)
-                    {
-                        enemy = hit.transform.gameObject.GetComponent<Enemy>();
+                if (hit.collider != null) {
+                    if (hit.transform.tag == Game.enemyTag) {
+                        enemy = hit.transform.gameObject.GetComponent<Enemy> ();
                         yield break;
                     }
                 }
             }
-
             yield return null;
         }
     }
 
-    private void End()
-    {
-        Game.Unpause();
+    private void End () {
+        Game.Unpause ();
         casting = false;
-        SpellButtons.ActivateCastingButtons(true);
+        SpellButtons.ActivateCastingButtons (true);
         activeSpell = null;
-        GameplayUI.HideInstructions();
+        GameplayUI.HideInstructions ();
     }
 
-    public static void StopCoroutines(Spell spell)
-    {
-        if (spell != null)
-        {
-            spell.StopCoroutine(waitForClick);
-            spell.StopCoroutine(targetEnemy);
-            spell.End();
-        }
-        else
-        {
-            Debug.Log("no active spell");
+    public static void StopCoroutines (Spell spell) {
+        if (spell != null) {
+            spell.StopCoroutine (waitForClick);
+            spell.StopCoroutine (targetEnemy);
+            spell.End ();
+        } else {
+            Debug.Log ("no active spell");
         }
     }
 
-    public static Spell GetActiveSpell()
-    {
+    public static Spell GetActiveSpell () {
         return activeSpell;
     }
 }

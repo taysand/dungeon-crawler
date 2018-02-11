@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DrainSpell : Spell
-{
-    //this is the final spell you can get
-
+public class DrainSpell : Spell {
     private float percentage = .2f;
     private const float drainRate = .6f;
 
@@ -14,27 +11,22 @@ public class DrainSpell : Spell
     private const int drainMaxLevelAffected = 6;
     private int drainRequiredLevel = 7;
 
-    protected override void InitializeStats()
-    {
+    protected override void InitializeStats () {
         spellName = drainSpell;
         healthLost = drainHealthLost;
         maxLevelAffected = drainMaxLevelAffected;
         requiredLevel = drainRequiredLevel;
     }
 
-    public override bool Cast(Enemy enemy)
-    {
-        if (enemy.GetLevel() <= maxLevelAffected)
-        {
-            // Debug.Log("draining health");
-            float drained = enemy.GetHealth() * percentage;
-            enemy.TakeDamage(drained);
+    public override bool Cast (Enemy enemy) {
+        if (enemy.GetLevel () <= maxLevelAffected) {
+            float drained = enemy.GetHealth () * percentage;
+            enemy.TakeDamage (drained);
 
-            player.Heal(drained * drainRate);
+            player.Heal (drained * drainRate);
 
-            if (percentage > .7)
-            {
-                enemy.Sleep(0);
+            if (percentage >.7) {
+                enemy.Sleep (0);
             }
 
             return true;
@@ -42,9 +34,7 @@ public class DrainSpell : Spell
         return false;
     }
 
-    protected override void LevelUpSpell()
-    {
-        base.LevelUpSpell();
-        //TODO:give another option to increase drain precentage
+    protected override void LevelUpSpell () {
+        base.LevelUpSpell ();
     }
 }
