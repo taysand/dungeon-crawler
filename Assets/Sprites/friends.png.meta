@@ -1,11 +1,21 @@
 fileFormatVersion: 2
-guid: 89dcbc7adcf7d4e45b6a3486a7da3bfa
-timeCreated: 1516765845
+guid: 8ac37884d99d14d1c8b24541e1a7652f
+timeCreated: 1519506489
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: friends_0
-    21300002: friends_1
+    21300000: friends 1_0
+    21300002: friends 1_1
+    21300004: friends 1_2
+    21300006: friends 1_3
+    21300008: friends 1_4
+    21300010: friends 1_5
+    21300012: friends 1_6
+    21300014: friends 1_7
+    21300016: friends 1_8
+    21300018: friends 1_9
+    21300020: friends 1_10
+    21300022: friends 1_11
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -88,28 +98,158 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: friends_0
+      name: friends 1_0
       rect:
         serializedVersion: 2
-        x: 308
-        y: 475
-        width: 670
-        height: 919
+        x: 68
+        y: 682
+        width: 108
+        height: 482
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: friends_1
+      name: friends 1_1
       rect:
         serializedVersion: 2
-        x: 1151
-        y: 106
-        width: 703
-        height: 926
+        x: 233
+        y: 683
+        width: 109
+        height: 469
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_2
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 682
+        width: 113
+        height: 474
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_3
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 682
+        width: 111
+        height: 477
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_4
+      rect:
+        serializedVersion: 2
+        x: 767
+        y: 682
+        width: 141
+        height: 471
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_5
+      rect:
+        serializedVersion: 2
+        x: 941
+        y: 682
+        width: 144
+        height: 485
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_6
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 682
+        width: 108
+        height: 468
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_7
+      rect:
+        serializedVersion: 2
+        x: 1308
+        y: 683
+        width: 108
+        height: 473
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_8
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 104
+        width: 144
+        height: 485
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_9
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 104
+        width: 110
+        height: 469
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_10
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 104
+        width: 143
+        height: 488
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: friends 1_11
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 104
+        width: 109
+        height: 474
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

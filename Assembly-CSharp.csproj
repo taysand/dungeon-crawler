@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Enemies\MushroomEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\RockEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\Skeleton.cs" />
+     <Compile Include="Assets\Scripts\Friend.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\JointScript.cs" />
      <Compile Include="Assets\Scripts\Map.cs" />
