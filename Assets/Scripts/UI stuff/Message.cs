@@ -15,6 +15,7 @@ public class Message : MonoBehaviour {
     public const string levelUpInstructionsMessageName = "LevelUpInstructionsMessage";
     public const string gotFriendMessageName = "gotFriendMessage";
     public const string needFriendsMessageName = "needFriendsMessage";
+    public const string spellSuccessMessageName = "SpellSuccess";
 
     void Start () {
         cv = GetComponent<CanvasRenderer> ();
