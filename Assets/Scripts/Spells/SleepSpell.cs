@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SleepSpell : Spell {
-    private const int sleepHealthLost = 10;
+    private const int sleepHealthLost = 3;
     private const int sleepMaxLevelAffected = 3;
     private const int additionalSleepTime = 0;
     private int sleepRequiredLevel = 1;
@@ -17,6 +17,8 @@ public class SleepSpell : Spell {
     }
 
     public override bool Cast (Enemy enemy) {
+        Debug.Log ("enemy level: " + enemy.GetLevel ());
+        Debug.Log ("spell level: " + maxLevelAffected);
         if (enemy.GetLevel () <= maxLevelAffected) {
             enemy.Sleep (additionalSleepTime);
             return true;
