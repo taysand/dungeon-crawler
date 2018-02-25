@@ -51,6 +51,9 @@ public class Game : MonoBehaviour {
     private bool zoomingOut = false;
     private bool doneZooming = false;
 
+    //winning
+    public static int requiredFriendsToWin = 2;
+    
     void Awake () {
         mainCamera = GetComponent<Camera> ();
         enemies = new List<Enemy> ();
