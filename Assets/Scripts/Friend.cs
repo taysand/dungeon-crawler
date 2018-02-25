@@ -1,25 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class Friend : MonoBehaviour {
+	private const string friendFileName = "friends";
+	private static Sprite[] sprites;
 
-	private static Object[] sprites;
-
-	// Use this for initialization
 	void Start () {
-		// sprites = AssetDatabase.LoadAllAssetsAtPath("friends");
-
-		sprites = AssetDatabase.LoadAllAssetRepresentationsAtPath("Assets/Sprites/friends.png");
-		// Debug.Log(sprites.Length);
-		// Debug.Log(sprites[2].name);
-		int index = Random.Range(0, sprites.Length);
-		GetComponent<SpriteRenderer>().sprite = (Sprite) sprites[index];
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		//https://answers.unity.com/questions/591677/how-to-get-child-sprites-from-a-multiple-sprite-te.html
+		sprites = Resources.LoadAll<Sprite> (friendFileName);
+		int index = Random.Range (0, sprites.Length);
+		GetComponent<SpriteRenderer> ().sprite = sprites[index];
 	}
 }
