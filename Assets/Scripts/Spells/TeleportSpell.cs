@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TeleportSpell : Spell {
     private int distance = 5;
-    private const int teleportHealthLost = 20;
+    private const int teleportHealthLost = 7;
     private const int teleportMaxLevelAffected = 4;
     private int teleportRequiredLevel = 5;
 
