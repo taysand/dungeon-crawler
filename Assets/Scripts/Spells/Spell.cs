@@ -143,12 +143,19 @@ public abstract class Spell : MonoBehaviour {
         //http://answers.unity3d.com/questions/904427/waiting-for-a-mouse-click-in-a-coroutine.html
         while (true) {
             if (Input.GetMouseButtonDown (0)) {
+                //https://answers.unity.com/questions/1300276/how-do-you-raycasthit2d-certainly-layers.html
+                int layerMask = (LayerMask.GetMask("Enemies"));
+
                 //https://forum.unity3d.com/threads/unity-2d-raycast-from-mouse-to-screen.211708/
-                RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero);
+                RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1f, layerMask);
 
                 if (hit.collider != null) {
+                    if (hit.transform.tag == Game.playerTag) {
+                        Debug.Log("hit player");
+                    }
                     if (hit.transform.tag == Game.enemyTag) {
                         enemy = hit.transform.gameObject.GetComponent<Enemy> ();
+                        Debug.Log("hit " + enemy);
                         yield break;
                     }
                 }
