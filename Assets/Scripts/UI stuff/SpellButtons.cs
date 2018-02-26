@@ -138,9 +138,6 @@ public class SpellButtons : MonoBehaviour {
 
         for (int i = 0; i < castingButtons.Length; i++) {
             Button button = castingButtons[i].GetComponent<Button> ();
-            Debug.Log("button is " + button);
-            Debug.Log("button spell is " + button.GetComponent<Spell> ());
-            Debug.Log("button spell name is " + button.GetComponent<Spell> ().GetSpellName ());
             string spellName = button.GetComponent<Spell> ().GetSpellName ();
 
             if (!(spellName == Spell.GetActiveSpell ().GetSpellName ()) && Player.SpellIsKnown (spellName)) {
