@@ -234,7 +234,7 @@ public abstract class Enemy : Moving {
             movingToEnd = true;
         }
 
-        Move ((int) movement.x, (int) movement.y);
+        Move ((int) (movement.x * speed), (int) (movement.y * speed));
     }
 
     public void Teleport (int x, int y) {

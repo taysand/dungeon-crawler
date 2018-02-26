@@ -6,7 +6,7 @@ public class BigMonsterEnemy : Enemy
 {
     private const float bigMonsterDamage = 30.0f;
     private const int bigMonsterAC = 7;
-    private const float bigMonsterSpeed = 2f;
+    private const float bigMonsterSpeed = 1.5f;
     private const float bigMonsterMaxHP = 50f;
     private const int bigMonsterLevel = 10;
     private const float bigMonsterRangeRadius = 20f;

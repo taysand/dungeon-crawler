@@ -10,7 +10,7 @@ public class Game : MonoBehaviour {
     private static List<Enemy> enemies;
 
     //movement
-    public float turnDelay = .5f;
+    public float turnDelay = .1f;
     private bool enemiesMoving;
     private static bool playersTurn = true;
 
