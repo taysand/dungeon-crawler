@@ -7,12 +7,8 @@ public class Corridor : MonoBehaviour {
 
     void OnTriggerEnter2D (Collider2D other) {
         if ((other.gameObject.tag == Game.playerTag)) {
-            if (gameObject.tag == "exit") {
-
-            } else {
-                Game.toNextStory = true;
-                gameObject.GetComponent<Collider2D> ().enabled = false;
-            }
+            Game.toNextStory = true;
+            gameObject.GetComponent<Collider2D> ().enabled = false;
         }
     }
 
