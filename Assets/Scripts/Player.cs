@@ -183,7 +183,7 @@ public class Player : Moving {
         return GetKnownSpells ().Contains (spellName);
     }
 
-    //FIXME: to test leveling up. there's a button which should also be deleted
+    //to test leveling up. there's a button which should also be deleted
     public void TempLevelUpButton () {
         IncreaseXP (nextLevel - xp);
     }
@@ -194,5 +194,9 @@ public class Player : Moving {
 
     public int GetNumFriends () {
         return numFriends;
+    }
+
+    public void SkipTurn() {
+        Game.SetPlayersTurn (false);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TransformSpell : Spell {
-    private const int transformHealthLost = 40;
+    private const int transformHealthLost = 10;
     private const int transformMaxLevelAffected = 3;
     private int transformRequiredLevel = 6;
 

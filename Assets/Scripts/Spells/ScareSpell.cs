@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ScareSpell : Spell {
-    private const int scareHealthLost = 15;
+    private const int scareHealthLost = 5;
     private const int scareMaxLevelAffected = 2;
     private int additionalScareTime = 0;
     private int additionalScareDistance = 0;
