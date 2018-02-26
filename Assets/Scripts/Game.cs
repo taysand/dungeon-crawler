@@ -10,7 +10,7 @@ public class Game : MonoBehaviour {
     private static List<Enemy> enemies;
 
     //movement
-    public float turnDelay = .5f;
+    public float turnDelay = .1f;
     private bool enemiesMoving;
     private static bool playersTurn = true;
 
@@ -37,10 +37,11 @@ public class Game : MonoBehaviour {
     private const string firstStory = "You wake up in a cave surrounded by treasure. There are heavy footsteps coming from the darkness ahead of you. What's going on? You grab the torch next to you and plan your escape.";
     private const string secondStory = "second story text"; //TODO:
     private const string thirdStory = "third story text"; //TODO:
+    private const string fourthStory = "fourth story text"; //TODO:
     private const string endStory = "you won!"; //TODO:
     public static bool toNextStory = true;
     public static bool beatGame = false;
-    private string[] storyArray = { firstStory, secondStory, thirdStory };
+    private string[] storyArray = { firstStory, secondStory, thirdStory, fourthStory };
     private int storyIndex = 0;
     private bool firstLevel = true;
 
