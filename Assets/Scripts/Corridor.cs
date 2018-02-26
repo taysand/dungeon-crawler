@@ -8,22 +8,26 @@ public class Corridor : MonoBehaviour {
     void OnTriggerEnter2D (Collider2D other) {
         if ((other.gameObject.tag == Game.playerTag)) {
             if (gameObject.tag == "exit") {
-                GameObject playerGameObj = GameObject.Find (Game.playerTag);
-                if (playerGameObj != null) {
-                    Player player = playerGameObj.GetComponent<Player> ();
-                    if (player.GetNumFriends () < Game.requiredFriendsToWin) {
-                        Message needFriendsMessage = GameObject.Find (Message.needFriendsMessageName).GetComponent<Message> ();
-                        needFriendsMessage.ShowMessage (2.6f, .04f, .03f);
-                    } else {
-                        Game.beatGame = true;
-                    }
-                } else {
-                    Debug.Log ("no player object?");
-                }
+
             } else {
                 Game.toNextStory = true;
                 gameObject.GetComponent<Collider2D> ().enabled = false;
             }
+        }
+    }
+
+    void OnCollisionEnter2D (Collision2D other) {
+        GameObject playerGameObj = GameObject.Find (Game.playerTag);
+        if (playerGameObj != null) {
+            Player player = playerGameObj.GetComponent<Player> ();
+            if (player.GetNumFriends () < Game.requiredFriendsToWin) {
+                Message needFriendsMessage = GameObject.Find (Message.needFriendsMessageName).GetComponent<Message> ();
+                needFriendsMessage.ShowMessage (2.6f, .04f, .03f);
+            } else {
+                Game.beatGame = true;
+            }
+        } else {
+            Debug.Log ("no player object?");
         }
     }
 }
