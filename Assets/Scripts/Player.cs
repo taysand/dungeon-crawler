@@ -195,8 +195,4 @@ public class Player : Moving {
     public int GetNumFriends () {
         return numFriends;
     }
-
-    public void WaitTurn() {
-        Game.SetPlayersTurn (false);
-    }
 }
