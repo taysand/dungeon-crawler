@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SleepSpell : Spell {
-    private const int sleepHealthLost = 10;
+    private const int sleepHealthLost = 3;
     private const int sleepMaxLevelAffected = 3;
     private const int additionalSleepTime = 0;
     private int sleepRequiredLevel = 1;
