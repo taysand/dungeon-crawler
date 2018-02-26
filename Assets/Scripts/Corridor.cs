@@ -11,7 +11,7 @@ public class Corridor : MonoBehaviour {
                 GameObject playerGameObj = GameObject.Find (Game.playerTag);
                 if (playerGameObj != null) {
                     Player player = playerGameObj.GetComponent<Player> ();
-                    if (player.GetNumFriends () < Game.requiredFriendsToWin) {
+                    if (player.GetNumFriends () < 1) {
                         Message needFriendsMessage = GameObject.Find (Message.needFriendsMessageName).GetComponent<Message> ();
                         needFriendsMessage.ShowMessage (2.6f, .04f, .03f);
                     } else {
