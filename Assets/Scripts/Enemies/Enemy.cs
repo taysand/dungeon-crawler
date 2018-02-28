@@ -87,6 +87,13 @@ public abstract class Enemy : Moving {
         }
     }
 
+    void OnMouseDown () {
+        if (Spell.Waiting ()) {
+            Debug.Log ("clicked on " + gameObject);
+            Spell.SetEnemy (this);
+        }
+    }
+
     public override void PlayAttackAnimation () {
         animator.SetTrigger (Moving.attackAnimation);
     }
