@@ -91,14 +91,14 @@ public class LevelUpMenu : Menu {
                         button.interactable = true;
                     }
                 } else if (parentName == acButtonParentName) {
-                    if (player.GetArmor () >= Player.maxAC) {
+                    if (player.GetArmor () >= Player.GetMaxAC()) {
                         button.interactable = false;
                         armorUpgradeText.UpdateTextField ();
                     } else {
                         button.interactable = true;
                     }
                 } else if (parentName == hpButtonParentName) {
-                    if (player.GetCurrentMaxHP () >= Player.maxMaxHP) {
+                    if (player.GetCurrentMaxHP () >= Player.GetMaxMaxHP()) {
                         button.interactable = false;
                         healthUpgradeText.UpdateTextField ();
                     } else {
