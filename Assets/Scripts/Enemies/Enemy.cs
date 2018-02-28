@@ -57,7 +57,6 @@ public abstract class Enemy : Moving {
         movingToPlayer = false;
         movingToEnd = true;
         facingRight = spriteRenderer.flipX;
-        Debug.Log ("facing right is " + facingRight);
         lastRight = facingRight;
     }
 
@@ -168,7 +167,7 @@ public abstract class Enemy : Moving {
                 facingRight = true;
             }
         } else {
-            xDirection = 1 * direction;
+            xDirection = direction;
             if (direction == 1) {
                 if (!facingRight) {
                     lastRight = false;
@@ -185,7 +184,7 @@ public abstract class Enemy : Moving {
         if (connectedJoint.position.y > goal.y) {
             yDirection = -1 * direction;
         } else {
-            yDirection = 1 * direction;
+            yDirection = direction;
         }
     }
 
@@ -193,10 +192,10 @@ public abstract class Enemy : Moving {
         int x = 0;
         int y = 0;
         if (lastMovedX) {
-            y = 1 * yDirection;
+            y = yDirection;
             lastMovedX = false;
         } else {
-            x = 1 * xDirection;
+            x = xDirection;
             lastMovedX = true;
         }
         return new Vector2 (x, y);
@@ -227,14 +226,12 @@ public abstract class Enemy : Moving {
         movement = MoveOne ();
 
         if (Math.Abs (connectedJoint.position.x - endLocation.x) < 1 && Math.Abs (connectedJoint.position.y - endLocation.y) < 1 && movingToEnd) {
-            Debug.Log ("reached the end position");
             movingToEnd = false;
         } else if (Math.Abs (connectedJoint.position.x - startingLocation.x) < 1 && Math.Abs (connectedJoint.position.y - startingLocation.y) < 1 && !movingToEnd) {
-            Debug.Log ("reached the start position");
             movingToEnd = true;
         }
 
-        Move ((int) (movement.x * speed), (int) (movement.y * speed));
+        Move ((int) (movement.x), (int) (movement.y));
     }
 
     public void Teleport (int x, int y) {

@@ -55,7 +55,7 @@ public abstract class Moving : MonoBehaviour {
 
     protected void Move (int xDir, int yDir) {
         Vector2 start = connectedJoint.position;
-        Vector2 end = start + new Vector2 (xDir, yDir);
+        Vector2 end = start + new Vector2 (speed * xDir, speed * yDir);
         connectedJoint.position = end;
     }
 }

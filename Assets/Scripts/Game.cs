@@ -104,7 +104,6 @@ public class Game : MonoBehaviour {
         } else {
             firstLevel = false;
             ShowLevelUpInstructions ();
-            Debug.Log ("first level has started now");
         }
     }
     #endregion //levels
@@ -226,7 +225,6 @@ public class Game : MonoBehaviour {
 
         for (int i = 0; i < enemies.Count; i++) {
             enemies[i].MoveEnemy ();
-            yield return new WaitForSeconds (enemies[i].moveTime);
         }
         yield return new WaitForSeconds (turnDelay);
 

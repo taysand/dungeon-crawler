@@ -29,7 +29,7 @@ public class GameOverMenu : Menu
         gameOverMenu.ShowMenu();
     }
 
-    //FIXME:delete this after testing
+    //for testing
     public void ShowGameOverNotStatic() {
         ShowGameOver();
     }

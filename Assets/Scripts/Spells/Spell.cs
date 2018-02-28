@@ -121,8 +121,6 @@ public abstract class Spell : MonoBehaviour {
 
                 float healthLost = GetHealthLost ();
 
-                Debug.Log ("spell cast");
-
                 //https://stackoverflow.com/questions/3561202/check-if-instance-of-a-type
                 if (!(GetType () == typeof (DrainSpell))) {
                     GameObject playerGameObj = GameObject.Find (Game.playerTag);

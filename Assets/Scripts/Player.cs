@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player : Moving {
     //stats
-    public float playerStartingHP = 100f; //should be constant
-    public int playerStartingAC = 2; //should be constant
-    public float playerStartingMaxHP = 100f; //should be constant
-    public float playerStartingSpeed = 2.5f; //should be constant
+    private float playerStartingHP = 100f; 
+    private int playerStartingAC = 2; 
+    private float playerStartingMaxHP = 100f;     
+    private float playerStartingSpeed = 2.7f; 
 
     //leveling
     private int xp = 0;
@@ -18,8 +18,8 @@ public class Player : Moving {
     private float levelMessageReadtime = .01f;
     private float levelMessageFadeRate = .04f;
     private float levelMessageFadeDelay = .03f;
-    public const int maxAC = 27;
-    public const float maxMaxHP = 1000f;
+    private const int maxAC = 27;
+    private const float maxMaxHP = 1000f;
 
     //conditions
     private bool hidden = false;
@@ -33,7 +33,7 @@ public class Player : Moving {
     public DisplayFriendsText friendsDisplay;
 
     //friendship
-    public int numFriends = 0;
+    private int numFriends = 0;
     private const string friendTag = "friend";
 
     protected override void Start () {
@@ -50,8 +50,8 @@ public class Player : Moving {
         int horizontal = 0;
         int vertical = 0;
 
-        horizontal = (int) (speed * Input.GetAxisRaw (Game.horizontalString));
-        vertical = (int) (speed * Input.GetAxisRaw (Game.verticalString));
+        horizontal = (int) (Input.GetAxisRaw (Game.horizontalString));
+        vertical = (int) (Input.GetAxisRaw (Game.verticalString));
         if (horizontal != 0) {
             vertical = 0;
         }
@@ -198,5 +198,13 @@ public class Player : Moving {
 
     public void SkipTurn() {
         Game.SetPlayersTurn (false);
+    }
+
+    public static int GetMaxAC() {
+        return maxAC;
+    }
+
+    public static float GetMaxMaxHP() {
+        return maxMaxHP;
     }
 }
