@@ -7,7 +7,7 @@ public class Player : Moving {
     private float playerStartingHP = 100f; 
     private int playerStartingAC = 2; 
     private float playerStartingMaxHP = 100f;     
-    private float playerStartingSpeed = 2.5f; 
+    private float playerStartingSpeed = 2.7f; 
 
     //leveling
     private int xp = 0;
@@ -50,8 +50,8 @@ public class Player : Moving {
         int horizontal = 0;
         int vertical = 0;
 
-        horizontal = (int) (speed * Input.GetAxisRaw (Game.horizontalString));
-        vertical = (int) (speed * Input.GetAxisRaw (Game.verticalString));
+        horizontal = (int) (Input.GetAxisRaw (Game.horizontalString));
+        vertical = (int) (Input.GetAxisRaw (Game.verticalString));
         if (horizontal != 0) {
             vertical = 0;
         }

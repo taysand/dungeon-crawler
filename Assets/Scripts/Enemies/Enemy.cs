@@ -193,7 +193,7 @@ public abstract class Enemy : Moving {
         int x = 0;
         int y = 0;
         if (lastMovedX) {
-            y = 1 * yDirection;
+            y = 1 * yDirection;//TODO:?
             lastMovedX = false;
         } else {
             x = 1 * xDirection;
@@ -234,7 +234,7 @@ public abstract class Enemy : Moving {
             movingToEnd = true;
         }
 
-        Move ((int) (movement.x * speed), (int) (movement.y * speed));
+        Move ((int) (movement.x), (int) (movement.y));
     }
 
     public void Teleport (int x, int y) {
