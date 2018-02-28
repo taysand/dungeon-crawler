@@ -57,7 +57,6 @@ public class Player : Moving {
         }
 
         if (horizontal != 0 || vertical != 0) {
-            Debug.Log("moving by " + horizontal + " and " + vertical);
             Move (horizontal, vertical);
             Game.SetPlayersTurn (false);
         }
