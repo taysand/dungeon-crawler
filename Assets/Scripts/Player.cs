@@ -84,6 +84,7 @@ public class Player : Moving {
         level = 0;
         currentMaxHP = playerStartingMaxHP;
         speed = playerStartingSpeed;
+        currentMaxAC = ac;
     }
 
     public override void PlayAttackAnimation () { }
@@ -93,7 +94,19 @@ public class Player : Moving {
     }
 
     public override void TakeDamage (float amount) {
-        base.TakeDamage (amount);
+        Debug.Log("damage to take: " + amount);
+        Debug.Log("ac: " + ac);
+        float totalDamage = amount - ac;
+        if (totalDamage < 0) {
+            totalDamage = 0;
+        }
+        Debug.Log("damage taken: " + totalDamage);
+        base.TakeDamage (totalDamage);
+        ac--;
+        if (ac < 0) {
+            ac = 0;
+        }
+        Debug.Log("ac: " + ac);
         hpDisplay.UpdateTextField ();
         PlayInjuredAnimation ();
         if (hp <= 0) {
@@ -127,6 +140,7 @@ public class Player : Moving {
             }
 
             LevelUpMenu.GainLevelUpPoint ();
+            ac = currentMaxAC;
             StartCoroutine (ShowLevelUpStuff ());
         }
     }
@@ -161,6 +175,7 @@ public class Player : Moving {
     }
 
     public void IncreaseArmor (int amount) {
+        currentMaxAC = currentMaxAC + amount;
         ac = ac + amount;
     }
 

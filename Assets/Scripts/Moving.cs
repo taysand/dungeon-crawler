@@ -17,6 +17,7 @@ public abstract class Moving : MonoBehaviour {
     protected int level;
     protected float hp;
     protected int ac;
+    protected int currentMaxAC;
     protected float currentMaxHP;
     protected float speed;
 
@@ -51,6 +52,10 @@ public abstract class Moving : MonoBehaviour {
 
     public int GetArmor () {
         return ac;
+    }
+
+    public int GetCurrentMaxAC() {
+        return currentMaxAC;
     }
 
     protected void Move (int xDir, int yDir) {
