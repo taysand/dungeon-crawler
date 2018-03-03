@@ -6,7 +6,7 @@ public class MushroomEnemy : Enemy
 {
     private const float mushroomDamage = 5.0f;
     private const int mushroomAC = 1;
-    private const float mushroomSpeed = 3f;
+    private const float mushroomSpeed = 2f;
     private const float mushroomMaxHP = 20f;
     private const int mushroomLevel = 3;
     private const float mushroomRangeRadius = 50f;
