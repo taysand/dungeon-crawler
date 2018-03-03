@@ -54,6 +54,12 @@ public class Game : MonoBehaviour {
 
     //winning
     public static int requiredFriendsToWin = 2;
+
+    //messages
+    private string levelUpInstructionsText = "Press L to show and hide the level up window";
+    private float levelUpInstructionsReadTime = 2.6f;
+    private float levelUpInstructionsFadeRate = .04f;
+    private float levelUpInstructionsFadeDelay = .03f;
     
     void Awake () {
         mainCamera = GetComponent<Camera> ();
@@ -85,8 +91,7 @@ public class Game : MonoBehaviour {
     }
 
     public void ShowLevelUpInstructions () {
-        Message levelUpInstructions = GameObject.Find (Message.levelUpInstructionsMessageName).GetComponent<Message> ();
-        levelUpInstructions.ShowMessage (2.6f, .04f, .03f);
+        Message.SetAndDisplayMessage(levelUpInstructionsReadTime, levelUpInstructionsFadeRate, levelUpInstructionsFadeDelay, levelUpInstructionsText);
         levelUpMenu.ShowMenu ();
     }
 

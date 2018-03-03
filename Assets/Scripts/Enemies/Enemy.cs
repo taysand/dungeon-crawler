@@ -71,6 +71,7 @@ public abstract class Enemy : Moving {
         if (other.gameObject.tag == Game.playerTag) {
             if (!frozen && !sleeping && !scared) {
                 Attack (other.gameObject.GetComponent<Player> ());
+                //TODO: message time
             }
         }
     }
