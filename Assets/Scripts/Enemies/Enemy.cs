@@ -39,6 +39,12 @@ public abstract class Enemy : Moving {
     private bool facingRight;
     private bool lastRight;
 
+    //messages
+    private string[] messages = {"Hey beautiful", "You were a bitch anyways", "Get back in the treasure pile", "You should smile more", "You're not like other girls", "Feminism is a plague to society", "Nudes?", "Haha and then what ;)"};
+    private float messageReadTime = 2f;
+    private float messageFadeRate = .04f;
+    private float messageFadeDelay = .03f;
+
     protected override void Start () {
         base.Start ();
         Game.AddEnemyToList (this);
@@ -71,6 +77,7 @@ public abstract class Enemy : Moving {
         if (other.gameObject.tag == Game.playerTag) {
             if (!frozen && !sleeping && !scared) {
                 Attack (other.gameObject.GetComponent<Player> ());
+                Message.SetAndDisplayMessage(messageReadTime, messageFadeRate, messageFadeDelay, messages[UnityEngine.Random.Range (0, messages.Length)]);
             }
         }
     }

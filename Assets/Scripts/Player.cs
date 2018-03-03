@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class Player : Moving {
     //stats
-    private float playerStartingHP = 100f; 
-    private int playerStartingAC = 2; 
-    private float playerStartingMaxHP = 100f;     
-    private float playerStartingSpeed = 2.7f; 
+    private float playerStartingHP = 100f;
+    private int playerStartingAC = 2;
+    private float playerStartingMaxHP = 100f;
+    private float playerStartingSpeed = 2.7f;
 
     //leveling
     private int xp = 0;
     private int[] levels = { 100, 300, 600, 1000, 1500, 2100, 2800 };
     private int nextLevel;
     private int maxLevel;
-    private float delayAfterLevelUpMessage = .8f;
-    private float levelMessageReadtime = .01f;
-    private float levelMessageFadeRate = .04f;
-    private float levelMessageFadeDelay = .03f;
     private const int maxAC = 27;
     private const float maxMaxHP = 1000f;
 
@@ -35,6 +31,17 @@ public class Player : Moving {
     //friendship
     private int numFriends = 0;
     private const string friendTag = "friend";
+
+    //messages
+    private float delayAfterLevelUpMessage = .8f;
+    private float levelMessageReadTime = .8f;
+    private float levelMessageFadeRate = .04f;
+    private float levelMessageFadeDelay = .03f;
+    private string levelMessageText = "Level up!";
+    private float friendMessageReadTime = 2.6f;
+    private float friendMessageFadeRate = .04f;
+    private float friendMessageFadeDelay = .03f;
+    private string friendMessageText = "You got a friend!";
 
     protected override void Start () {
         base.Start ();
@@ -66,8 +73,7 @@ public class Player : Moving {
         if ((other.gameObject.tag == friendTag)) {
             numFriends++;
             friendsDisplay.UpdateTextField ();
-            Message gotFriendMessage = GameObject.Find (Message.gotFriendMessageName).GetComponent<Message> ();
-            gotFriendMessage.ShowMessage (2.6f, .04f, .03f);
+            Message.SetAndDisplayMessage(friendMessageReadTime, friendMessageFadeRate, friendMessageFadeDelay, friendMessageText);
             other.gameObject.SetActive (false);
         }
     }
@@ -126,8 +132,7 @@ public class Player : Moving {
     }
 
     private IEnumerator ShowLevelUpStuff () {
-        Message levelUpMessage = GameObject.Find (Message.levelUpMessageName).GetComponent<Message> ();
-        levelUpMessage.ShowMessage (levelMessageReadtime, levelMessageFadeRate, levelMessageFadeDelay);
+        Message.SetAndDisplayMessage(levelMessageReadTime, levelMessageFadeRate, levelMessageFadeDelay, levelMessageText);
         yield return new WaitForSeconds (delayAfterLevelUpMessage);
         levelUpMenu.ShowMenu ();
     }
@@ -196,15 +201,15 @@ public class Player : Moving {
         return numFriends;
     }
 
-    public void SkipTurn() {
+    public void SkipTurn () {
         Game.SetPlayersTurn (false);
     }
 
-    public static int GetMaxAC() {
+    public static int GetMaxAC () {
         return maxAC;
     }
 
-    public static float GetMaxMaxHP() {
+    public static float GetMaxMaxHP () {
         return maxMaxHP;
     }
 }

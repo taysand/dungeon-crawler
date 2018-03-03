@@ -30,10 +30,17 @@ public abstract class Spell : MonoBehaviour {
     private static Enemy enemy;
     protected Player player;
     private static Spell activeSpell;
-    private float cantCastReadTime = .5f;
-    private float cantCastFade = .03f;
 
     private static List<string> allSpellNames = new List<string> ();
+
+    //messages
+    private string spellSuccessText = "Success!";
+    private float successMessageReadTime = 1f;
+    private float successMessageFadeRate = .04f;
+    private float successMessageFadeDelay = .03f;
+    private float cantCastReadTime = 1f;
+    private float cantCastFade = .03f;
+    private string cantCastText = "Enemy is too powerful";
 
     void Awake () {
         InitializeStats ();
@@ -110,7 +117,6 @@ public abstract class Spell : MonoBehaviour {
 
         bool success = false;
 
-        // while (true) {
         waiting = true;
         Debug.Log ("about to wait");
         yield return StartCoroutine (waitForClick);
@@ -119,8 +125,7 @@ public abstract class Spell : MonoBehaviour {
 
         if (success) {
 
-            Message successMessage = GameObject.Find (Message.spellSuccessMessageName).GetComponent<Message> ();
-            successMessage.ShowMessage (1f, .04f, .03f);
+            Message.SetAndDisplayMessage (successMessageReadTime, successMessageFadeRate, successMessageFadeDelay, spellSuccessText);
 
             float healthLost = GetHealthLost ();
 
@@ -133,39 +138,16 @@ public abstract class Spell : MonoBehaviour {
                     Debug.Log ("no player object?");
                 }
             }
-            // break;
         } else {
-            Message cantCastMessage = GameObject.Find (Message.cantCastMessageName).GetComponent<Message> ();
-            cantCastMessage.ShowMessage (cantCastReadTime, cantCastFade, cantCastFade);
+            Message.SetAndDisplayMessage (cantCastReadTime, cantCastFade, cantCastFade, cantCastText);
         }
-        // }
         End ();
     }
 
     protected IEnumerator WaitForClick () {
         SpellButtons.ActivateCastingButtons (false);
 
-        //http://answers.unity3d.com/questions/904427/waiting-for-a-mouse-click-in-a-coroutine.html
         while (waiting) {
-            // Debug.Log("waiting");
-            // if (Input.GetMouseButtonDown (0)) {
-            //     //https://answers.unity.com/questions/1300276/how-do-you-raycasthit2d-certainly-layers.html
-            //     int layerMask = (LayerMask.GetMask ("Enemies"));
-
-            //     //https://forum.unity3d.com/threads/unity-2d-raycast-from-mouse-to-screen.211708/
-            //     RaycastHit2D hit = Physics2D.Raycast (Camera.main.ScreenToWorldPoint (Input.mousePosition), Vector2.zero, 1f, layerMask);
-            //     Debug.Log ("mouse clicked and hit " + hit.collider);
-            //     if (hit.collider != null) {
-            //         if (hit.transform.tag == Game.playerTag) {
-            //             Debug.Log ("hit player");
-            //         }
-            //         if (hit.transform.tag == Game.enemyTag) {
-            //             enemy = hit.transform.gameObject.GetComponent<Enemy> ();
-            //             Debug.Log ("hit " + enemy);
-            //             // yield break;
-            //         }
-            //     }
-            // }
             yield return null;
         }
     }
