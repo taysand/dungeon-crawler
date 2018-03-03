@@ -4,52 +4,61 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Message : MonoBehaviour {
+    private static Message self;
+    private string messageText;
+    private Text textObject;
     private CanvasRenderer cv;
-    private Image image;
+    private CanvasGroup cg;
     private Canvas parent;
     private int originalParentSortingOrder = 0;
     private int tempSortingorder = 10;
 
-    public const string levelUpMessageName = "LevelUpMessage";
-    public const string cantCastMessageName = "CantCastMessage";
-    public const string levelUpInstructionsMessageName = "LevelUpInstructionsMessage";
-    public const string gotFriendMessageName = "gotFriendMessage";
-    public const string needFriendsMessageName = "needFriendsMessage";
-    public const string spellSuccessMessageName = "SpellSuccess";
-
     void Start () {
+        textObject = GetComponentInChildren<Text> ();
+        // Debug.Log ("textObject is " + textObject);
         cv = GetComponent<CanvasRenderer> ();
-        image = GetComponent<Image> ();
+        cg = GetComponentInChildren<CanvasGroup>();
         parent = transform.parent.GetComponent<Canvas> ();
         HideMessage ();
+        self = gameObject.GetComponent<Message> ();
     }
 
-    public void ShowMessage (float readTime, float fadeRate, float fadeDelay) {
+    private void ShowMessage (float readTime, float fadeRate, float fadeDelay) {
+        textObject.text = messageText;
         StartCoroutine (DisplayAndFadeMessage (readTime, fadeRate, fadeDelay));
     }
 
     private IEnumerator DisplayAndFadeMessage (float readTime, float fadeRate, float fadeDelay) {
         parent.sortingOrder = tempSortingorder;
 
-        if (cv != null) {
+        if (cv != null && cg != null) {
             cv.SetAlpha (1f);
+            cg.alpha = 1f;
             yield return new WaitForSeconds (readTime);
             while (true) {
                 float alpha = cv.GetAlpha ();
                 if (alpha <= 0) {
                     break;
                 }
-                cv.SetAlpha (alpha - fadeRate);
+                float newAlpha = alpha - fadeRate;
+                cv.SetAlpha (newAlpha);
+                cg.alpha = newAlpha;
                 yield return new WaitForSeconds (fadeDelay);
             }
             HideMessage ();
         } else {
-            Debug.Log ("Message canvas renderer is gone?");
+            Debug.Log ("Missing canvas renderer or canvas group");
         }
     }
 
     private void HideMessage () {
         cv.SetAlpha (0f);
+        cg.alpha = 0;
         parent.sortingOrder = originalParentSortingOrder;
+    }
+
+    public static void SetAndDisplayMessage(float readTime, float fadeRate, float fadeDelay, string message) {
+        self.messageText = message;
+        self.ShowMessage(readTime, fadeRate, fadeDelay);
     }
 }
