@@ -73,7 +73,7 @@ public class Player : Moving {
         if ((other.gameObject.tag == friendTag)) {
             numFriends++;
             friendsDisplay.UpdateTextField ();
-            Message.SetAndDisplayMessage(friendMessageReadTime, friendMessageFadeRate, friendMessageFadeDelay, friendMessageText);
+            Message.SetAndDisplayMessage (friendMessageReadTime, friendMessageFadeRate, friendMessageFadeDelay, friendMessageText);
             other.gameObject.SetActive (false);
         }
     }
@@ -94,24 +94,26 @@ public class Player : Moving {
     }
 
     public override void TakeDamage (float amount) {
-        Debug.Log("damage to take: " + amount);
-        Debug.Log("ac: " + ac);
-        float totalDamage = amount - ac;
-        if (totalDamage < 0) {
-            totalDamage = 0;
-        }
-        Debug.Log("damage taken: " + totalDamage);
-        base.TakeDamage (totalDamage);
-        ac--;
-        if (ac < 0) {
-            ac = 0;
-        }
-        Debug.Log("ac: " + ac);
+        Debug.Log("damage maybe without ac");
+        base.TakeDamage (amount);
         hpDisplay.UpdateTextField ();
         PlayInjuredAnimation ();
         if (hp <= 0) {
             GameOverMenu.ShowGameOver ();
         }
+    }
+
+    public void TakeDamageWithAC (float amount) {
+        Debug.Log("damage with ac");
+        float totalDamage = amount - ac;
+        if (totalDamage < 0) {
+            totalDamage = 0;
+        }
+        ac--;
+        if (ac < 0) {
+            ac = 0;
+        }
+        TakeDamage(amount);
     }
 
     public void UsePotion () { }
@@ -146,7 +148,7 @@ public class Player : Moving {
     }
 
     private IEnumerator ShowLevelUpStuff () {
-        Message.SetAndDisplayMessage(levelMessageReadTime, levelMessageFadeRate, levelMessageFadeDelay, levelMessageText);
+        Message.SetAndDisplayMessage (levelMessageReadTime, levelMessageFadeRate, levelMessageFadeDelay, levelMessageText);
         yield return new WaitForSeconds (delayAfterLevelUpMessage);
         levelUpMenu.ShowMenu ();
     }
