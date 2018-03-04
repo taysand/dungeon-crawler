@@ -142,7 +142,7 @@ public abstract class Enemy : Moving {
     public void Attack (Player player) {
         PlayAttackAnimation ();
         if (!Game.IsPlayersTurn ()) {
-            player.TakeDamage (damagePerHit);
+            player.TakeDamageWithAC (damagePerHit);
         }
     }
 
