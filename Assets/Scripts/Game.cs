@@ -35,10 +35,10 @@ public class Game : MonoBehaviour {
     public Canvas gameplayCanvas;
     public Text storyText;
     private const string firstStory = "You wake up in a cave surrounded by treasure. There are heavy footsteps coming from the darkness ahead of you. What's going on? You grab the torch next to you and plan your escape.";
-    private const string secondStory = "second story text"; //TODO:
-    private const string thirdStory = "third story text"; //TODO:
-    private const string fourthStory = "fourth story text"; //TODO:
-    private const string endStory = "you won!"; //TODO:
+    private const string secondStory = "You barely have time to catch your breath after that narrow escape before something pale charges you. As it does, you feel a rush of power and realize there are sparks crackling at your fingertips.";
+    private const string thirdStory = "Empowered, you venture further, believing in your ability to escape this awful place.";
+    private const string fourthStory = "The last room was tough, but you know the only way to survive is to keep moving forward.";
+    private const string endStory = "The door creaks open. You and your new friends step out into the sunlight.";
     public static bool toNextStory = true;
     public static bool beatGame = false;
     private string[] storyArray = { firstStory, secondStory, thirdStory, fourthStory };
