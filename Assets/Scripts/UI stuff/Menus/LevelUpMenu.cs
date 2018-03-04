@@ -77,6 +77,8 @@ public class LevelUpMenu : Menu {
 
     public static void UpdateLevelUpOptions () {
         levelDisplay.UpdateTextField ();
+        healthUpgradeText.UpdateTextField ();
+        armorUpgradeText.UpdateTextField ();
 
         levelUpButtons = GameObject.FindGameObjectsWithTag (SpellButtons.levelUpButtonTag);
 
@@ -91,16 +93,15 @@ public class LevelUpMenu : Menu {
                         button.interactable = true;
                     }
                 } else if (parentName == acButtonParentName) {
-                    if (player.GetArmor () >= Player.GetMaxAC()) {
+                    if (player.GetArmor () >= Player.GetMaxAC ()) {
                         button.interactable = false;
-                        armorUpgradeText.UpdateTextField ();
                     } else {
                         button.interactable = true;
                     }
                 } else if (parentName == hpButtonParentName) {
-                    if (player.GetCurrentMaxHP () >= Player.GetMaxMaxHP()) {
+                    
+                    if (player.GetCurrentMaxHP () >= Player.GetMaxMaxHP ()) {
                         button.interactable = false;
-                        healthUpgradeText.UpdateTextField ();
                     } else {
                         button.interactable = true;
                     }
