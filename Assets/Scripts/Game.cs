@@ -82,6 +82,13 @@ public class Game : MonoBehaviour {
         storyCanvas.gameObject.SetActive (true);
         mainCamera.fieldOfView = cameraIn;
         storyText.text = levelText;
+        if (levelText == endStory) {
+            Button progressButton = storyCanvas.gameObject.GetComponentInChildren<Button>();
+            Text progressText = progressButton.GetComponentInChildren<Text>();
+            progressText.text = "You win! This button does nothing.";
+            progressText.resizeTextForBestFit = true;
+            
+        }
     }
 
     public void StartLevel () {
