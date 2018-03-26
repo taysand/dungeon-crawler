@@ -164,6 +164,10 @@ public class Player : Moving {
         }
     }
 
+    public int GetNextLevel() {
+        return nextLevel;
+    }
+
     public void Hide () {
         hidden = true;
     }

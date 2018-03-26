@@ -112,7 +112,7 @@ public class Game : MonoBehaviour {
         doneZooming = true;
         Unpause ();
         if (!firstLevel) {
-            player.LevelUp ();
+            player.IncreaseXP (player.GetNextLevel() - player.GetExperience());
         } else {
             firstLevel = false;
             ShowLevelUpInstructions ();
