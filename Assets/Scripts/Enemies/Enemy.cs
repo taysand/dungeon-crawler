@@ -41,7 +41,7 @@ public abstract class Enemy : Moving {
 
     //messages
     private string[] messages = {"Hey beautiful", "You were a bitch anyways", "Get back in the treasure pile", "You should smile more", "You're not like other girls", "Feminism is a plague to society", "Nudes?", "Haha and then what ;)", "Boobs?", "Well actually,"};
-    private float messageReadTime = 2f;
+    private float messageReadTime = 3f;
     private float messageFadeRate = .04f;
     private float messageFadeDelay = .03f;
 
@@ -140,7 +140,7 @@ public abstract class Enemy : Moving {
     }
 
     public void Attack (Player player) {
-        PlayAttackAnimation ();
+        // PlayAttackAnimation ();
         if (!Game.IsPlayersTurn ()) {
             player.TakeDamageWithAC (damagePerHit);
         }

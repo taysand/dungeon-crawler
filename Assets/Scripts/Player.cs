@@ -34,11 +34,11 @@ public class Player : Moving {
 
     //messages
     private float delayAfterLevelUpMessage = .8f;
-    private float levelMessageReadTime = .8f;
+    private float levelMessageReadTime = 1.8f;
     private float levelMessageFadeRate = .04f;
     private float levelMessageFadeDelay = .03f;
     private string levelMessageText = "Level up!";
-    private float friendMessageReadTime = 2.6f;
+    private float friendMessageReadTime = 3.6f;
     private float friendMessageFadeRate = .04f;
     private float friendMessageFadeDelay = .03f;
     private string friendMessageText = "You got a friend!";
@@ -162,6 +162,10 @@ public class Player : Moving {
         if (xp >= nextLevel) {
             LevelUp ();
         }
+    }
+
+    public int GetNextLevel() {
+        return nextLevel;
     }
 
     public void Hide () {

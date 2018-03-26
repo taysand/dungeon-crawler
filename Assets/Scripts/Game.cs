@@ -57,7 +57,7 @@ public class Game : MonoBehaviour {
 
     //messages
     private string levelUpInstructionsText = "Press L to show and hide the level up window";
-    private float levelUpInstructionsReadTime = 2.6f;
+    private float levelUpInstructionsReadTime = 3.6f;
     private float levelUpInstructionsFadeRate = .04f;
     private float levelUpInstructionsFadeDelay = .03f;
     
@@ -112,7 +112,7 @@ public class Game : MonoBehaviour {
         doneZooming = true;
         Unpause ();
         if (!firstLevel) {
-            player.LevelUp ();
+            player.IncreaseXP (player.GetNextLevel() - player.GetExperience());
         } else {
             firstLevel = false;
             ShowLevelUpInstructions ();
