@@ -5,7 +5,7 @@ using UnityEngine;
 public class Corridor : MonoBehaviour {
     private static string exitTag = "exit";
     private string needFriendsText = "The door is too heavy. Maybe if you had some help...";
-    private float messageReadTime = 2.6f;
+    private float messageReadTime = 3.6f;
     private float messageFadeRate = .04f;
     private float messageFadeDelay = .03f;
 

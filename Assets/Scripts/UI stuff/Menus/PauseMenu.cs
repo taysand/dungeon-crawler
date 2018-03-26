@@ -37,7 +37,7 @@ public class PauseMenu : Menu {
             HideMenu ();
         } else //game over window is open
         {
-            Message.SetAndDisplayMessage(5f, .04f, .03f, "Restart not yet implemented.");
+            Message.SetAndDisplayMessage(6f, .04f, .03f, "Restart not yet implemented.");
             // GameOverMenu.HideGameOver ();
         }
         Debug.Log ("restarting level");

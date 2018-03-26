@@ -35,10 +35,10 @@ public abstract class Spell : MonoBehaviour {
 
     //messages
     private string spellSuccessText = "Success!";
-    private float successMessageReadTime = 1f;
+    private float successMessageReadTime = 2f;
     private float successMessageFadeRate = .04f;
     private float successMessageFadeDelay = .03f;
-    private float cantCastReadTime = 1f;
+    private float cantCastReadTime = 2f;
     private float cantCastFade = .03f;
     private string cantCastText = "Enemy is too powerful";
 
