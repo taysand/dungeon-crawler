@@ -3,6 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//images
+//https://pixabay.com/en/dirt-soil-nature-gardening-earth-576619/
+//https://commons.wikimedia.org/wiki/File:Torch.svg
+//https://pixabay.com/en/dirt-ground-soil-earth-land-2313866/
+//https://pixabay.com/en/treasure-bank-box-brown-case-1238318/
+//https://pixabay.com/en/rocks-stone-nature-png-isolated-2491938/
+//https://pixabay.com/en/gold-ingots-golden-treasure-513062/
+//https://pixabay.com/en/diamond-shiny-baby-wealth-wealthy-807979/
+
+//turn based stuff from https://unity3d.com/learn/tutorials/s/2d-roguelike-tutorial
+
+//general tutorials
+//https://unity3d.com/learn/tutorials/topics/scripting/awake-and-start?playlist=17117
+//https://unity3d.com/learn/tutorials/topics/scripting/update-and-fixedupdate
+//https://unity3d.com/learn/tutorials/topics/2d-game-creation/top-down-2d-game-basics?playlist=17093
+//https://answers.unity.com/questions/143480/raycasthit-explanation-wanted.html
+//https://answers.unity.com/questions/170960/objects-in-the-same-place-with-different-coordinat.html
+//https://unity3d.com/learn/tutorials/topics/scripting/coroutines?playlist=17117
+
+//sprite lighting
+//https://answers.unity.com/questions/1270293/unity2d-sprite-lighting-diffuse-material-is-just-b.html
+//https://forum.unity.com/threads/2d-lighting.210642/
 public class Game : MonoBehaviour {
     private static bool paused;
     private static bool animationsPaused;
@@ -67,6 +89,7 @@ public class Game : MonoBehaviour {
         Spell.BuildSpellNameList ();
         GameObject playerGameObj = GameObject.Find (playerTag);
         if (playerGameObj != null) {
+            //https://answers.unity.com/questions/492729/cast-gameobject-to-other-type.html
             player = playerGameObj.GetComponent<Player> ();
         } else {
             Debug.Log ("no player object?");
@@ -83,6 +106,7 @@ public class Game : MonoBehaviour {
         mainCamera.fieldOfView = cameraIn;
         storyText.text = levelText;
         if (levelText == endStory) {
+            //https://answers.unity.com/questions/798232/cannot-cast-from-source-type-to-destination-type-11.html
             Button progressButton = storyCanvas.gameObject.GetComponentInChildren<Button>();
             Text progressText = progressButton.GetComponentInChildren<Text>();
             progressText.text = "You win! This button does nothing.";

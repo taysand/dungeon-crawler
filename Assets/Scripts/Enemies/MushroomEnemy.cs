@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//images
+//https://pixabay.com/en/hat-black-fedora-stylish-headgear-311702/
+//http://pngimg.com/download/3201/?i=1
 public class MushroomEnemy : Enemy
 {
     private const float mushroomDamage = 5.0f;

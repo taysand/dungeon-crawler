@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//images
+//http://pngimg.com/download/5521
+//https://pixabay.com/en/skeleton-medical-bone-anatomical-504784/
 public class Skeleton : Enemy
 {
     private const float skeletonDamage = 5.0f;

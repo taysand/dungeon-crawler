@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//images 
+//https://pixabay.com/en/chapeau-hat-magic-1293080/
+//https://www.metmuseum.org/art/collection/search/169172
+//https://www.shutterstock.com/image-vector/group-working-people-diversity-diverse-business-588269213
 public class Player : Moving {
     //stats
     private float playerStartingHP = 100f;

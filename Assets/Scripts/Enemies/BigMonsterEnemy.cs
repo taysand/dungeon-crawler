@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//images
+//https://pixabay.com/en/monster-hydra-mythical-creatures-1980042/
 public class BigMonsterEnemy : Enemy
 {
     private const float bigMonsterDamage = 30.0f;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//stop sprite rotation https://answers.unity.com/questions/671233/unity-2d-rigidbody-rotation-constraints.html
 public abstract class Moving : MonoBehaviour {
     public const string playerInjuredAnimation = "PlayerInjured";
     public const string attackAnimation = "Attack";
