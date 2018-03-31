@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//button highlight color https://answers.unity.com/questions/854724/unity-46-ui-button-highlight-color-staying-after-b.html
 public abstract class Menu : MonoBehaviour
 {
     protected GameObject canvas;
@@ -36,6 +37,7 @@ public abstract class Menu : MonoBehaviour
 
     void Awake() {
         canvas = GetComponent<Canvas>().gameObject;
+        //https://gamedev.stackexchange.com/questions/92149/changing-color-of-ui-text-in-unity-into-custom-values
         fontColor = new Color(.57f, .08f, 1f, 1f);
         AdditionalSetUp();
         BuildButtonsAndText();
@@ -46,9 +48,11 @@ public abstract class Menu : MonoBehaviour
 
     protected abstract void BuildButtonsAndText();
 
+    //https://gamedev.stackexchange.com/questions/116177/how-to-dynamically-create-an-ui-text-object-in-unity-5
     protected void BuildText(string textType, Transform parent) {
         GameObject o = new GameObject();
         Text text = o.AddComponent<Text>();
+        //https://stackoverflow.com/questions/30873343/how-to-set-a-font-for-a-ui-text-in-unity-3d-programmatically
         text.font = Resources.GetBuiltinResource(typeof(Font), font) as Font;
         text.color = fontColor;
         text.fontStyle = FontStyle.Bold;
@@ -79,6 +83,9 @@ public abstract class Menu : MonoBehaviour
         o.transform.SetParent(parent, false);
     }
 
+    //https://unity3d.com/learn/tutorials/topics/user-interface-ui/adding-buttons-script
+    //https://answers.unity.com/questions/875588/unity-ui-dynamic-buttons.html
+    //https://unity3d.com/learn/tutorials/topics/user-interface-ui/ui-button?playlist=17111
     protected void BuildButton(string buttonType, Transform parent, GameObject buttonPrefab) {
         GameObject button = Instantiate(buttonPrefab) as GameObject;
 

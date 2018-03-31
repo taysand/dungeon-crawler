@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Enemy : Moving {
-    //coroutine stuff from https://unity3d.com/learn/tutorials/topics/scripting/coroutines?playlist=17117
-    //turn based stuff from https://unity3d.com/learn/tutorials/projects/2d-roguelike-tutorial
-
     //stats
     protected float damagePerHit;
     protected float rangeRadius;
@@ -88,6 +85,7 @@ public abstract class Enemy : Moving {
         }
     }
 
+    //https://www.reddit.com/r/Unity2D/comments/204u1r/about_ontriggerstay2d_not_working/
     void OnTriggerExit2D (Collider2D other) {
         if ((other.gameObject.tag == Game.playerTag)) {
             movingToPlayer = false;
@@ -105,46 +103,15 @@ public abstract class Enemy : Moving {
         animator.SetTrigger (Moving.attackAnimation);
     }
 
-    public void DecreaseLevel (int amount) {
-        level = level - amount;
-    }
-
-    public void Sleep (int additionalSleepTurns) {
-        sleeping = true;
-        turnsToSleep = sleepTime + additionalSleepTurns;
-    }
-
-    public void WakeUp () {
-        turnsSpentSleeping = 0;
-        sleeping = false;
-    }
-
-    public void Freeze (int additionalFreezeTime) {
-        frozen = true;
-        turnsToFreeze = freezeTime + additionalFreezeTime;
-    }
-
-    public void Unfreeze () {
-        turnsSpentFrozen = 0;
-        frozen = false;
-    }
-
-    public void Scare (int additionalScareTime, int additionalScareDistance) {
-        scared = true;
-        turnsToScare = scaredTime + additionalScareTime;
-    }
-
-    public void NoLongerScared () {
-        scared = false;
-        turnsSpentScared = 0;
-    }
-
     public void Attack (Player player) {
         // PlayAttackAnimation ();
         if (!Game.IsPlayersTurn ()) {
             player.TakeDamageWithAC (damagePerHit);
         }
     }
+
+    //https://forum.unity.com/threads/left-and-right-enemy-moving-in-2d-platformer.364716/
+    #region movement
 
     private void SetDirections () {
         if (scared) {
@@ -247,8 +214,45 @@ public abstract class Enemy : Moving {
 
         Move ((int) (movement.x), (int) (movement.y));
     }
+    #endregion //movement
 
+    #region spells
     public void Teleport (int x, int y) {
         Move (x, y);
     }
+
+    public void Freeze (int additionalFreezeTime) {
+        frozen = true;
+        turnsToFreeze = freezeTime + additionalFreezeTime;
+    }
+
+    public void Unfreeze () {
+        turnsSpentFrozen = 0;
+        frozen = false;
+    }
+
+    public void Scare (int additionalScareTime, int additionalScareDistance) {
+        scared = true;
+        turnsToScare = scaredTime + additionalScareTime;
+    }
+
+    public void NoLongerScared () {
+        scared = false;
+        turnsSpentScared = 0;
+    }
+
+    public void DecreaseLevel (int amount) {
+        level = level - amount;
+    }
+
+    public void Sleep (int additionalSleepTurns) {
+        sleeping = true;
+        turnsToSleep = sleepTime + additionalSleepTurns;
+    }
+
+    public void WakeUp () {
+        turnsSpentSleeping = 0;
+        sleeping = false;
+    }
+    #endregion //spells
 }

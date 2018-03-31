@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+//entire class from https://unity3d.com/learn/tutorials/projects/2d-ufo-tutorial/following-player-camera
 public class CameraController : MonoBehaviour {
     //https://unity3d.com/learn/tutorials/projects/2d-ufo-tutorial/following-player-camera
 

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SpellButtons : MonoBehaviour {
-    //adding buttons: http://answers.unity3d.com/questions/875588/unity-ui-dynamic-buttons.html and https://unity3d.com/learn/tutorials/topics/user-interface-ui/adding-buttons-script
     private List<string> allSpellNames = new List<string> ();
     private static List<Button> allSpellButtons = new List<Button> ();
     private static List<Button> allCastingButtons = new List<Button> ();
@@ -38,6 +37,7 @@ public class SpellButtons : MonoBehaviour {
 
             switch (spellName) {
                 case Spell.delevelSpell:
+                    //https://answers.unity.com/questions/641159/not-work-in-runtime-addremove-c-script.html
                     button.AddComponent<DelevelSpell> ();
                     break;
                 case Spell.drainSpell:
@@ -115,6 +115,7 @@ public class SpellButtons : MonoBehaviour {
     }
 
     public static void CheckIfKnown (Button button) {
+        //https://answers.unity.com/questions/800132/getset-button-text-with-ugui-46.html
         Text name = button.GetComponentInChildren<Text> ();
         string spellName = button.GetComponent<Spell> ().GetSpellName ();
         if (Player.SpellIsKnown (spellName)) {

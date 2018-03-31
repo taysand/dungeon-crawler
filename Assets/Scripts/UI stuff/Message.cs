@@ -29,8 +29,10 @@ public class Message : MonoBehaviour {
     }
 
     private IEnumerator DisplayAndFadeMessage (float readTime, float fadeRate, float fadeDelay) {
+        //https://answers.unity.com/questions/889908/i-created-an-ui-button-but-click-does-not-work.html
         parent.sortingOrder = tempSortingorder;
 
+        //https://answers.unity.com/questions/881620/uigraphiccrossfadealpha-only-works-for-decrementin.html
         if (cv != null && cg != null) {
             cv.SetAlpha (1f);
             cg.alpha = 1f;
